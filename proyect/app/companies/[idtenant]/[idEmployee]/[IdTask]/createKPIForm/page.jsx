@@ -22,7 +22,7 @@ export default function CreateKpiForm() {
                 <div className="card-type">
                     <h1 className="text-3xl font-semibold mb-6 text-center text-[--complementary-color]">Elige el tipo de pregunta</h1>
                     <div className='w-full flex space-x-3'>
-                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPI`}
+                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm/form-dropdown`}
                             className="w-full py-3 px-4 border-2 bg-[--complentary-color] text-white rounded hover:bg-[--complementary-color] hover:text-black text-center"
                         >
                             Generación dropdown de criterios de evaluación
