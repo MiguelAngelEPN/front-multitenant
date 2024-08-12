@@ -64,62 +64,62 @@ export default function CreateKpibyQuestions() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6 homepage">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="absolute top-4 left-4 bg-white bg-opacity-50 hover:bg-opacity-70 text-black font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+        <div className="min-h-screen flex items-center justify-center p-6 homepage">
+            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                 ⬅️ Back
             </Link>
 
-            <div className="bg-white/80 backdrop-blur-md shadow-lg rounded-lg p-8 w-full max-w-lg">
-                <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800">Crear KPI para Tarea con evaluación por dropdown</h1>
+            <div className="bg-[--primary-color] backdrop-blur-md shadow-lg rounded-lg p-8 w-full max-w-lg">
+                <h1 className="text-3xl font-semibold mb-6 text-center text-[--complementary-color]">Crear KPI para Tarea con evaluación por Questions</h1>
                 <form onSubmit={handleSubmit} className='text-black'>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Título del KPI</label>
+                        <label className="block text-sm font-medium text-[--complementary-color] mb-2">Título del KPI</label>
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
-                            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Objetivo (Target)</label>
+                        <label className="block text-sm font-medium text-[--complementary-color] mb-2">Objetivo (Target)</label>
                         <input
                             type="number"
                             value={target}
                             onChange={(e) => setTarget(e.target.value)}
                             required
-                            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
                     <div className="mb-6">
-                        <p className='block text-sm font-medium text-gray-700 mb-2'>Rango de fechas:</p>
+                        <p className='block text-m font-medium text-[--complementary-color] mb-2'>Rango de fechas:</p>
                         <div className='w-full flex justify-between'>
                             <div className='w-[220px]'>
-                                <p className='block text-sm font-medium text-gray-700 mb-2'>fecha de inicio:</p>
+                                <p className='block text-sm font-medium text-[--complementary-color] mb-2'>fecha de inicio:</p>
                                 <input
                                     type="datetime-local"
                                     value={startDate}
                                     onChange={(e) => setStartDate(e.target.value)}
                                     required
-                                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 />
                             </div>
                             <div className='w-[220px]'>
-                                <p className='block text-sm font-medium text-gray-700 mb-2'>fecha de fin:</p>
+                                <p className='block text-sm font-medium text-[--complementary-color] mb-2'>fecha de fin:</p>
                                 <input
                                     type="datetime-local"
                                     value={endDate}
                                     onChange={(e) => setEndDate(e.target.value)}
                                     required
-                                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <div className="mb-6">
-                        <h2 className="text-lg font-semibold mb-4 text-gray-700">Evaluación por preguntas de sí o no</h2>
+                        <h2 className="text-lg font-semibold mb-4 text-[--complementary-color]">Evaluación por preguntas de sí o no</h2>
 
                         {questions.map((question, index) => (
                             <div key={index} className="mb-4 flex items-center">
@@ -128,12 +128,12 @@ export default function CreateKpibyQuestions() {
                                     value={question.text}
                                     onChange={(e) => handleQuestionChange(index, e.target.value)}
                                     placeholder={`Pregunta ${index + 1}`}
-                                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full p-2 border rounded"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => removeQuestion(index)}
-                                    className="ml-2 text-red-600"
+                                    className="ml-2 text-black"
                                 >
                                     x
                                 </button>
@@ -143,7 +143,7 @@ export default function CreateKpibyQuestions() {
                         <button
                             type="button"
                             onClick={addQuestion}
-                            className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full py-2 px-2 bg-green-500 text-white rounded-full  hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
                         >
                             Añadir Pregunta
                         </button>
@@ -152,7 +152,7 @@ export default function CreateKpibyQuestions() {
 
                     <button
                         type="submit"
-                        className="w-full py-3 px-4 bg-purple-600 text-white rounded hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="w-full px-6 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 border-2"
                     >
                         Crear KPI
                     </button>
