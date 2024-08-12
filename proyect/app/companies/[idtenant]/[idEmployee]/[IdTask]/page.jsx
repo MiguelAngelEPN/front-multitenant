@@ -110,7 +110,7 @@ export default function PageTaskLogsKpis() {
                 ⬅️ Back
             </Link>
 
-            <div className='w-full flex mb-3'>
+            <div className='w-full flex items-center justify-center mb-3'>
 
                 <div className='w-1/3'>
                     <div className='mt-10 flex flex-col items-center justify-center'>
@@ -137,14 +137,14 @@ export default function PageTaskLogsKpis() {
                                     }
                                 }}
                             />
-                        <button
-                            onClick={() => {getTasksLogsList(); getKPIsList()}}
-                            className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
-                        >
-                            Listar TasksLogs and KPIs
-                        </button>
+                            <button
+                                onClick={() => { getTasksLogsList(); getKPIsList() }}
+                                className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
+                            >
+                                Listar TasksLogs and KPIs
+                            </button>
                         </div>
-                        
+
                     </div> <br />
 
                     <div className='flex justify-evenly'>
@@ -168,50 +168,50 @@ export default function PageTaskLogsKpis() {
                     </div>
 
                 </div>
+            </div>
 
-                <div className='ml-4 flex items-center justify-center w-2/3'>
-                    <div className="flex justify-center">
-                        <div className="overflow-x-auto">
-                            <table className="bg-slate-300 shadow-md rounded-lg overflow-hidden border-2">
-                                <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-                                    <tr>
-                                        {tableKPIsHeaders.map((header) => (
-                                            <th key={header} className="py-1 px-2 text-left uppercase tracking-wider">
-                                                {header.replace(/_/g, ' ')}
-                                            </th>
-                                        ))}
-                                        {hasKPIs && (
-                                            <th className="py-1 px-1 text-left uppercase tracking-wider">Actions</th>
-                                        )}
-                                    </tr>
-                                </thead>
-                                <tbody className='text-black'>
-                                    {kpis.map((kpi, index) => (
-                                        <tr
-                                            key={kpi._id}
-                                            className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
-                                        >
-                                            {tableKPIsHeaders.map((header) => (
-                                                <td key={header} className="py-1 px-2">
-                                                    {renderCellContent(header, kpi[header])}
-                                                </td>
-                                            ))}
-                                            <td className="py-1 px-2">
-                                                <button
-                                                    onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
-                                                    className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
-                                                >
-                                                    Evaluation
-                                                </button>
-                                            </td>
-                                        </tr>
+
+            <div className='ml-4 flex items-center justify-center w-2/3 my-3'>
+                <div className="flex justify-center">
+                    <div className="overflow-x-auto">
+                        <table className="bg-slate-300 shadow-md rounded-lg overflow-hidden border-2">
+                            <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                                <tr>
+                                    {tableKPIsHeaders.map((header) => (
+                                        <th key={header} className="py-1 px-2 text-left uppercase tracking-wider">
+                                            {header.replace(/_/g, ' ')}
+                                        </th>
                                     ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                    {hasKPIs && (
+                                        <th className="py-1 px-1 text-left uppercase tracking-wider">Actions</th>
+                                    )}
+                                </tr>
+                            </thead>
+                            <tbody className='text-black'>
+                                {kpis.map((kpi, index) => (
+                                    <tr
+                                        key={kpi._id}
+                                        className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+                                    >
+                                        {tableKPIsHeaders.map((header) => (
+                                            <td key={header} className="py-1 px-2">
+                                                {renderCellContent(header, kpi[header])}
+                                            </td>
+                                        ))}
+                                        <td className="py-1 px-2">
+                                            <button
+                                                onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
+                                                className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
+                                            >
+                                                Evaluation
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
 
             {/*---------- tabla dinámica para tasks con campos variables ----------*/}
