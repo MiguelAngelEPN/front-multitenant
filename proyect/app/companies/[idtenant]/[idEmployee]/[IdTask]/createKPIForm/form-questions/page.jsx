@@ -12,21 +12,26 @@ export default function CreateKpibyQuestions() {
 
     const [title, setTitle] = useState('');
     const [target, setTarget] = useState('');
-    const [questions, setQuestions] = useState([]);
+    const [questions, setQuestions] = useState([{ text: '', answer: false }]);
 
     const addQuestion = () => {
         setQuestions([...questions, { text: '', answer: false }]);
     };
+
     const removeQuestion = (index) => {
-        const updatedQuestions = questions.filter((_, i) => i !== index);
-        setQuestions(updatedQuestions);
-    };
-    const handleQuestionChange = (index, newText) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index].text = newText;
-        setQuestions(updatedQuestions);
+        const newQuestions = questions.filter((_, i) => i !== index);
+        setQuestions(newQuestions);
     };
 
+    const handleQuestionChange = (index, field, value) => {
+        const newQuestions = questions.map((question, i) => {
+            if (i === index) {
+                return { ...question, [field]: value };
+            }
+            return question;
+        });
+        setQuestions(newQuestions);
+    };
 
 
     const handleSubmit = async (e) => {
@@ -40,12 +45,13 @@ export default function CreateKpibyQuestions() {
             startDate: new Date(startDate).toISOString(),
             endDate: new Date(endDate).toISOString(),
             evaluationType: 'yes-no-questions',
-            questions,
+            questions: questions.map(q => ({ text: q.text, answer: q.answer })),
+
         };
         console.log('datos a enviar: ', kpiData)
 
         // Enviar los datos al backend
-        /**/ 
+        /**/
         const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis`, {
             method: 'POST',
             headers: {
@@ -126,16 +132,25 @@ export default function CreateKpibyQuestions() {
                                 <input
                                     type="text"
                                     value={question.text}
-                                    onChange={(e) => handleQuestionChange(index, e.target.value)}
-                                    placeholder={`Pregunta ${index + 1}`}
-                                    className="w-full p-2 border rounded"
+                                    onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
+                                    placeholder="Ingrese la pregunta"
+                                    required
+                                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 mr-4"
                                 />
+                                <select
+                                    value={question.answer}
+                                    onChange={(e) => handleQuestionChange(index, 'answer', e.target.value === 'true')}
+                                    className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 mr-4"
+                                >
+                                    <option value={false}>No</option>
+                                    <option value={true}>Sí</option>
+                                </select>
                                 <button
                                     type="button"
                                     onClick={() => removeQuestion(index)}
-                                    className="ml-2 text-black"
+                                    className="text-red-500 font-bold"
                                 >
-                                    x
+                                    X
                                 </button>
                             </div>
                         ))}
