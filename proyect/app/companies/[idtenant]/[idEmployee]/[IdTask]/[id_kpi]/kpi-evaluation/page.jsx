@@ -60,22 +60,24 @@ export default function KpiEvaluation() {
 
     const getKPIEcaluation = async () => {
         console.log("entro a getKPIEcaluation")
-        console.log("dias excluidas", excludedDays)
+        console.log("startDate: ", startDate)
+        console.log("endDate: ", endDate)
+        console.log("dias excluidas: ", excludedDays)
         try {
             //Obtener tareas de empleados con x-tenant-id
-            /*const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
-                },
-                body: JSON.stringify({
-                    key: selectedField,
-                    startDate: startDate,
-                    endDate: endDate,
-                    excludedDays: excludedDays,
-                }),
-            });
+            /**/const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+            },
+            body: JSON.stringify({
+                key: selectedField,
+                startDate: startDate,
+                endDate: endDate,
+                excludedDays: excludedDays,
+            }),
+        });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -83,7 +85,7 @@ export default function KpiEvaluation() {
 
             const data1 = await response.json();
             console.log('data1: ', data1)
-            setKpiPercentage(data1);*/
+            setKpiPercentage(data1);
 
         } catch (error) {
             console.error("Fetch error: ", error);
@@ -123,7 +125,7 @@ export default function KpiEvaluation() {
                 ⬅️ Back
             </Link>
             <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
-                <div className='custom-shadow h-[420px] w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
+                <div className='custom-shadow w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
                     <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation Criteria</p><br />
 
                     <div className="mb-4">
@@ -157,18 +159,22 @@ export default function KpiEvaluation() {
                     {startDate && endDate && (
                         <div className="mb-4">
                             <p className='text-lg text-[var(--secondary-color)]'>Excluir días de la semana:</p>
-                            <div className='flex flex-col space-x-5 justify-center items-center'>
+                            <div className='flex flex-col space-y-2 items-start'>
                                 {weekdays.map(day => (
-                                    <div key={day} className="flex items-center">
+                                    <div
+                                        key={day}
+                                        className={`flex items-center w-full p-2 rounded cursor-pointer transition-all ${excludedDays.includes(day) ? 'bg-red-200 text-red-600 border-red-400' : 'bg-gray-100 text-gray-800 border-gray-300'}`}
+                                        onClick={() => handleDayChange(day)}
+                                    >
                                         <input
                                             type="checkbox"
                                             id={day}
                                             value={day}
                                             checked={excludedDays.includes(day)}
                                             onChange={() => handleDayChange(day)}
-                                            className="mr-2"
+                                            className="mr-2 cursor-pointer"
                                         />
-                                        <label htmlFor={day}>{day}</label>
+                                        <label htmlFor={day} className="cursor-pointer">{day}</label>
                                     </div>
                                 ))}
                             </div>
@@ -205,81 +211,81 @@ export default function KpiEvaluation() {
                         </button>
                     </div>
                 </div><br />
-            
-            <div className='custom-shadow border-2 border-[var(--secondary-color)] h-[420px] w-[600px] bg-[#EEEBF9] p-10 rounded-lg flex flex-col justify-center'>
 
-                <p className='text-center text-2xl font-bold text-[--primary-color]'>Evaluation Results</p><br />
-                
-                <div className='flex'>
-                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Descripción: </p> 
-                    <p className='text-lg text-black'>{kpiInformation.Description}</p>
-                </div>
+                <div className='custom-shadow border-2 border-[var(--secondary-color)] h-[420px] w-[600px] bg-[#EEEBF9] p-10 rounded-lg flex flex-col justify-center'>
 
-                <div className='flex'>
-                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Cantidad de días: </p>
-                    <p className='text-lg text-black'>{kpiInformation.timeUnit}</p>
-                </div>
-                
-                <div className='flex'>
-                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
-                    <p className='text-lg text-black'>{kpiPercentage.daysConsidered}</p>
-                </div>
+                    <p className='text-center text-2xl font-bold text-[--primary-color]'>Evaluation Results</p><br />
 
-                <div className='flex'>
-                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables objetivo: </p>
-                    <p className='text-lg text-black'>{kpiPercentage.targetSales}</p>
-                </div>
-                
-                <div className='flex'>
-                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables existentes: </p>
-                    <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
-                </div>
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Descripción: </p>
+                        <p className='text-lg text-black'>{kpiInformation.Description}</p>
+                    </div>
 
-                <div className='flex'>
-                <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Objetivo diario: </p>
-                    <p className='text-lg text-black'>{kpiInformation.target}</p>
-                </div>
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Cantidad de días: </p>
+                        <p className='text-lg text-black'>{kpiInformation.timeUnit}</p>
+                    </div>
 
-                <div className='flex'>
-                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Porcentage: </p>
-                    <p className='text-lg text-black'>{kpiPercentage.kpiPercentage}%</p>
-                </div>
-                
-                <div className="relative pt-1">
-                    <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-gray-200">
-                        <div
-                            style={{ width: `${kpiPercentage.kpiPercentage}%` }}
-                            className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
+                        <p className='text-lg text-black'>{kpiPercentage.daysConsidered}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables objetivo: </p>
+                        <p className='text-lg text-black'>{kpiPercentage.targetSales}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables existentes: </p>
+                        <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Objetivo diario: </p>
+                        <p className='text-lg text-black'>{kpiInformation.target}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Porcentage: </p>
+                        <p className='text-lg text-black'>{kpiPercentage.kpiPercentage}%</p>
+                    </div>
+
+                    <div className="relative pt-1">
+                        <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-gray-200">
+                            <div
+                                style={{ width: `${kpiPercentage.kpiPercentage}%` }}
+                                className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
                                     kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' :
                                         'bg-green-500'
-                                }`}>
+                                    }`}>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className={`mt-1 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
+                    <div className={`mt-1 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
                         kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' :
                             'bg-green-500'
-                    }`}>
-                    {kpiPercentage.kpiPercentage <= 40 && (
-                        <>
-                            <span className="mr-2">😞</span>
-                            <p>Reprobado</p>
-                        </>
-                    )}
-                    {kpiPercentage.kpiPercentage > 40 && kpiPercentage.kpiPercentage <= 69 && (
-                        <>
-                            <span className="mr-2">😐</span>
-                            <p>Mejorando</p>
-                        </>
-                    )}
-                    {kpiPercentage.kpiPercentage > 69 && (
-                        <>
-                            <span className="mr-2">😊</span>
-                            <p>Aprobado</p>
-                        </>
-                    )}
+                        }`}>
+                        {kpiPercentage.kpiPercentage <= 40 && (
+                            <>
+                                <span className="mr-2">😞</span>
+                                <p>Reprobado</p>
+                            </>
+                        )}
+                        {kpiPercentage.kpiPercentage > 40 && kpiPercentage.kpiPercentage <= 69 && (
+                            <>
+                                <span className="mr-2">😐</span>
+                                <p>Mejorando</p>
+                            </>
+                        )}
+                        {kpiPercentage.kpiPercentage > 69 && (
+                            <>
+                                <span className="mr-2">😊</span>
+                                <p>Aprobado</p>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
 
             </div>
         </div>
