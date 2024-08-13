@@ -85,10 +85,10 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
             }
 
             if (responseA.ok) {
-                alert('KPI creado exitosamente');
+                alert('Tarea asignada exitosamente');
                 // Redirigir o realizar otras acciones
             } else {
-                alert('Error al crear el KPI');
+                alert('Error al asignadar tarea');
             }
 
         } catch (error) {

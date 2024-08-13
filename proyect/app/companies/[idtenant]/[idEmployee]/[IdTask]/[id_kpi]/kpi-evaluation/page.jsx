@@ -109,53 +109,70 @@ export default function KpiEvaluation() {
             <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                 ⬅️ Back
             </Link>
-            <div className='h-[400px] w-[500px] bg-white bg-opacity-50 p-10 rounded-lg shadow-lg backdrop-blur-sm  text-[black]'>
-                <p className='text-center text-xl font-bold'>KPI EVALUATION</p><br />
-                <div className="mb-4 space-x-10">
-                    <p className='text-lg'>Rango de fechas:</p>
-                    <input
-                        type="datetime-local"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        required
-                        className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <input
-                        type="datetime-local"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        required
-                        className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+            <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
+                <div className='h-[400px] w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
+                    <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation Criteria</p><br />
 
-                <div className='flex space-x-5 justify-center items-center'>
-                    <p className='text-lg'>Campo a evaluar:</p>
-                    <select
-                        className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={selectedField}
-                        onChange={handleSelectChange}
-                    >
-                        <option value="">Select a field</option>
-                        {fieldFilter.map((field, index) => (
-                            <option key={index} value={field}>
-                                {field}
-                            </option>
-                        ))}
-                    </select>
-                    <button className='text-black bg-green-300 hover:bg-green-500 font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                        Obtener campos
-                    </button><br />
+                    <div className="mb-4">
+                        <p className='text-lg mb-2 text-[var(--secondary-color)]'>Rango de fechas:</p>
+                        <div className="flex space-x-4">
+                            <div>
+                                <label htmlFor="start-date" className="block text-sm font-medium text-[var(--tertiary-color)]">Fecha de inicio</label>
+                                <input
+                                    id="start-date"
+                                    type="datetime-local"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    required
+                                    className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="end-date" className="block text-sm font-medium text-[var(--tertiary-color)]">Fecha de fin</label>
+                                <input
+                                    id="end-date"
+                                    type="datetime-local"
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                    required
+                                    className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='mb-4'>
+                        <p className='text-lg text-[var(--secondary-color)]'>Campo a evaluar:</p>
+                        <div className='flex space-x-5 justify-center items-center'>
+                            <select
+                                className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                value={selectedField}
+                                onChange={handleSelectChange}
+                            >
+                                <option value="">Select a field</option>
+                                {fieldFilter.map((field, index) => (
+                                    <option key={index} value={field}>
+                                        {field}
+                                    </option>
+                                ))}
+                            </select>
+                            <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
+                                Obtener campos
+                            </button>
+                        </div>
+                    </div><br />
+                    <div className='flex justify-center items-center'>
+                        <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all'
+                            onClick={() => {
+                                getKPIEcaluation()
+                                getKPIbyID()
+                            }}>
+                            Calcular porcentaje
+                        </button>
+                    </div>
                 </div><br />
+            </div>
 
-                <button className='text-black bg-green-300 hover:bg-green-500 font-semibold py-2 px-4 rounded-full shadow-md transition-all'
-                    onClick={() => {
-                        getKPIEcaluation()
-                        getKPIbyID()
-                    }}>
-                    Calcular porcentaje
-                </button><br />
-            </div><br />
 
             <div className='custom-shadow h-[420px] w-[600px] bg-[--secondary-color] p-10 rounded-lg flex flex-col justify-center'>
 

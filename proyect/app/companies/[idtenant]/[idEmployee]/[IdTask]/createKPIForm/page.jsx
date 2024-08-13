@@ -34,6 +34,12 @@ export default function CreateKpiForm() {
                             Métricas y unidad de tiempo
                         </Link>
 
+                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm/form-metrics-time`}
+                            className="w-full py-3 px-4 border-2 bg-[--complentary-color] text-white rounded hover:bg-[--complementary-color] hover:text-black text-center"
+                        >
+                            Métricas y unidad de tiempo(new form)
+                        </Link>
+
                         <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm/form-questions`}
                             className="w-full py-3 px-4 border-2 bg-[--complentary-color] text-white rounded hover:bg-[--complementary-color] hover:text-black text-center"
                         >
