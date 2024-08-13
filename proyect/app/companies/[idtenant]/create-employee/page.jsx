@@ -77,7 +77,7 @@ export default function CreateEmployees({ params }) {
                 ⬅️ Back
             </Link>
             <div className="w-full max-w-2xl bg-[--primary-color] bg-opacity-80 p-8 rounded-lg shadow-lg backdrop-blur-md">
-                <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
+                <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6 text-black">
                     <h2 className="text-center text-3xl font-semibold text-[--complementary-color] mb-6">Register Employee</h2>
 
                     <div className="space-y-4">
