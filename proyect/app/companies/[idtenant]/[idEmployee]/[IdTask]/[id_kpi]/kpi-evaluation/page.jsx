@@ -7,13 +7,7 @@ export default function KpiEvaluation() {
     let params = useParams();
     //console.log('params: ', params)
     const [kpiPercentage, setKpiPercentage] = useState(0)
-    const [fieldFilter, setFieldFilter] = useState(["nombre_cliente",
-        "numero_factura",
-        "valor_factura",
-        "tipo_factura",
-        "sucursal",
-        "registrada",
-        "fecha_registro"])
+    const [fieldFilter, setFieldFilter] = useState([""]);
     const [selectedField, setSelectedField] = useState("");
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
