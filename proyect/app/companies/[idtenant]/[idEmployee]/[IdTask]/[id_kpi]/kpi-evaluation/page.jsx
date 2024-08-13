@@ -110,7 +110,7 @@ export default function KpiEvaluation() {
                 ⬅️ Back
             </Link>
             <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
-                <div className='h-[400px] w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
+                <div className='custom-shadow h-[420px] w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
                     <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation Criteria</p><br />
 
                     <div className="mb-4">
@@ -171,46 +171,44 @@ export default function KpiEvaluation() {
                         </button>
                     </div>
                 </div><br />
-            </div>
+            
+            <div className='custom-shadow border-2 border-[var(--secondary-color)] h-[420px] w-[600px] bg-[#EEEBF9] p-10 rounded-lg flex flex-col justify-center'>
 
-
-            <div className='custom-shadow h-[420px] w-[600px] bg-[--secondary-color] p-10 rounded-lg flex flex-col justify-center'>
-
-                <p className='text-center text-2xl font-bold'>Evaluation Results</p><br />
+                <p className='text-center text-2xl font-bold text-[--primary-color]'>Evaluation Results</p><br />
                 
                 <div className='flex'>
-                    <p className='text-center text-lg font-bold mr-1'>Descripción: </p> 
-                    <p className='text-center text-lg text-slate-200'>{kpiInformation.Description}</p>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Descripción: </p> 
+                    <p className='text-lg text-black'>{kpiInformation.Description}</p>
                 </div>
 
                 <div className='flex'>
-                    <p className='text-center text-lg font-bold mr-1'>Cantidad de días: </p>
-                    <p className='text-lg text-slate-200'>{kpiInformation.timeUnit}</p>
-                </div>
-                
-                <div className='flex'>
-                    <p className='text-center text-lg font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
-                    <p className='text-lg text-slate-200'>{kpiPercentage.daysConsidered}</p>
-                </div>
-
-                <div className='flex'>
-                    <p className='text-center text-lg font-bold mr-1'>Número de entregables objetivo: </p>
-                    <p className='text-lg text-slate-200'>{kpiPercentage.targetSales}</p>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Cantidad de días: </p>
+                    <p className='text-lg text-black'>{kpiInformation.timeUnit}</p>
                 </div>
                 
                 <div className='flex'>
-                    <p className='text-center text-lg font-bold mr-1'>Número de entregables existentes: </p>
-                    <p className='text-lg text-slate-200'>{kpiPercentage.totalCount}</p>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
+                    <p className='text-lg text-black'>{kpiPercentage.daysConsidered}</p>
                 </div>
 
                 <div className='flex'>
-                <p className='text-center text-lg font-bold mr-1'>Objetivo diario: </p>
-                    <p className='text-lg text-slate-200'>{kpiInformation.target}</p>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables objetivo: </p>
+                    <p className='text-lg text-black'>{kpiPercentage.targetSales}</p>
+                </div>
+                
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables existentes: </p>
+                    <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
                 </div>
 
                 <div className='flex'>
-                    <p className='text-center text-lg font-bold mr-1'>Porcentage: </p>
-                    <p className='text-lg text-slate-200'>{kpiPercentage.kpiPercentage}%</p>
+                <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Objetivo diario: </p>
+                    <p className='text-lg text-black'>{kpiInformation.target}</p>
+                </div>
+
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Porcentage: </p>
+                    <p className='text-lg text-black'>{kpiPercentage.kpiPercentage}%</p>
                 </div>
                 
                 <div className="relative pt-1">
@@ -247,6 +245,8 @@ export default function KpiEvaluation() {
                         </>
                     )}
                 </div>
+            </div>
+
             </div>
         </div>
     );
