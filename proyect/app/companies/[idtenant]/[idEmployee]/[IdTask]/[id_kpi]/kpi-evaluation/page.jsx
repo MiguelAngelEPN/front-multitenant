@@ -119,11 +119,11 @@ export default function KpiEvaluation() {
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-white bg-opacity-50 hover:bg-opacity-70 text-black font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                 ⬅️ Back
             </Link>
             <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
-                <div className='w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
+                <div className='custom-shadow h-[420px] w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
                     <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation Criteria</p><br />
 
                     <div className="mb-4">
@@ -205,29 +205,61 @@ export default function KpiEvaluation() {
                         </button>
                     </div>
                 </div><br />
-            </div>
+            
+            <div className='custom-shadow border-2 border-[var(--secondary-color)] h-[420px] w-[600px] bg-[#EEEBF9] p-10 rounded-lg flex flex-col justify-center'>
 
+                <p className='text-center text-2xl font-bold text-[--primary-color]'>Evaluation Results</p><br />
+                
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Descripción: </p> 
+                    <p className='text-lg text-black'>{kpiInformation.Description}</p>
+                </div>
 
-            <div className='h-[500px] w-[500px] bg-white bg-opacity-50 p-10 rounded-lg shadow-lg backdrop-blur-sm text-[black]'>
-                <p className='text-center text-lg font-bold mb-1'>Descripción: {kpiInformation.Description}</p>
-                <p className='text-center text-lg font-bold mb-1'>Cantidad de días: {kpiInformation.timeUnit}</p>
-                <p className='text-center text-lg font-bold mb-1'>Días laborales (Sin Sábados ni Domingos): {kpiPercentage.daysConsidered}</p>
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Cantidad de días: </p>
+                    <p className='text-lg text-black'>{kpiInformation.timeUnit}</p>
+                </div>
+                
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
+                    <p className='text-lg text-black'>{kpiPercentage.daysConsidered}</p>
+                </div>
 
-                <p className='text-center text-lg font-bold mb-1'>Número de entregables objetivo: {kpiPercentage.targetSales}</p>
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables objetivo: </p>
+                    <p className='text-lg text-black'>{kpiPercentage.targetSales}</p>
+                </div>
+                
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables existentes: </p>
+                    <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
+                </div>
 
-                <p className='text-center text-lg font-bold mb-1'>Número de entregables existentes: {kpiPercentage.totalCount}</p>
+                <div className='flex'>
+                <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Objetivo diario: </p>
+                    <p className='text-lg text-black'>{kpiInformation.target}</p>
+                </div>
 
-                <p className='text-center text-lg font-bold mb-1'>Objetivo diario: {kpiInformation.target}</p>
-
-                <p className='text-center text-lg font-bold mb-1'>
-                    Barra de progreso: {kpiPercentage.kpiPercentage}%
-                </p>
+                <div className='flex'>
+                    <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Porcentage: </p>
+                    <p className='text-lg text-black'>{kpiPercentage.kpiPercentage}%</p>
+                </div>
+                
                 <div className="relative pt-1">
                     <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-gray-200">
-                        <div style={{ width: `${kpiPercentage.kpiPercentage}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all"></div>
+                        <div
+                            style={{ width: `${kpiPercentage.kpiPercentage}%` }}
+                            className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
+                                    kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' :
+                                        'bg-green-500'
+                                }`}>
+                        </div>
                     </div>
                 </div>
-                <div className={`mt-4 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' : kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' : 'bg-green-500'}`}>
+                <div className={`mt-1 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
+                        kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' :
+                            'bg-green-500'
+                    }`}>
                     {kpiPercentage.kpiPercentage <= 40 && (
                         <>
                             <span className="mr-2">😞</span>
@@ -247,6 +279,8 @@ export default function KpiEvaluation() {
                         </>
                     )}
                 </div>
+            </div>
+
             </div>
         </div>
     );

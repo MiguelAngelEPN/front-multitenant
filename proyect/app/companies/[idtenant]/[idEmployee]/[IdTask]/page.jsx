@@ -112,7 +112,7 @@ export default function PageTaskLogsKpis() {
 
             <div className='w-full flex items-center justify-center mb-3'>
 
-                <div className='w-1/3'>
+                <div className='flex flex-col items-center w-1/3'>
                     <div className='mt-10 flex flex-col items-center justify-center'>
                         <h2 className='text-center text-[28px] text-[--primary-color]'>List TaskLogs and KPI's</h2>
                         <p className='text-[20px] text-[--secondary-color]'>Employee: {employeeId}</p>
@@ -147,7 +147,7 @@ export default function PageTaskLogsKpis() {
 
                     </div> <br />
 
-                    <div className='flex justify-evenly'>
+                    <div className='flex space-x-7'>
                         <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`}
                             className="py-2 bg-green-500 text-white rounded-full font-[12px] hover:bg-green-600 transition-colors w-[120px] text-center"
                         >
