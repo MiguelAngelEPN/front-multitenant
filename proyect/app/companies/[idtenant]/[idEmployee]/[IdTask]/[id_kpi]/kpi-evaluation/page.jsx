@@ -31,7 +31,7 @@ export default function KpiEvaluation() {
                 headers: {
                     "Content-Type": "application/json",
                     "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
-                },
+                }
             });
 
             if (!response.ok) {
@@ -51,12 +51,17 @@ export default function KpiEvaluation() {
         console.log("entro a getKPIEcaluation")
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs?key=${selectedField}`, {
-                method: "GET",
+            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
                 },
+                body: JSON.stringify({
+                    key: selectedField,
+                    startDate: startDate,
+                    endDate: endDate,
+                }),
             });
 
             if (!response.ok) {
@@ -109,14 +114,14 @@ export default function KpiEvaluation() {
                 <div className="mb-4 space-x-10">
                     <p className='text-lg'>Rango de fechas:</p>
                     <input
-                        type="date"
+                        type="datetime-local"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                         required
                         className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <input
-                        type="date"
+                        type="datetime-local"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                         required
@@ -152,18 +157,47 @@ export default function KpiEvaluation() {
                 </button><br />
             </div><br />
 
-            <div className='h-[300px] w-[500px] bg-white bg-opacity-50 p-10 rounded-lg shadow-lg backdrop-blur-sm text-[black]'>
-                <p className='text-center text-lg font-bold mb-1'>Descripción: {kpiInformation.description}</p>
-                <p className='text-center text-lg font-bold mb-1'>Objetivo: {kpiInformation.target}</p>
+            <div className='h-[500px] w-[500px] bg-white bg-opacity-50 p-10 rounded-lg shadow-lg backdrop-blur-sm text-[black]'>
+                <p className='text-center text-lg font-bold mb-1'>Descripción: {kpiInformation.Description}</p>
                 <p className='text-center text-lg font-bold mb-1'>Cantidad de días: {kpiInformation.timeUnit}</p>
-                <p className='text-center text-lg font-bold mb-1'>Número de entregables: {kpiPercentage.totalCount}</p>
-                <p className='text-center text-lg font-bold mb-1'>Barra de progreso: {kpiPercentage.kpiPercentage}%</p>
+                <p className='text-center text-lg font-bold mb-1'>Días laborales (Sin Sábados ni Domingos): {kpiPercentage.daysConsidered}</p>
+
+                <p className='text-center text-lg font-bold mb-1'>Número de entregables objetivo: {kpiPercentage.targetSales}</p>
+                
+                <p className='text-center text-lg font-bold mb-1'>Número de entregables existentes: {kpiPercentage.totalCount}</p>
+                
+                <p className='text-center text-lg font-bold mb-1'>Objetivo diario: {kpiInformation.target}</p>
+                
+                <p className='text-center text-lg font-bold mb-1'>
+                    Barra de progreso: {kpiPercentage.kpiPercentage}%
+                </p>
                 <div className="relative pt-1">
                     <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-gray-200">
                         <div style={{ width: `${kpiPercentage.kpiPercentage}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all"></div>
                     </div>
                 </div>
+                <div className={`mt-4 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' : kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' : 'bg-green-500'}`}>
+                    {kpiPercentage.kpiPercentage <= 40 && (
+                        <>
+                            <span className="mr-2">😞</span>
+                            <p>Reprobado</p>
+                        </>
+                    )}
+                    {kpiPercentage.kpiPercentage > 40 && kpiPercentage.kpiPercentage <= 69 && (
+                        <>
+                            <span className="mr-2">😐</span>
+                            <p>Mejorando</p>
+                        </>
+                    )}
+                    {kpiPercentage.kpiPercentage > 69 && (
+                        <>
+                            <span className="mr-2">😊</span>
+                            <p>Aprobado</p>
+                        </>
+                    )}
+                </div>
             </div>
+
         </div>
     );
 }

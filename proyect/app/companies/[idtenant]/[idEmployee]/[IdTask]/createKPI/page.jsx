@@ -101,7 +101,7 @@ export default function CreateKpi() {
               <div className='w-[220px]'>
                 <p className='block text-sm font-medium text-[--complementary-color] mb-2'>Fecha de inicio:</p>
                 <input
-                  type="date"
+                  type="datetime-local"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   required
@@ -111,7 +111,7 @@ export default function CreateKpi() {
               <div className='w-[220px]'>
                 <p className='block text-sm font-medium text-[--complementary-color] mb-2'>Fecha de fin:</p>
                 <input
-                  type="date"
+                  type="datetime-local"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   required
