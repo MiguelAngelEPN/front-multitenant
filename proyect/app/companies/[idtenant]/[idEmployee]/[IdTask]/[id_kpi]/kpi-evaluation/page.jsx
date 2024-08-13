@@ -168,12 +168,17 @@ export default function KpiEvaluation() {
 
                     <div className='flex'>
                         <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Descripción: </p>
-                        <p className='text-lg text-black'>{kpiInformation.Description}</p>
+                        <p className='text-lg text-black'>{kpiInformation.description}</p>
                     </div>
 
                     <div className='flex'>
-                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Cantidad de días: </p>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Unidad de tiempo en días: </p>
                         <p className='text-lg text-black'>{kpiInformation.timeUnit}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Objetivo en unidad de tiempo: </p>
+                        <p className='text-lg text-black'>{kpiInformation.target}</p>
                     </div>
 
                     <div className='flex'>
@@ -191,10 +196,7 @@ export default function KpiEvaluation() {
                         <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
                     </div>
 
-                    <div className='flex'>
-                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Objetivo diario: </p>
-                        <p className='text-lg text-black'>{kpiInformation.target}</p>
-                    </div>
+                    
 
                     <div className='flex'>
                         <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Porcentage: </p>
