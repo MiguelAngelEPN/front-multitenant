@@ -19,6 +19,17 @@ export default function KpiEvaluation() {
     const [endDate, setEndDate] = useState('')
     const [kpiInformation, setKpiInformation] = useState('')
 
+    const [excludedDays, setExcludedDays] = useState([]);
+    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+    const handleDayChange = (day) => {
+        setExcludedDays(prev =>
+            prev.includes(day)
+                ? prev.filter(d => d !== day)
+                : [...prev, day]
+        );
+    };
+
     useEffect(() => {
 
     }, []);
@@ -49,9 +60,10 @@ export default function KpiEvaluation() {
 
     const getKPIEcaluation = async () => {
         console.log("entro a getKPIEcaluation")
+        console.log("dias excluidas", excludedDays)
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs`, {
+            /*const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -61,6 +73,7 @@ export default function KpiEvaluation() {
                     key: selectedField,
                     startDate: startDate,
                     endDate: endDate,
+                    excludedDays: excludedDays,
                 }),
             });
 
@@ -70,7 +83,7 @@ export default function KpiEvaluation() {
 
             const data1 = await response.json();
             console.log('data1: ', data1)
-            setKpiPercentage(data1);
+            setKpiPercentage(data1);*/
 
         } catch (error) {
             console.error("Fetch error: ", error);
@@ -110,7 +123,7 @@ export default function KpiEvaluation() {
                 ⬅️ Back
             </Link>
             <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
-                <div className='h-[400px] w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
+                <div className='w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
                     <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation Criteria</p><br />
 
                     <div className="mb-4">
@@ -141,13 +154,34 @@ export default function KpiEvaluation() {
                         </div>
                     </div>
 
+                    {startDate && endDate && (
+                        <div className="mb-4">
+                            <p className='text-lg text-[var(--secondary-color)]'>Excluir días de la semana:</p>
+                            <div className='flex flex-col space-x-5 justify-center items-center'>
+                                {weekdays.map(day => (
+                                    <div key={day} className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            id={day}
+                                            value={day}
+                                            checked={excludedDays.includes(day)}
+                                            onChange={() => handleDayChange(day)}
+                                            className="mr-2"
+                                        />
+                                        <label htmlFor={day}>{day}</label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     <div className='mb-4'>
                         <p className='text-lg text-[var(--secondary-color)]'>Campo a evaluar:</p>
                         <div className='flex space-x-5 justify-center items-center'>
                             <select
                                 className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
                                 value={selectedField}
-                                onChange={handleSelectChange}
+                                onChange={(e) => setSelectedField(e.target.value)}
                             >
                                 <option value="">Select a field</option>
                                 {fieldFilter.map((field, index) => (
@@ -164,8 +198,8 @@ export default function KpiEvaluation() {
                     <div className='flex justify-center items-center'>
                         <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all'
                             onClick={() => {
-                                getKPIEcaluation()
-                                getKPIbyID()
+                                getKPIEcaluation();
+                                getKPIbyID();
                             }}>
                             Calcular porcentaje
                         </button>
