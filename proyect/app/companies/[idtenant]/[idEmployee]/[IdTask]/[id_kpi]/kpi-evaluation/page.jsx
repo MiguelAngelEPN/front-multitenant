@@ -106,7 +106,7 @@ export default function KpiEvaluation() {
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-white bg-opacity-50 hover:bg-opacity-70 text-black font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                 ⬅️ Back
             </Link>
             <div className='h-[400px] w-[500px] bg-white bg-opacity-50 p-10 rounded-lg shadow-lg backdrop-blur-sm  text-[black]'>
@@ -157,26 +157,60 @@ export default function KpiEvaluation() {
                 </button><br />
             </div><br />
 
-            <div className='h-[500px] w-[500px] bg-white bg-opacity-50 p-10 rounded-lg shadow-lg backdrop-blur-sm text-[black]'>
-                <p className='text-center text-lg font-bold mb-1'>Descripción: {kpiInformation.Description}</p>
-                <p className='text-center text-lg font-bold mb-1'>Cantidad de días: {kpiInformation.timeUnit}</p>
-                <p className='text-center text-lg font-bold mb-1'>Días laborales (Sin Sábados ni Domingos): {kpiPercentage.daysConsidered}</p>
+            <div className='custom-shadow h-[420px] w-[600px] bg-[--secondary-color] p-10 rounded-lg flex flex-col justify-center'>
 
-                <p className='text-center text-lg font-bold mb-1'>Número de entregables objetivo: {kpiPercentage.targetSales}</p>
+                <p className='text-center text-2xl font-bold'>Evaluation Results</p><br />
                 
-                <p className='text-center text-lg font-bold mb-1'>Número de entregables existentes: {kpiPercentage.totalCount}</p>
+                <div className='flex'>
+                    <p className='text-center text-lg font-bold mr-1'>Descripción: </p> 
+                    <p className='text-center text-lg text-slate-200'>{kpiInformation.Description}</p>
+                </div>
+
+                <div className='flex'>
+                    <p className='text-center text-lg font-bold mr-1'>Cantidad de días: </p>
+                    <p className='text-lg text-slate-200'>{kpiInformation.timeUnit}</p>
+                </div>
                 
-                <p className='text-center text-lg font-bold mb-1'>Objetivo diario: {kpiInformation.target}</p>
+                <div className='flex'>
+                    <p className='text-center text-lg font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
+                    <p className='text-lg text-slate-200'>{kpiPercentage.daysConsidered}</p>
+                </div>
+
+                <div className='flex'>
+                    <p className='text-center text-lg font-bold mr-1'>Número de entregables objetivo: </p>
+                    <p className='text-lg text-slate-200'>{kpiPercentage.targetSales}</p>
+                </div>
                 
-                <p className='text-center text-lg font-bold mb-1'>
-                    Barra de progreso: {kpiPercentage.kpiPercentage}%
-                </p>
+                <div className='flex'>
+                    <p className='text-center text-lg font-bold mr-1'>Número de entregables existentes: </p>
+                    <p className='text-lg text-slate-200'>{kpiPercentage.totalCount}</p>
+                </div>
+
+                <div className='flex'>
+                <p className='text-center text-lg font-bold mr-1'>Objetivo diario: </p>
+                    <p className='text-lg text-slate-200'>{kpiInformation.target}</p>
+                </div>
+
+                <div className='flex'>
+                    <p className='text-center text-lg font-bold mr-1'>Porcentage: </p>
+                    <p className='text-lg text-slate-200'>{kpiPercentage.kpiPercentage}%</p>
+                </div>
+                
                 <div className="relative pt-1">
                     <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-gray-200">
-                        <div style={{ width: `${kpiPercentage.kpiPercentage}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all"></div>
+                        <div
+                            style={{ width: `${kpiPercentage.kpiPercentage}%` }}
+                            className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
+                                    kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' :
+                                        'bg-green-500'
+                                }`}>
+                        </div>
                     </div>
                 </div>
-                <div className={`mt-4 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' : kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' : 'bg-green-500'}`}>
+                <div className={`mt-1 p-4 rounded-lg text-white flex items-center justify-center ${kpiPercentage.kpiPercentage <= 40 ? 'bg-red-500' :
+                        kpiPercentage.kpiPercentage <= 69 ? 'bg-yellow-500' :
+                            'bg-green-500'
+                    }`}>
                     {kpiPercentage.kpiPercentage <= 40 && (
                         <>
                             <span className="mr-2">😞</span>
@@ -197,7 +231,6 @@ export default function KpiEvaluation() {
                     )}
                 </div>
             </div>
-
         </div>
     );
 }
