@@ -13,6 +13,7 @@ export default function CreateKpi() {
   const [title, setTitle] = useState('');
   const [target, setTarget] = useState('');
   const [timeUnit, setTimeUnit] = useState('');
+  const [formula, setFormula] = useState('');
   const [fieldFilter, setFieldFilter] = useState([""]);
   const [selectedField, setSelectedField] = useState("");
   const [fieldtobeevaluated, setFieldToBeEvaluated] = useState('');
@@ -117,32 +118,34 @@ export default function CreateKpi() {
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-[--complementary-color] mb-2">Objetivo (Target)</label>
-            <input
-              type="text"
-              value={target}
-              onChange={(e) => setTarget(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
+          <div className='flex space-x-5'>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-[--complementary-color] mb-2">Objetivo (Target)</label>
+              <input
+                type="number"
+                value={target}
+                onChange={(e) => setTarget(e.target.value)}
+                required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-[--complementary-color] mb-2">Unidad de tiempo (en días)</label>
-            <select
-              value={timeUnit}
-              onChange={(e) => setTimeUnit(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-[--complementary-color] mb-2">Unidad de tiempo (en días)</label>
+              <select
+                value={timeUnit}
+                onChange={(e) => setTimeUnit(e.target.value)}
+                required
+                className="w-full h-[42px] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
           </div>
 
           <div className='mb-4'>
@@ -164,7 +167,23 @@ export default function CreateKpi() {
                 Obtener campos
               </button>
             </div>
-          </div><br />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-[--complementary-color] mb-2">Formula</label>
+            <select
+              value={formula}
+              onChange={(e) => setFormula(e.target.value)}
+              required
+              className="w-full h-[42px] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="count">count</option>
+              <option value="count_distinct">count_distinct</option>
+              <option value="sum()">sum()</option>
+              <option value="avg()">avg()</option>
+            </select>
+          </div>
 
 
           <div className="mb-6">

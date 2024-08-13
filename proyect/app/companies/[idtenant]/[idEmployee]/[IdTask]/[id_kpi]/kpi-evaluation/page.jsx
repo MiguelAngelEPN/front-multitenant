@@ -7,8 +7,6 @@ export default function KpiEvaluation() {
     let params = useParams();
     //console.log('params: ', params)
     const [kpiPercentage, setKpiPercentage] = useState(0)
-    const [fieldFilter, setFieldFilter] = useState([""]);
-    const [selectedField, setSelectedField] = useState("");
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [kpiInformation, setKpiInformation] = useState('')
@@ -27,30 +25,6 @@ export default function KpiEvaluation() {
     useEffect(() => {
 
     }, []);
-    const getFields = async () => {
-        console.log("entro a getFields")
-        try {
-            //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklog-keys`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data1 = await response.json();
-            //console.log("field result: ", data1)
-            setFieldFilter(data1);
-
-        } catch (error) {
-            console.error("Fetch error: ", error);
-        }
-    };
 
     const getKPIEcaluation = async () => {
         console.log("entro a getKPIEcaluation")
@@ -66,7 +40,6 @@ export default function KpiEvaluation() {
                 "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
             },
             body: JSON.stringify({
-                key: selectedField,
                 startDate: startDate,
                 endDate: endDate,
                 excludedDays: excludedDays,
@@ -109,9 +82,6 @@ export default function KpiEvaluation() {
             console.error("Fetch error: ", error);
         }
     };
-    const handleSelectChange = (event) => {
-        setSelectedField(event.target.value);
-    };
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
@@ -153,11 +123,11 @@ export default function KpiEvaluation() {
                     {startDate && endDate && (
                         <div className="mb-4">
                             <p className='text-lg text-[var(--secondary-color)]'>Excluir días de la semana:</p>
-                            <div className='flex flex-col space-y-2 items-start'>
+                            <div className='flex flex-wrap space-x-1 justify-center'>
                                 {weekdays.map(day => (
                                     <div
                                         key={day}
-                                        className={`flex items-center w-full p-2 rounded cursor-pointer transition-all ${excludedDays.includes(day) ? 'bg-red-200 text-red-600 border-red-400' : 'bg-gray-100 text-gray-800 border-gray-300'}`}
+                                        className={`flex flex-col items-center p-2 rounded-full cursor-pointer transition-all ${excludedDays.includes(day) ? 'bg-[--primary-color] text-[--primary-color] border-red-400' : 'bg-gray-100 text-gray-800 border-gray-300'}`}
                                         onClick={() => handleDayChange(day)}
                                     >
                                         <input
@@ -166,35 +136,21 @@ export default function KpiEvaluation() {
                                             value={day}
                                             checked={excludedDays.includes(day)}
                                             onChange={() => handleDayChange(day)}
-                                            className="mr-2 cursor-pointer"
+                                            className="hidden"
                                         />
-                                        <label htmlFor={day} className="cursor-pointer">{day}</label>
+                                        <label
+                                            htmlFor={day}
+                                            className="cursor-pointer w-10 h-10 flex items-center justify-center rounded-full bg-white border-2"
+                                        >
+                                            {day.substring(0, 2)}
+                                        </label>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     )}
 
-                    <div className='mb-4'>
-                        <p className='text-lg text-[var(--secondary-color)]'>Campo a evaluar:</p>
-                        <div className='flex space-x-5 justify-center items-center'>
-                            <select
-                                className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
-                                value={selectedField}
-                                onChange={(e) => setSelectedField(e.target.value)}
-                            >
-                                <option value="">Select a field</option>
-                                {fieldFilter.map((field, index) => (
-                                    <option key={index} value={field}>
-                                        {field}
-                                    </option>
-                                ))}
-                            </select>
-                            <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                                Obtener campos
-                            </button>
-                        </div>
-                    </div><br />
+                    <br />
                     <div className='flex justify-center items-center'>
                         <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all'
                             onClick={() => {
