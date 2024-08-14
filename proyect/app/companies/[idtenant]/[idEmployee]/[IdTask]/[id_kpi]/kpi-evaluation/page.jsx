@@ -182,7 +182,12 @@ export default function KpiEvaluation() {
                     </div>
 
                     <div className='flex'>
-                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días laborales (Sin Sábados ni Domingos): </p>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días laborales: </p>
+                        <p className='text-lg text-black'>{kpiPercentage.daysConsidered}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Días no considerados: </p>
                         <p className='text-lg text-black'>{kpiPercentage.daysConsidered}</p>
                     </div>
 
@@ -195,8 +200,6 @@ export default function KpiEvaluation() {
                         <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables existentes: </p>
                         <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
                     </div>
-
-                    
 
                     <div className='flex'>
                         <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Porcentage: </p>
