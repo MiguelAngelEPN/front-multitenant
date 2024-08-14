@@ -64,7 +64,7 @@ export default function PageTaskLogsKpis() {
             return [...keys, ...Object.keys(task)];
         }, []);
 
-        return [...new Set(allKeys)].filter((key) => key !== '_id');
+        return [...new Set(allKeys)].filter((key) => key !== '_id' && key !== 'dropdownCriteria' && key !=='questions');
     };
 
     const tableTaskLogsHeaders = getTableTaskLogsHeaders();
@@ -75,7 +75,7 @@ export default function PageTaskLogsKpis() {
             return [...keys, ...Object.keys(task)];
         }, []);
 
-        return [...new Set(allKeys)].filter((key) => key !== '_id');
+        return [...new Set(allKeys)].filter((key) => key !== '_id' && key !== 'dropdownCriteria' && key !=='questions');
     };
 
     const tableKPIsHeaders = getTableKPIsHeaders();
@@ -103,6 +103,16 @@ export default function PageTaskLogsKpis() {
 
         return typeof value === 'object' ? JSON.stringify(value, null, 2) : value ?? 'N/A';
     };
+
+    const handleDropdownAction = (kpiId) => {
+        // Lógica para manejar la acción del botón "Dropdown Action"
+        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/${kpiId}/kpi-form-dropdown`);
+    };
+
+    const handleQuestionsEvaluation = (kpiId) => {
+        // Lógica para manejar la acción del botón "Dropdown Action"
+        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/${kpiId}/kpi-form-questions`);
+    }
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
@@ -199,12 +209,30 @@ export default function PageTaskLogsKpis() {
                                             </td>
                                         ))}
                                         <td className="py-1 px-2">
-                                            <button
-                                                onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
-                                                className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
-                                            >
-                                                Evaluation
-                                            </button>
+                                            {(!kpi.evaluationType || kpi.evaluationType === null) && (
+                                                <button
+                                                    onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
+                                                    className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
+                                                >
+                                                    Evaluation
+                                                </button>
+                                            )}
+                                            {kpi.evaluationType === 'dropdown' && (
+                                                <button
+                                                    onClick={() => handleDropdownAction(kpi._id)}
+                                                    className="py-1 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2"
+                                                >
+                                                    Criteria evaluation
+                                                </button>
+                                            )}
+                                            {kpi.evaluationType === 'yes-no-questions' && (
+                                                <button
+                                                    onClick={() => handleQuestionsEvaluation(kpi._id)}
+                                                    className="py-1 px-2 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2"
+                                                >
+                                                    Questions evaluation
+                                                </button>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
@@ -213,6 +241,8 @@ export default function PageTaskLogsKpis() {
                     </div>
                 </div>
             </div>
+
+
 
             {/*---------- tabla dinámica para tasks con campos variables ----------*/}
             <div className="flex justify-center">
