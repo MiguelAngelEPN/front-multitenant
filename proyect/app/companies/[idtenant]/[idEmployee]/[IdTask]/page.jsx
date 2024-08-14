@@ -64,7 +64,7 @@ export default function PageTaskLogsKpis() {
             return [...keys, ...Object.keys(task)];
         }, []);
 
-        return [...new Set(allKeys)].filter((key) => key !== '_id' && key !== 'dropdownCriteria' && key !=='questions');
+        return [...new Set(allKeys)].filter((key) => key !== '_id' && key !== 'dropdownCriteria' && key !== 'questions');
     };
 
     const tableTaskLogsHeaders = getTableTaskLogsHeaders();
@@ -75,7 +75,7 @@ export default function PageTaskLogsKpis() {
             return [...keys, ...Object.keys(task)];
         }, []);
 
-        return [...new Set(allKeys)].filter((key) => key !== '_id' && key !== 'dropdownCriteria' && key !=='questions');
+        return [...new Set(allKeys)].filter((key) => key !== '_id' && key !== 'dropdownCriteria' && key !== 'questions');
     };
 
     const tableKPIsHeaders = getTableKPIsHeaders();
@@ -116,9 +116,11 @@ export default function PageTaskLogsKpis() {
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className="absolute top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-black font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+            <div className='flex justify-start w-full'>
+                <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-black font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div><br />
 
             <div className='w-full flex items-center justify-center mb-3'>
 

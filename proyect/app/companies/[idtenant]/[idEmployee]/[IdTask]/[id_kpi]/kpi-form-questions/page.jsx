@@ -45,9 +45,12 @@ export default function KpiFormQuestions() {
     };
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+            <div className='flex justify-start w-full'>
+                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div><br />
+
             <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
 
                 <div className='custom-shadow border-2 border-[var(--secondary-color)] w-[700px] bg-[#EEEBF9] p-8 rounded-lg flex flex-col justify-center'>
@@ -93,7 +96,7 @@ export default function KpiFormQuestions() {
                                     </tr>
                                     <tr>
                                         <td className="py-2 px-4 border-t-2 border-gray-300 font-bold text-center">Your evaluation is:</td>
-                                        <td className="py-2 px-4 border-t-2 border-gray-300 font-bold text-center">{(calculateTotal()/kpiInformation.questions.length)*100} %</td>
+                                        <td className="py-2 px-4 border-t-2 border-gray-300 font-bold text-center">{(calculateTotal() / kpiInformation.questions.length) * 100} %</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -103,7 +106,7 @@ export default function KpiFormQuestions() {
                     <div className='flex justify-center items-center'>
                         <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all'
                             onClick={getKPIbyID}>
-                            Calcular porcentaje
+                            Save Evaluation
                         </button>
                     </div>
                 </div>

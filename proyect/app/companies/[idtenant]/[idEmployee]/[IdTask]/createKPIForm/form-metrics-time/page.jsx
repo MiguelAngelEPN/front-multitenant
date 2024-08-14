@@ -64,9 +64,11 @@ export default function CreateKpibyMetricsTime() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[--complementary-color] p-6 homepage">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+            <div className='flex justify-start w-full'>
+                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className=" top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div><br />
 
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Crear KPI para Tarea con métricas de unidad de tiempo</h1>
