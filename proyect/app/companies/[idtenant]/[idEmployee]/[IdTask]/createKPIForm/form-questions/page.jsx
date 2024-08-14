@@ -103,11 +103,14 @@ export default function CreateKpibyQuestions() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6 homepage">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 homepage">
 
+            <div className='flex justify-end w-full'>
+                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div>
+            
             <div className="bg-[--primary-color] backdrop-blur-md shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h1 className="text-3xl font-semibold mb-6 text-center text-[--complementary-color]">Crear KPI para Tarea con evaluación por Questions</h1>
                 <form onSubmit={handleSubmit} className='text-black'>

@@ -72,10 +72,14 @@ export default function CreateEmployees({ params }) {
     }
 
     return (<>
-        <div className="homepage flex items-center justify-center min-h-screen p-8">
-            <Link href="/companies/employee-list" className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+        <div className="homepage flex flex-col items-center justify-center min-h-screen p-8">
+
+            <div className='flex justify-end w-full'>
+                <Link href="/companies/employee-list" className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div>
+
             <div className="w-full max-w-2xl bg-[--primary-color] bg-opacity-80 p-8 rounded-lg shadow-lg backdrop-blur-md">
                 <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6 text-black">
                     <h2 className="text-center text-3xl font-semibold text-[--complementary-color] mb-6">Register Employee</h2>
@@ -174,6 +178,7 @@ export default function CreateEmployees({ params }) {
                     </div>
                 </form>
             </div>
+
         </div>
 
     </>)

@@ -102,8 +102,8 @@ export default function CreateKpibyDropdown() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[--complementary-color] p-6 homepage">
-            <div className='flex justify-start w-full'>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-[--complementary-color] p-6 homepage">
+            <div className='flex justify-end w-full'>
                 <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className=" top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>

@@ -14,8 +14,8 @@ export default function CreateKpiForm() {
 
     return (
         <>
-            <div className="homepage min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6">
-                <div className='flex justify-start w-full'>
+            <div className="homepage min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6">
+                <div className='flex justify-end w-full'>
                     <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                         ⬅️ Back
                     </Link>
@@ -34,12 +34,6 @@ export default function CreateKpiForm() {
                             className="w-full py-3 px-4 border-2 bg-[--complentary-color] text-white rounded hover:bg-[--complementary-color] hover:text-black text-center"
                         >
                             Métricas y unidad de tiempo
-                        </Link>
-
-                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm/form-metrics-time`}
-                            className="w-full py-3 px-4 border-2 bg-[--complentary-color] text-white rounded hover:bg-[--complementary-color] hover:text-black text-center"
-                        >
-                            Métricas y unidad de tiempo(new form)
                         </Link>
 
                         <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm/form-questions`}
