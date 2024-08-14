@@ -58,12 +58,26 @@ export default function KpiFormQuestions() {
 
                     {kpiInformation && (
                         <div className="text-[var(--tertiary-color)]">
-                            <p><strong>Title:</strong> {kpiInformation.title}</p>
-                            <p><strong>Start Date:</strong> {new Date(kpiInformation.startDate).toLocaleDateString()}</p>
-                            <p><strong>End Date:</strong> {new Date(kpiInformation.endDate).toLocaleDateString()}</p>
-                            <p><strong>Evaluation Type:</strong> {kpiInformation.evaluationType}</p>
+
+                            <div className="flex">
+                                <p className='text-lg text-[var(--secondary-color)] mr-2'>Title:</p>
+                                <p className='text-lg text-black'>{kpiInformation.title}</p>
+                            </div>
+                            <div className="flex">
+                                <p className='text-lg text-[var(--secondary-color)] mr-2'>Start Date:</p>
+                                <p className='text-lg text-black'>{new Date(kpiInformation.startDate).toLocaleString()}</p>
+                            </div>
+                            <div className="flex">
+                                <p className='text-lg text-[var(--secondary-color)] mr-2'>End Date:</p>
+                                <p className='text-lg text-black'>{new Date(kpiInformation.endDate).toLocaleString()}</p>
+                            </div>
+                            <div className="flex">
+                                <p className='text-lg text-[var(--secondary-color)] mr-2'>Evaluation Type:</p>
+                                <p className='text-lg text-black'>{kpiInformation.evaluationType}</p>
+                            </div>
+
                             <br />
-                            <p className="font-bold text-xl">Questions:</p>
+                            <p className="text-center text-[24px] font-bold text-[var(--primary-color)]">Questions:</p>
 
                             <table className="min-w-full bg-white">
                                 <thead>
