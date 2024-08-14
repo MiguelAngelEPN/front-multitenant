@@ -9,13 +9,16 @@ export default function CreateKpibyQuestions() {
     console.log('params: ', params)
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
+    const [timeUnit, setTimeUnit] = useState('');
+    const [fieldFilter, setFieldFilter] = useState([""]);
+    const [selectedField, setSelectedField] = useState("");
 
     const [title, setTitle] = useState('');
     const [target, setTarget] = useState('');
-    const [questions, setQuestions] = useState([{ text: '', answer: false }]);
+    const [questions, setQuestions] = useState([{ text: '', answer: 0 }]); // Cambiado a 0 para false
 
     const addQuestion = () => {
-        setQuestions([...questions, { text: '', answer: false }]);
+        setQuestions([...questions, { text: '', answer: 0 }]); // Nuevo campo con valor 0 (false)
     };
 
     const removeQuestion = (index) => {
@@ -33,15 +36,45 @@ export default function CreateKpibyQuestions() {
         setQuestions(newQuestions);
     };
 
+    const handleSelectChange = (event) => {
+        setSelectedField(event.target.value);
+    };
+    const getFields = async () => {
+        console.log("entro a getFields")
+        try {
+            //Obtener tareas de empleados con x-tenant-id
+            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklog-keys`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data1 = await response.json();
+            //console.log("field result: ", data1)
+            setFieldFilter(data1);
+
+        } catch (error) {
+            console.error("Fetch error: ", error);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const timeTargetNumber = Number(target);
+        const timeUnitTarget = Number(timeUnit);
 
         // Crear el cuerpo de la solicitud
         const kpiData = {
             title,
             target: timeTargetNumber,
+            timeUnit: timeUnitTarget,
+            fieldtobeevaluated: selectedField,
             startDate: new Date(startDate).toISOString(),
             endDate: new Date(endDate).toISOString(),
             evaluationType: 'yes-no-questions',
@@ -88,16 +121,56 @@ export default function CreateKpibyQuestions() {
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-[--complementary-color] mb-2">Objetivo (Target)</label>
-                        <input
-                            type="number"
-                            value={target}
-                            onChange={(e) => setTarget(e.target.value)}
-                            required
-                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        />
+
+                    <div className='flex space-x-5'>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-[--complementary-color] mb-2">Objetivo (Target)</label>
+                            <input
+                                type="number"
+                                value={target}
+                                onChange={(e) => setTarget(e.target.value)}
+                                required
+                                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-[--complementary-color] mb-2">Unidad de tiempo (en días)</label>
+                            <select
+                                value={timeUnit}
+                                onChange={(e) => setTimeUnit(e.target.value)}
+                                required
+                                className="w-full h-[42px] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            >
+                                <option value="">Selecciona una opción</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
                     </div>
+                    <div className='mb-4'>
+                        <p className='block text-sm font-medium text-[--complementary-color] mb-2'>Campo a evaluar:</p>
+                        <div className='flex justify-between items-center'>
+                            <select
+                                className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                value={selectedField}
+                                onChange={handleSelectChange}
+                            >
+                                <option value="">Select a field</option>
+                                {fieldFilter.map((field, index) => (
+                                    <option key={index} value={field}>
+                                        {field}
+                                    </option>
+                                ))}
+                            </select>
+                            <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
+                                Obtener campos
+                            </button>
+                        </div>
+                    </div>
+
                     <div className="mb-6">
                         <p className='block text-m font-medium text-[--complementary-color] mb-2'>Rango de fechas:</p>
                         <div className='w-full flex justify-between'>
@@ -139,11 +212,11 @@ export default function CreateKpibyQuestions() {
                                 />
                                 <select
                                     value={question.answer}
-                                    onChange={(e) => handleQuestionChange(index, 'answer', e.target.value === 'true')}
+                                    onChange={(e) => handleQuestionChange(index, 'answer', e.target.value === '1' ? 1 : 0)}
                                     className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 mr-4"
                                 >
-                                    <option value={false}>No</option>
-                                    <option value={true}>Sí</option>
+                                    <option value={0}>No</option>
+                                    <option value={1}>Sí</option>
                                 </select>
                                 <button
                                     type="button"
@@ -158,12 +231,11 @@ export default function CreateKpibyQuestions() {
                         <button
                             type="button"
                             onClick={addQuestion}
-                            className="w-full py-2 px-2 bg-green-500 text-white rounded-full  hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            className="w-full py-2 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
                         >
                             Añadir Pregunta
                         </button>
                     </div>
-
 
                     <button
                         type="submit"
