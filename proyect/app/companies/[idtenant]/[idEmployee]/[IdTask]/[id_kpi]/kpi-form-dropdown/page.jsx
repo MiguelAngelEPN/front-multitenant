@@ -35,7 +35,8 @@ export default function KpiFormDropdown() {
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+            <div className='flex justify-start w-full'>
+            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                 ⬅️ Back
             </Link>
             <div className='custom-shadow w-[900px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
@@ -73,5 +74,6 @@ export default function KpiFormDropdown() {
                 </div>
             </div><br />
         </div>
+    </div>
     );
 }

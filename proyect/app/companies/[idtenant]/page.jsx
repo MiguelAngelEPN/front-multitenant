@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function EmployeeList() { 
+export default function EmployeeList() {
     const [tenantName, setTenantName] = useState('');
     const [employees, setEmployees] = useState([]);
     const router = useRouter();
@@ -50,9 +50,11 @@ export default function EmployeeList() {
     //<div className="bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center min-h-screen p-4 flex-col">
     return (<>
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href="/companies" className="absolute top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+            <div className='flex justify-start w-full'>
+                <Link href="/companies" className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div><br />
             <div className="bg-[--primary-color] rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-70 custom-shadow">
                 <div className="flex flex-col items-center space-y-2">
                     <label htmlFor="tenantName" className="block text-xl font-medium text-white mb-2">
@@ -72,13 +74,13 @@ export default function EmployeeList() {
                         }}
                     />
                     <button
-                    onClick={getEmployeeList}
-                    className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
-                >
-                    Listar Empleados
-                </button>
+                        onClick={getEmployeeList}
+                        className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
+                    >
+                        Listar Empleados
+                    </button>
                 </div>
-            </div> 
+            </div>
             <Link href={`/companies/${tenantName}/create-employee`}
                 className="mt-3 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[200px] text-center"
             >
@@ -115,7 +117,7 @@ export default function EmployeeList() {
                                     ))}
                                     <td className="py-3 px-6">
                                         <button
-                                            onClick={() => handleButtonClick(tenantName,employee._id)}
+                                            onClick={() => handleButtonClick(tenantName, employee._id)}
                                             className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600"
                                         >
                                             Task
