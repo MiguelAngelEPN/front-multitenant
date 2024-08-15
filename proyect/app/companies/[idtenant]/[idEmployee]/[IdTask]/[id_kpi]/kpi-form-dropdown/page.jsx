@@ -6,12 +6,6 @@ import Link from 'next/link';
 export default function KpiFormDropdown() {
     let params = useParams();
     const [kpiInformation, setKpiInformation] = useState('')
-    const [selectedValue, setSelectedValue] = useState('');
-
-    const handleSelect = (value) => {
-        // Si el valor seleccionado es el mismo que ya estaba seleccionado, se deselecciona
-        setSelectedValue(prevValue => prevValue === value ? '' : value);
-    };
 
     useEffect(() => {
         getKPIbyID();
@@ -71,21 +65,14 @@ export default function KpiFormDropdown() {
                     </div>
 
                     <div>
-                        <p className="text-center text-[24px] font-bold text-[var(--primary-color)]">Dropdown criterias</p><br />
-                        <ul className="text-black">
+                        <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Dropdown criterias</p><br />
+                        <ul className='text-black'>
                             {kpiInformation.dropdownCriteria && kpiInformation.dropdownCriteria.map((criteria, index) => (
-                                <li
-                                    key={index}
-                                    className={`mb-2 p-2 cursor-pointer ${selectedValue === criteria.value ? 'bg-[var(--primary-color)] text-white' : 'bg-gray-200'}`}
-                                    onClick={() => handleSelect(criteria.value)}
-                                >
-                                    (Valor: {criteria.value}) <span className="font-bold">{criteria.text}</span>
+                                <li key={index} className="mb-2">
+                                    <span className="font-bold">{criteria.value}</span>: {criteria.text}
                                 </li>
                             ))}
                         </ul>
-                        <div className="mt-4">
-                            <p>Opción seleccionada: {selectedValue}</p>
-                        </div>
                     </div>
                 </div><br />
             </div>
