@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
                 <MainMenu />
 
                 {/* Contenido principal */}
-                <div className="flex-1 h-full bg-gray-500">
+                <div className="flex-1 h-full bg-[#E7E5EE]">
                     {children}
                 </div>
             </div>

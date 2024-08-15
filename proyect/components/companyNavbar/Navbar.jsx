@@ -6,13 +6,13 @@ import Image from 'next/image';
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
-
+//bg-[#A268A7]
   return (
-    <div className="w-full flex h-14 bg-[#A268A7]">
+    <div className="w-full flex h-14 bg-[#E7E5EE]">
       <div className="flex w-full">
         <div className="">
           <Link href="/">
-            <Image src="/assets/backgrounds/icon_64.png" alt="ConstruEX Logo" width={260} height={50} className="logoCX" priority />
+            <Image src="/assets/backgrounds/icon_62.png" alt="ConstruEX Logo" width={260} height={50} className="logoCX" priority />
           </Link>
         </div>
         <nav className="flex items-center justify-end w-full h-full">
