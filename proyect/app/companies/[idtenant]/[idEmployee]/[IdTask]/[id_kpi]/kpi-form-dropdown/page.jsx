@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function KpiFormDropdown() {
     let params = useParams();
@@ -42,7 +41,6 @@ export default function KpiFormDropdown() {
 
     return (
         <>
-            <Navbar />
             <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
                 <div className='flex justify-end w-full'>
                     <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">

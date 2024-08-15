@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import Link from 'next/link';
+import './style.css'
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -10,7 +11,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex mainmenu">
       <div
         className={`${isOpen ? 'w-64' : 'w-20'
           } bg-gray-800 text-white flex flex-col justify-between transition-all duration-300`}
@@ -32,11 +33,11 @@ export default function Sidebar() {
         </div>
 
         <nav className="flex-1">
-          <ul>
+          <ul className='space-y-2 px-2'>
             <li>
               <Link
-                href="/companies"
-                className="flex items-center p-4 hover:bg-[var(--background-secundary-button)] focus:bg-[var(--background-secundary-button)] transition-colors duration-300"
+                href="/companies/employee-list"
+                className="flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--background-secundary-button)] focus:bg-[var(--background-secundary-button)] transition-colors duration-300"
               >
                 <span className="mr-3">{/* Símbolo en lugar de un icono */}🏠</span>
                 <span className={`${isOpen ? 'block' : 'hidden'} text-base font-medium`}>
@@ -46,8 +47,8 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href="/companies"
-                className="flex items-center p-4 hover:bg-[var(--background-secundary-button)] focus:bg-[var(--background-secundary-button)] transition-colors duration-300"
+                href="/companies/employee-list"
+                className="flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--background-secundary-button)] focus:bg-[var(--background-secundary-button)] transition-colors duration-300"
               >
                 <span className="mr-3">{/* Símbolo en lugar de un icono */}👤</span>
                 <span className={`${isOpen ? 'block' : 'hidden'} text-base font-medium`}>
@@ -57,8 +58,8 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href="/companies"
-                className="flex items-center p-4 hover:bg-[var(--background-secundary-button)] focus:bg-[var(--background-secundary-button)] transition-colors duration-300"
+                href="/companies/employee-list"
+                className="flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--background-secundary-button)] focus:bg-[var(--background-secundary-button)] transition-colors duration-300"
               >
                 <span className="mr-3">{/* Símbolo en lugar de un icono */}⚙️</span>
                 <span className={`${isOpen ? 'block' : 'hidden'} text-base font-medium`}>

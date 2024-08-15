@@ -2,7 +2,6 @@
 import { useRouter, useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function CreateKpibyQuestions() {
     const router = useRouter();
@@ -105,7 +104,6 @@ export default function CreateKpibyQuestions() {
 
     return (
         <>
-            <Navbar />
             <div className="min-h-screen flex flex-col items-center justify-center p-6 homepage">
 
                 <div className='flex justify-end w-full'>

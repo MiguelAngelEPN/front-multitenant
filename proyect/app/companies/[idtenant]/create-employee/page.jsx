@@ -2,7 +2,6 @@
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import Link from 'next/link';
-import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function CreateEmployees({ params }) {
 
@@ -73,7 +72,6 @@ export default function CreateEmployees({ params }) {
     }
 
     return (<>
-        <Navbar />
         <div className="homepage flex flex-col items-center justify-center min-h-screen p-8">
 
             <div className='flex justify-end w-full'>

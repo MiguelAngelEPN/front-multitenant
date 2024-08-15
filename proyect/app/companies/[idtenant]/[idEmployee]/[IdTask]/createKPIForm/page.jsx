@@ -2,7 +2,6 @@
 import { useRouter, useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function CreateKpiForm() {
     const router = useRouter();
@@ -15,7 +14,6 @@ export default function CreateKpiForm() {
 
     return (
         <>
-            <Navbar />
             <div className="homepage h-[640px] flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6">
                 <div className='flex justify-end w-full'>
                     <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">

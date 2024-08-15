@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function PageTaskLogsKpis() {
     let params = useParams();
@@ -117,7 +116,6 @@ export default function PageTaskLogsKpis() {
 
     return (
         <>
-            <Navbar />
             <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
 
                 <div className='flex justify-end w-full'>

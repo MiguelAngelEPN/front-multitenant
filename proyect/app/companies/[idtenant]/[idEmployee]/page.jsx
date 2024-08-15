@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function PageTaskListEmployee() {
     let params = useParams();
@@ -67,7 +66,6 @@ export default function PageTaskListEmployee() {
     };
 
     return (<>
-        <Navbar />
         <div className="homepage flex items-center justify-center h-[640px] p-4 flex-col">
             <div className='flex justify-end w-full'>
                 <Link href="/companies/employee-list" className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
