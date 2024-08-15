@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function KpiFormDropdown() {
     let params = useParams();
-    const [kpiInformation, setKpiInformation] = useState('')
+    const [kpiInformation, setKpiInformation] = useState('');
+    const [selectedValue, setSelectedValue] = useState(null);
 
     useEffect(() => {
         getKPIbyID();
@@ -33,49 +35,71 @@ export default function KpiFormDropdown() {
         }
     };
 
+    const handleRowClick = (value) => {
+        setSelectedValue(value);
+        console.log('Selected Value:', value);
+    };
+
     return (
-        <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                    ⬅️ Back
-                </Link>
+        <>
+            <Navbar />
+            <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
+                <div className='flex justify-end w-full'>
+                    <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                        ⬅️ Back
+                    </Link>
+                </div>
+                <div className='flex justify-center w-full'>
+                    <div className='custom-shadow w-[900px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
+                        <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation "Criteria Dropdown"</p><br />
+
+                        <div className="flex mb-2">
+                            <p className='text-lg text-[var(--secondary-color)] mr-2'>Start Date:</p>
+                            <p className='text-lg text-black'>{new Date(kpiInformation.startDate).toLocaleString()}</p>
+                        </div>
+
+                        <div className="flex mb-2">
+                            <p className='text-lg text-[var(--secondary-color)] mr-2'>End Date:</p>
+                            <p className='text-lg text-black'>{new Date(kpiInformation.endDate).toLocaleString()}</p>
+                        </div>
+
+                        <div className="flex mb-2">
+                            <p className='text-lg text-[var(--secondary-color)] mr-2'>Evaluation Type:</p>
+                            <p className='text-lg text-black'>{kpiInformation.evaluationType}</p>
+                        </div>
+
+                        <div>
+                            <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Dropdown Criteria</p><br />
+                            <table className="min-w-full bg-white">
+                                <thead>
+                                    <tr>
+                                        <th className="px-4 py-2 bg-gray-200 text-left font-bold">{kpiInformation.title}</th>
+                                        <th className="px-4 py-2 bg-gray-200 text-left font-bold">Criteria</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-black">
+                                    {kpiInformation.dropdownCriteria && kpiInformation.dropdownCriteria.map((criteria, index) => (
+                                        <tr 
+                                            key={index} 
+                                            className={`cursor-pointer ${selectedValue === criteria.value ? 'bg-[var(--secondary-color)] text-white' : 'hover:bg-gray-100'}`} 
+                                            onClick={() => handleRowClick(criteria.value)}>
+                                            <td className="border px-4 py-2">{criteria.value}</td>
+                                            <td className="border px-4 py-2">{criteria.text}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        {selectedValue && (
+                            <div className='mt-6 p-4 bg-[var(--primary-color)] text-white text-center text-lg font-bold rounded-lg'>
+                                Your evaluation is {selectedValue}%
+                            </div>
+                        )}
+                    </div><br />
+                </div>
             </div>
-            <div className='flex justify-center w-full'>
-                <div className='custom-shadow w-[900px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
-                    <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation "Criteria Dropdown"</p><br />
-
-                    <div className="flex mb-2">
-                        <p className='text-lg text-[var(--secondary-color)] mr-2'>Title:</p>
-                        <p className='text-lg text-black'>{kpiInformation.title}</p>
-                    </div>
-
-                    <div className="flex mb-2">
-                        <p className='text-lg text-[var(--secondary-color)] mr-2'>Start Date:</p>
-                        <p className='text-lg text-black'>{new Date(kpiInformation.startDate).toLocaleString()}</p>
-                    </div>
-
-                    <div className="flex mb-2">
-                        <p className='text-lg text-[var(--secondary-color)] mr-2'>End Date:</p>
-                        <p className='text-lg text-black'>{new Date(kpiInformation.endDate).toLocaleString()}</p>
-                    </div>
-
-                    <div className="flex mb-2">
-                        <p className='text-lg text-[var(--secondary-color)] mr-2'>Evaluation Type:</p>
-                        <p className='text-lg text-black'>{kpiInformation.evaluationType}</p>
-                    </div>
-
-                    <div>
-                        <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Dropdown criterias</p><br />
-                        <ul className='text-black'>
-                            {kpiInformation.dropdownCriteria && kpiInformation.dropdownCriteria.map((criteria, index) => (
-                                <li key={index} className="mb-2">
-                                    <span className="font-bold">{criteria.value}</span>: {criteria.text}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div><br />
-            </div>
-        </div>
+        </>
     );
 }
+

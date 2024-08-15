@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from 'next/link';
 import { BsBuildings } from "react-icons/bs";
+import Header from "@/components/home/Header";
+import Footer from "@/components/home/Footer";
 
 export default function Home() {
   const [idenviar, setIdenviar] = useState('');
@@ -39,7 +41,8 @@ export default function Home() {
   };
 
   return (
-    <main className="homepage flex min-h-screen items-center flex-col justify-center p-24">
+    <main className="homepage flex min-h-screen items-center flex-col justify-center">
+      <Header /> 
       <div className="container flex flex-col items-center justify-center gap-16 sm:flex-row">
         <Link href={`/companies`} className="card">
           <div>
@@ -55,6 +58,7 @@ export default function Home() {
           </div>
         </Link>
       </div>
+      <Footer />
     </main>
   );
 }

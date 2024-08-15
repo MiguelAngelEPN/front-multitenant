@@ -3,6 +3,7 @@ import React from 'react'
 import { useEffect, useState } from "react";
 import Link from 'next/link';
 import './style.css'
+import Header from '@/components/home/Header';
 function Companies() {
 
     const [companyRegister, setCompanyRegister] = useState('');
@@ -38,7 +39,8 @@ function Companies() {
 
     return (
         <>
-            <div className="homepage flex items-center justify-center min-h-screen flex-col">
+            <Header />
+            <div className="homepage flex items-center justify-center h-[640px] flex-col">
                 <div className="contenedorPadre flex flex-col items-center p-6 bg-opacity-70 rounded-lg shadow-lg">
                     <p className="title-left">REGISTER COMPANY</p><br/>
                     <div className="flex flex-col w-full space-y-4 text-black formularioregistercompany">

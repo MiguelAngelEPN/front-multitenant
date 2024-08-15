@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function PageTaskLogsKpis() {
     let params = useParams();
@@ -115,127 +116,174 @@ export default function PageTaskLogsKpis() {
     }
 
     return (
-        <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            
-            <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                    ⬅️ Back
-                </Link>
-            </div><br />
+        <>
+            <Navbar />
+            <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
 
-            <div className='w-full flex items-center justify-center mb-3'>
+                <div className='flex justify-end w-full'>
+                    <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                        ⬅️ Back
+                    </Link>
+                </div><br />
 
-                <div className='flex flex-col items-center w-1/3'>
-                    <div className='mt-10 flex flex-col items-center justify-center'>
-                        <h2 className='text-center text-[28px] text-[--primary-color]'>List TaskLogs and KPI's</h2>
-                        <p className='text-[20px] text-[--secondary-color]'>Employee: {employeeId}</p>
-                        <p className='text-[20px] text-[--secondary-color]'>Task: {taskId}</p>
-                    </div>
+                <div className='w-full flex items-center justify-center mb-1'>
 
-                    <div className="bg-[--primary-color] rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-70 custom-shadow">
-                        <div className="flex flex-col items-center space-y-2">
-                            <label htmlFor="tenantName" className="block text-xl font-medium text-white mb-2">
-                                Company Name:
-                            </label>
-                            <input
-                                id="tenantName"
-                                type="text"
-                                placeholder="CompanyExample"
-                                className="text-black block w-full border border-gray-300 rounded-lg px-3 py-2 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
-                                value={tenantId}
-                                onChange={e => {
-                                    // Limitar la longitud del valor a 400 caracteres
-                                    if (e.target.value.length <= 90) {
-                                        setTenantId(e.target.value);
-                                    }
-                                }}
-                            />
-                            <button
-                                onClick={() => { getTasksLogsList(); getKPIsList() }}
-                                className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
-                            >
-                                Listar TasksLogs and KPIs
-                            </button>
+                    <div className='flex flex-col items-center w-1/3'>
+                        <div className='mt-2 flex flex-col items-center justify-center'>
+                            <h2 className='text-center text-[28px] text-[--primary-color]'>List TaskLogs and KPI's</h2>
+                            <p className='text-[20px] text-[--secondary-color]'>Employee: {employeeId}</p>
+                            <p className='text-[20px] text-[--secondary-color]'>Task: {taskId}</p>
                         </div>
 
-                    </div> <br />
+                        <div className="bg-[--primary-color] rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-70 custom-shadow">
+                            <div className="flex flex-col items-center space-y-2">
+                                <label htmlFor="tenantName" className="block text-xl font-medium text-white mb-2">
+                                    Company Name:
+                                </label>
+                                <input
+                                    id="tenantName"
+                                    type="text"
+                                    placeholder="CompanyExample"
+                                    className="text-black block w-full border border-gray-300 rounded-lg px-3 py-2 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                                    value={tenantId}
+                                    onChange={e => {
+                                        // Limitar la longitud del valor a 400 caracteres
+                                        if (e.target.value.length <= 90) {
+                                            setTenantId(e.target.value);
+                                        }
+                                    }}
+                                />
+                                <button
+                                    onClick={() => { getTasksLogsList(); getKPIsList() }}
+                                    className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
+                                >
+                                    Listar TasksLogs and KPIs
+                                </button>
+                            </div>
 
-                    <div className='flex space-x-7'>
-                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`}
-                            className="py-2 bg-green-500 text-white rounded-full font-[12px] hover:bg-green-600 transition-colors w-[120px] text-center"
-                        >
-                            Registrar Log
-                        </Link>
+                        </div> <br />
 
-                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPI`}
-                            className="py-2 bg-blue-500 text-white rounded-full font-[12px] hover:bg-blue-600 transition-colors w-[130px] text-center"
-                        >
-                            KPI Percentage
-                        </Link>
+                        <div className='flex space-x-7'>
+                            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`}
+                                className="py-2 bg-green-500 text-white rounded-full font-[12px] hover:bg-green-600 transition-colors w-[120px] text-center"
+                            >
+                                Registrar Log
+                            </Link>
 
-                        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`}
-                            className="py-2 bg-yellow-500 text-black rounded-full font-[12px] hover:bg-yellow-600 transition-colors w-[120px] text-center"
-                        >
-                            KPI Form
-                        </Link>
+                            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPI`}
+                                className="py-2 bg-blue-500 text-white rounded-full font-[12px] hover:bg-blue-600 transition-colors w-[130px] text-center"
+                            >
+                                KPI Percentage
+                            </Link>
+
+                            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`}
+                                className="py-2 bg-yellow-500 text-black rounded-full font-[12px] hover:bg-yellow-600 transition-colors w-[120px] text-center"
+                            >
+                                KPI Form
+                            </Link>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
 
-            <div className='ml-4 flex items-center justify-center w-2/3 my-3'>
+                <div className='ml-4 flex items-center justify-center w-2/3 my-3'>
+                    <div className="flex justify-center">
+                        <div className="overflow-x-auto">
+                            <table className="bg-slate-300 shadow-md rounded-lg overflow-hidden border-2">
+                                <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                                    <tr>
+                                        {tableKPIsHeaders.map((header) => (
+                                            <th key={header} className="py-1 px-2 text-left uppercase tracking-wider">
+                                                {header.replace(/_/g, ' ')}
+                                            </th>
+                                        ))}
+                                        {hasKPIs && (
+                                            <th className="py-1 px-1 text-left uppercase tracking-wider">Actions</th>
+                                        )}
+                                    </tr>
+                                </thead>
+                                <tbody className='text-black'>
+                                    {kpis.map((kpi, index) => (
+                                        <tr
+                                            key={kpi._id}
+                                            className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+                                        >
+                                            {tableKPIsHeaders.map((header) => (
+                                                <td key={header} className="py-1 px-2">
+                                                    {renderCellContent(header, kpi[header])}
+                                                </td>
+                                            ))}
+                                            <td className="py-1 px-2">
+                                                {(!kpi.evaluationType || kpi.evaluationType === null) && (
+                                                    <button
+                                                        onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
+                                                        className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
+                                                    >
+                                                        Evaluation
+                                                    </button>
+                                                )}
+                                                {kpi.evaluationType === 'dropdown' && (
+                                                    <button
+                                                        onClick={() => handleDropdownAction(kpi._id)}
+                                                        className="py-1 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2"
+                                                    >
+                                                        Criteria evaluation
+                                                    </button>
+                                                )}
+                                                {kpi.evaluationType === 'yes-no-questions' && (
+                                                    <button
+                                                        onClick={() => handleQuestionsEvaluation(kpi._id)}
+                                                        className="py-1 px-2 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2"
+                                                    >
+                                                        Questions evaluation
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {/*---------- tabla dinámica para tasks con campos variables ----------*/}
                 <div className="flex justify-center">
                     <div className="overflow-x-auto">
-                        <table className="bg-slate-300 shadow-md rounded-lg overflow-hidden border-2">
+                        <table className="min-w-full bg-slate-300 shadow-md rounded-lg overflow-hidden border-2">
                             <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                 <tr>
-                                    {tableKPIsHeaders.map((header) => (
-                                        <th key={header} className="py-1 px-2 text-left uppercase tracking-wider">
+                                    {tableTaskLogsHeaders.map((header) => (
+                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider">
                                             {header.replace(/_/g, ' ')}
                                         </th>
                                     ))}
-                                    {hasKPIs && (
-                                        <th className="py-1 px-1 text-left uppercase tracking-wider">Actions</th>
+                                    {hasTasksLogs && (
+                                        <th className="py-3 px-3 text-left uppercase tracking-wider">Actions</th>
                                     )}
                                 </tr>
                             </thead>
                             <tbody className='text-black'>
-                                {kpis.map((kpi, index) => (
+                                {tasklogs.map((taskLog, index) => (
                                     <tr
-                                        key={kpi._id}
+                                        key={taskLog._id}
                                         className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                     >
-                                        {tableKPIsHeaders.map((header) => (
-                                            <td key={header} className="py-1 px-2">
-                                                {renderCellContent(header, kpi[header])}
+                                        {tableTaskLogsHeaders.map((header) => (
+                                            <td key={header} className="py-3 px-6">
+                                                {renderCellContent(header, taskLog[header])}
                                             </td>
                                         ))}
-                                        <td className="py-1 px-2">
-                                            {(!kpi.evaluationType || kpi.evaluationType === null) && (
-                                                <button
-                                                    onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
-                                                    className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
-                                                >
-                                                    Evaluation
-                                                </button>
-                                            )}
-                                            {kpi.evaluationType === 'dropdown' && (
-                                                <button
-                                                    onClick={() => handleDropdownAction(kpi._id)}
-                                                    className="py-1 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2"
-                                                >
-                                                    Criteria evaluation
-                                                </button>
-                                            )}
-                                            {kpi.evaluationType === 'yes-no-questions' && (
-                                                <button
-                                                    onClick={() => handleQuestionsEvaluation(kpi._id)}
-                                                    className="py-1 px-2 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2"
-                                                >
-                                                    Questions evaluation
-                                                </button>
-                                            )}
+                                        <td className="py-3 px-2">
+                                            <button
+                                                onClick={() => handleButtonClickKPI()}
+                                                className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
+                                            >
+                                                Edit
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
@@ -244,50 +292,7 @@ export default function PageTaskLogsKpis() {
                     </div>
                 </div>
             </div>
+        </>
 
-
-
-            {/*---------- tabla dinámica para tasks con campos variables ----------*/}
-            <div className="flex justify-center">
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-slate-300 shadow-md rounded-lg overflow-hidden border-2">
-                        <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-                            <tr>
-                                {tableTaskLogsHeaders.map((header) => (
-                                    <th key={header} className="py-3 px-6 text-left uppercase tracking-wider">
-                                        {header.replace(/_/g, ' ')}
-                                    </th>
-                                ))}
-                                {hasTasksLogs && (
-                                    <th className="py-3 px-3 text-left uppercase tracking-wider">Actions</th>
-                                )}
-                            </tr>
-                        </thead>
-                        <tbody className='text-black'>
-                            {tasklogs.map((taskLog, index) => (
-                                <tr
-                                    key={taskLog._id}
-                                    className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
-                                >
-                                    {tableTaskLogsHeaders.map((header) => (
-                                        <td key={header} className="py-3 px-6">
-                                            {renderCellContent(header, taskLog[header])}
-                                        </td>
-                                    ))}
-                                    <td className="py-3 px-2">
-                                        <button
-                                            onClick={() => handleButtonClickKPI()}
-                                            className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
-                                        >
-                                            Edit
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     );
 }

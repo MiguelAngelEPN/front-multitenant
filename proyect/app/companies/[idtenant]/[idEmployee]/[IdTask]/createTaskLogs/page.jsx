@@ -3,6 +3,7 @@ import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function CreateTaskLogs() {
 
@@ -70,6 +71,7 @@ export default function CreateTaskLogs() {
     }
 
     return (<>
+        <Navbar />
         <div className="homepage flex flex-col items-center justify-center min-h-screen p-8">
 
         <div className='flex justify-end w-full'>

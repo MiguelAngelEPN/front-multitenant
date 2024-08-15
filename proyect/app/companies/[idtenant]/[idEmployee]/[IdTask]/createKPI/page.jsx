@@ -2,6 +2,7 @@
 import { useRouter, useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import Navbar from '@/components/companyNavbar/Navbar';
 
 export default function CreateKpi() {
   const router = useRouter();
@@ -100,7 +101,9 @@ export default function CreateKpi() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6 homepage">
+    <>
+      <Navbar />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6 homepage">
       <div className='flex justify-end w-full'>
         <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
           ⬅️ Back
@@ -247,5 +250,7 @@ export default function CreateKpi() {
         </form>
       </div>
     </div>
+    </>
+    
   );
 }
