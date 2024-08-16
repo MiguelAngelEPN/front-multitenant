@@ -13,7 +13,7 @@ export default function EmployeeList() {
 
     useEffect(() => {
         getEmployeeList()
-      },[]);
+    }, []);
 
 
     const getEmployeeList = async () => {
@@ -75,12 +75,12 @@ export default function EmployeeList() {
                             <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                 <tr>
                                     {tableHeaders.map((header) => (
-                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider">
+                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">
                                             {header.replace(/_/g, ' ')}
                                         </th>
                                     ))}
                                     {hasEmployees && (
-                                        <th className="py-3 px-6 text-left uppercase tracking-wider">Actions</th>
+                                        <th className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">Actions</th>
                                     )}
                                 </tr>
                             </thead>
@@ -91,7 +91,7 @@ export default function EmployeeList() {
                                         className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                     >
                                         {tableHeaders.map((header) => (
-                                            <td key={header} className="py-3 px-6">
+                                            <td key={header} className="py-3 px-6 text-[12px]">
                                                 {typeof employee[header] === 'object'
                                                     ? JSON.stringify(employee[header], null, 2)
                                                     : employee[header] ?? 'N/A'}

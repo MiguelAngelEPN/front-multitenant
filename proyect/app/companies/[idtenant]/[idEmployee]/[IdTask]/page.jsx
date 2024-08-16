@@ -116,7 +116,7 @@ export default function PageTaskLogsKpis() {
 
     return (
         <>
-            <div className="rounded-3xl homepage flex items-center justify-center min-h-screen p-4 flex-col">
+            <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
 
                 <div className='flex justify-end w-full'>
                     <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
@@ -155,7 +155,7 @@ export default function PageTaskLogsKpis() {
                                     onClick={() => { getTasksLogsList(); getKPIsList() }}
                                     className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
                                 >
-                                    Listar TasksLogs and KPIs
+                                    List TasksLogs and KPIs
                                 </button>
                             </div>
 
@@ -192,12 +192,12 @@ export default function PageTaskLogsKpis() {
                                 <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                     <tr>
                                         {tableKPIsHeaders.map((header) => (
-                                            <th key={header} className="py-1 px-2 text-left uppercase tracking-wider">
+                                            <th key={header} className="py-1 px-2 text-left uppercase tracking-wider text-[13px]">
                                                 {header.replace(/_/g, ' ')}
                                             </th>
                                         ))}
                                         {hasKPIs && (
-                                            <th className="py-1 px-1 text-left uppercase tracking-wider">Actions</th>
+                                            <th className="py-1 px-1 text-left uppercase tracking-wider text-[13px]">Actions</th>
                                         )}
                                     </tr>
                                 </thead>
@@ -208,7 +208,7 @@ export default function PageTaskLogsKpis() {
                                             className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                         >
                                             {tableKPIsHeaders.map((header) => (
-                                                <td key={header} className="py-1 px-2">
+                                                <td key={header} className="py-1 px-2 text-[12px]">
                                                     {renderCellContent(header, kpi[header])}
                                                 </td>
                                             ))}
@@ -216,7 +216,7 @@ export default function PageTaskLogsKpis() {
                                                 {(!kpi.evaluationType || kpi.evaluationType === null) && (
                                                     <button
                                                         onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
-                                                        className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
+                                                        className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2 text-[13px]"
                                                     >
                                                         Evaluation
                                                     </button>
@@ -224,7 +224,7 @@ export default function PageTaskLogsKpis() {
                                                 {kpi.evaluationType === 'dropdown' && (
                                                     <button
                                                         onClick={() => handleDropdownAction(kpi._id)}
-                                                        className="py-1 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2"
+                                                        className="py-1 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2 text-[13px]"
                                                     >
                                                         Criteria evaluation
                                                     </button>
@@ -232,7 +232,7 @@ export default function PageTaskLogsKpis() {
                                                 {kpi.evaluationType === 'yes-no-questions' && (
                                                     <button
                                                         onClick={() => handleQuestionsEvaluation(kpi._id)}
-                                                        className="py-1 px-2 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2"
+                                                        className="py-1 px-2 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2 text-[13px]"
                                                     >
                                                         Questions evaluation
                                                     </button>
@@ -255,12 +255,12 @@ export default function PageTaskLogsKpis() {
                             <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                 <tr>
                                     {tableTaskLogsHeaders.map((header) => (
-                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider">
+                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">
                                             {header.replace(/_/g, ' ')}
                                         </th>
                                     ))}
                                     {hasTasksLogs && (
-                                        <th className="py-3 px-3 text-left uppercase tracking-wider">Actions</th>
+                                        <th className="py-3 px-3 text-left uppercase tracking-wider text-[13px]">Actions</th>
                                     )}
                                 </tr>
                             </thead>
@@ -271,14 +271,14 @@ export default function PageTaskLogsKpis() {
                                         className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                     >
                                         {tableTaskLogsHeaders.map((header) => (
-                                            <td key={header} className="py-3 px-6">
+                                            <td key={header} className="py-3 px-6 text-[12px]">
                                                 {renderCellContent(header, taskLog[header])}
                                             </td>
                                         ))}
                                         <td className="py-3 px-2">
                                             <button
                                                 onClick={() => handleButtonClickKPI()}
-                                                className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2"
+                                                className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2 text-[13px]"
                                             >
                                                 Edit
                                             </button>
