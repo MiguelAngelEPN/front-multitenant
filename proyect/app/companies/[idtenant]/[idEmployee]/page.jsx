@@ -118,12 +118,12 @@ export default function PageTaskListEmployee() {
                         <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                             <tr>
                                 {tableHeaders.map((header) => (
-                                    <th key={header} className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">
+                                    <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
                                         {header.replace(/_/g, ' ')}
                                     </th>
                                 ))}
                                 {hasTasks && (
-                                    <th className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">Actions</th>
+                                    <th className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
                                 )}
                             </tr>
                         </thead>
@@ -134,7 +134,7 @@ export default function PageTaskListEmployee() {
                                     className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                 >
                                     {tableHeaders.map((header) => (
-                                        <td key={header} className="py-3 px-6 text-[12px]">
+                                        <td key={header} className="py-3 px-3 text-[12px] text-center">
                                             {renderCellContent(header, task[header])}
                                         </td>
                                     ))}

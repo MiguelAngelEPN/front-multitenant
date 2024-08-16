@@ -75,12 +75,12 @@ export default function EmployeeList() {
                             <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                 <tr>
                                     {tableHeaders.map((header) => (
-                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">
+                                        <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
                                             {header.replace(/_/g, ' ')}
                                         </th>
                                     ))}
                                     {hasEmployees && (
-                                        <th className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">Actions</th>
+                                        <th className="py-3 px-6 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
                                     )}
                                 </tr>
                             </thead>
@@ -91,7 +91,7 @@ export default function EmployeeList() {
                                         className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                     >
                                         {tableHeaders.map((header) => (
-                                            <td key={header} className="py-3 px-6 text-[12px]">
+                                            <td key={header} className="py-3 px-3 text-[12px] text-center">
                                                 {typeof employee[header] === 'object'
                                                     ? JSON.stringify(employee[header], null, 2)
                                                     : employee[header] ?? 'N/A'}
@@ -100,7 +100,7 @@ export default function EmployeeList() {
                                         <td className="py-3 px-6">
                                             <button
                                                 onClick={() => handleButtonClick(employee._id)}
-                                                className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                                                className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 text-[13px]"
                                             >
                                                 Task
                                             </button>

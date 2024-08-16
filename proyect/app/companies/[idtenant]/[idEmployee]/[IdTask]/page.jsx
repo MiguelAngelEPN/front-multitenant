@@ -192,12 +192,12 @@ export default function PageTaskLogsKpis() {
                                 <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                     <tr>
                                         {tableKPIsHeaders.map((header) => (
-                                            <th key={header} className="py-1 px-2 text-left uppercase tracking-wider text-[13px]">
+                                            <th key={header} className="py-1 px-3 text-left uppercase tracking-wider text-[13px] text-center">
                                                 {header.replace(/_/g, ' ')}
                                             </th>
                                         ))}
                                         {hasKPIs && (
-                                            <th className="py-1 px-1 text-left uppercase tracking-wider text-[13px]">Actions</th>
+                                            <th className="py-1 px-3 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
                                         )}
                                     </tr>
                                 </thead>
@@ -208,7 +208,7 @@ export default function PageTaskLogsKpis() {
                                             className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                         >
                                             {tableKPIsHeaders.map((header) => (
-                                                <td key={header} className="py-1 px-2 text-[12px]">
+                                                <td key={header} className="py-1 px-3 text-[12px] text-center">
                                                     {renderCellContent(header, kpi[header])}
                                                 </td>
                                             ))}
@@ -216,7 +216,7 @@ export default function PageTaskLogsKpis() {
                                                 {(!kpi.evaluationType || kpi.evaluationType === null) && (
                                                     <button
                                                         onClick={() => handleButtonClickKPIEvaluetion(kpi._id)}
-                                                        className="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2 text-[13px]"
+                                                        className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 mb-2 text-[13px]"
                                                     >
                                                         Evaluation
                                                     </button>
@@ -224,7 +224,7 @@ export default function PageTaskLogsKpis() {
                                                 {kpi.evaluationType === 'dropdown' && (
                                                     <button
                                                         onClick={() => handleDropdownAction(kpi._id)}
-                                                        className="py-1 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2 text-[13px]"
+                                                        className="py-1 px-3 bg-green-500 text-white rounded-full hover:bg-green-600 mb-2 text-[13px]"
                                                     >
                                                         Criteria evaluation
                                                     </button>
@@ -232,7 +232,7 @@ export default function PageTaskLogsKpis() {
                                                 {kpi.evaluationType === 'yes-no-questions' && (
                                                     <button
                                                         onClick={() => handleQuestionsEvaluation(kpi._id)}
-                                                        className="py-1 px-2 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2 text-[13px]"
+                                                        className="py-1 px-3 bg-red-500 text-white rounded-full hover:bg-red-600 mb-2 text-[13px]"
                                                     >
                                                         Questions evaluation
                                                     </button>
@@ -255,12 +255,12 @@ export default function PageTaskLogsKpis() {
                             <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                 <tr>
                                     {tableTaskLogsHeaders.map((header) => (
-                                        <th key={header} className="py-3 px-6 text-left uppercase tracking-wider text-[13px]">
+                                        <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
                                             {header.replace(/_/g, ' ')}
                                         </th>
                                     ))}
                                     {hasTasksLogs && (
-                                        <th className="py-3 px-3 text-left uppercase tracking-wider text-[13px]">Actions</th>
+                                        <th className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
                                     )}
                                 </tr>
                             </thead>
@@ -271,7 +271,7 @@ export default function PageTaskLogsKpis() {
                                         className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                                     >
                                         {tableTaskLogsHeaders.map((header) => (
-                                            <td key={header} className="py-3 px-6 text-[12px]">
+                                            <td key={header} className="py-3 px-3 text-[12px] text-center">
                                                 {renderCellContent(header, taskLog[header])}
                                             </td>
                                         ))}
