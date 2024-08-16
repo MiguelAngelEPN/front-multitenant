@@ -106,11 +106,12 @@ export default function PageTaskListEmployee() {
 
             </div> <br />
 
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/CreateTask`}
-                className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[200px] text-center"
-            >
-                Assign Task to Employee
-            </Link><br />
+                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/CreateTask`}
+                    className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+                >
+                    Assign Task to Employee
+                </Link>
+            
             {/*---------- tabla dinámica para tasks con campos variables ----------*/}
             <div className="flex justify-center">
                 <div className="overflow-x-auto">
@@ -118,12 +119,12 @@ export default function PageTaskListEmployee() {
                         <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                             <tr>
                                 {tableHeaders.map((header) => (
-                                    <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
+                                    <th key={header} className="py-3 px-3 uppercase tracking-wider text-[13px] text-center">
                                         {header.replace(/_/g, ' ')}
                                     </th>
                                 ))}
                                 {hasTasks && (
-                                    <th className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
+                                    <th className="py-3 px-3 uppercase tracking-wider text-[13px] text-center">Actions</th>
                                 )}
                             </tr>
                         </thead>
