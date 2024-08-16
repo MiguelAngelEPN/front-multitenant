@@ -63,11 +63,19 @@ export default function EmployeeList() {
                 </Link>
             </div><br />
             <div className='flex flex-col justify-center items-center w-full h-full'>
-                <Link href={`/companies/${params.idtenant}/create-employee`}
-                    className="mt-3 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[200px] text-center"
-                >
-                    Create Employee
-                </Link><br />
+                <div className='flex space-x-3 mb-3'>
+                    <Link href={`/companies/${params.idtenant}/create-employee`}
+                        className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+                    >
+                        Create Employee
+                    </Link><br />
+                    <Link href={`/companies/${params.idtenant}/create-task-department`}
+                        className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+                    >
+                        Assign Task to Department
+                    </Link>
+                </div>
+
                 {/*---------- tabla dinámica para empleados con campos variables ----------*/}
                 <div className="flex justify-center">
                     <div className="overflow-x-auto">
