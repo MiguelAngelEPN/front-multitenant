@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function KpiEvaluation() {
     let params = useParams();
-    //console.log('params: ', params)
+    console.log('params: ', params)
     const [kpiPercentage, setKpiPercentage] = useState(0)
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -33,7 +33,7 @@ export default function KpiEvaluation() {
         console.log("dias excluidas: ", excludedDays)
         try {
             //Obtener tareas de empleados con x-tenant-id
-            /**/const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklogs`, {
+            /**/const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpi/${params.idtenant}/evaluation`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
