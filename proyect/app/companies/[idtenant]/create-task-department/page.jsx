@@ -6,9 +6,40 @@ import Link from 'next/link';
 
 export default function AssignTasksToDepartment() { //registrar un empleado dado un tenant
     let params = useParams();
+    const [listDepartament, setListDepartament] = useState([])
     //console.log('params: ', params)
     //console.log('params.idtenant: ', params.idtenant)
     const router = useRouter();
+    useEffect(() => {
+        departamentlis()
+    }, []);
+    const departamentlis = async () => {
+        try {
+            // Obtener usuarios de empresa_a
+            const responseA = await fetch(`http://localhost:3000/employees/departments`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+                },
+            });
+
+            if (!responseA.ok) {
+                throw new Error(`HTTP error! Status: ${responseA.status}`);
+            }
+            const data = await responseA.json();
+            console.log("lista department:", data)
+            setListDepartament(data)
+
+            if (responseA.ok) {
+            } else {
+                alert('Error al asignadar tarea');
+            }
+
+        } catch (error) {
+            console.error("Fetch error:", error);
+        }
+    };
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
@@ -185,10 +216,12 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                                 className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.departament", { required: "Departament is required" })}
                             >
-                                <option value="TI">TI</option>
-                                <option value="RRHH">RRHH</option>
-                                <option value="Ventas">Ventas</option>
-                                <option value="Desarrollo">Desarrollo</option>
+                                {listDepartament.map((fieldlist, index) => (
+                                    <option key={index} value={fieldlist}>{fieldlist}</option>
+
+                                ))
+                                }
+
                             </select>
                             {errors.task?.departament && <p className="mt-1 text-sm text-red-500">{errors.task.departament.message}</p>}
                         </div>
