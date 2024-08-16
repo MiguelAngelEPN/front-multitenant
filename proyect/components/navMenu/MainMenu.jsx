@@ -6,7 +6,7 @@ import { HiUserGroup } from "react-icons/hi2";
 import { SiGoogletasks } from "react-icons/si";
 import { SiBaremetrics } from "react-icons/si";
 
-export default function Sidebar() {
+export default function Sidebar({idtenant}) {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedLink, setSelectedLink] = useState(null);
 
@@ -44,7 +44,7 @@ export default function Sidebar() {
           <ul className='space-y-2 px-2'>
             <li>
               <Link
-                href="/companies/employee-list"
+                href={`/companies/${idtenant}`}
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 1 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(1)}
               >
@@ -56,7 +56,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href="/companies/employee-list"
+                href={`/companies/${idtenant}`}
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 2 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(2)}
               >
@@ -68,7 +68,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href="/companies/employee-list"
+                href={`/companies/${idtenant}`}
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 3 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(3)}
               >
