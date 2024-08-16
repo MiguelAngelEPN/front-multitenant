@@ -14,7 +14,7 @@ export default function CreateKpiForm() {
 
     return (
         <>
-            <div className="homepage min-h-screen flex flex-col items-center justify-center p-6">
+            <div className="rounded-3xl homepage min-h-screen flex flex-col items-center justify-center p-6">
                 <div className='flex justify-end w-full'>
                     <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                         ⬅️ Back
