@@ -80,13 +80,13 @@ export default function CreateEmployees({ params }) {
                 </Link>
             </div>
 
-            <div className="w-full max-w-2xl bg-[--primary-color] bg-opacity-80 p-8 rounded-lg shadow-lg backdrop-blur-md">
+            <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6 text-black">
-                    <h2 className="text-center text-3xl font-semibold text-[--complementary-color] mb-6">Register Employee</h2>
+                    <h2 className="text-center text-3xl font-semibold text-[--primary-color] mb-6">Register Employee</h2>
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Name</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Name</label>
                             <input
                                 type="text"
                                 placeholder="Name"
@@ -96,7 +96,7 @@ export default function CreateEmployees({ params }) {
                             {errors.employee?.name && <p className="mt-1 text-sm text-red-500">{errors.employee.name.message}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Department</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Department</label>
                             <input
                                 type="text"
                                 placeholder="Department"
@@ -106,7 +106,7 @@ export default function CreateEmployees({ params }) {
                             {errors.employee?.department && <p className="mt-1 text-sm text-red-500">{errors.employee.department.message}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Work Position</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Work Position</label>
                             <input
                                 type="text"
                                 placeholder="Work Position"
@@ -118,7 +118,7 @@ export default function CreateEmployees({ params }) {
                     </div>
 
                     <div className="space-y-4">
-                        <label className="block text-xl font-medium text-[--complementary-color]">Additional Fields</label>
+                        <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
                         {fields.map((field, index) => (
                             <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
                                 <div>
@@ -171,7 +171,7 @@ export default function CreateEmployees({ params }) {
                     <div className="flex justify-center mt-8">
                         <button
                             type="submit"
-                            className="px-6 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 border-2"
+                            className="w-full px-6 py-2 text-sm font-semibold text-white bg-[--primary-color] rounded-full hover:bg-fuchsia-800 border-2"
                         >
                             Submit
                         </button>
