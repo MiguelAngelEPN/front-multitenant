@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import './style.css'
+import { HiUserGroup } from "react-icons/hi2";
+import { SiGoogletasks } from "react-icons/si";
+import { SiBaremetrics } from "react-icons/si";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -30,10 +33,10 @@ export default function Sidebar() {
           </h1>
           <button
             onClick={toggleSidebar}
-            className="text-[var(--secondary-color)] focus:outline-none"
+            className="text-[var(--secondary-color)] focus:outline-none text-3xl"
           >
             {/* Aquí puedes poner un símbolo o cualquier representación visual */}
-            {isOpen ? '✖️' : '☰'}
+            {isOpen ? '🔙' : '🟰'}
           </button>
         </div>
 
@@ -45,9 +48,9 @@ export default function Sidebar() {
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 1 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(1)}
               >
-                <span className="mr-3">{/* Símbolo en lugar de un icono */}🏠</span>
+                <span className="mr-3">{/* Símbolo en lugar de un icono */}<HiUserGroup /></span>
                 <span className={`${isOpen ? 'block' : 'hidden'} text-base font-medium`}>
-                  Home
+                  Employees
                 </span>
               </Link>
             </li>
@@ -57,9 +60,9 @@ export default function Sidebar() {
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 2 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(2)}
               >
-                <span className="mr-3">👤</span>
+                <span className="mr-3"><SiGoogletasks /></span>
                 <span className={`${isOpen ? 'block' : 'hidden'} text-base font-medium`}>
-                  Profile
+                  Tasks
                 </span>
               </Link>
             </li>
@@ -69,9 +72,9 @@ export default function Sidebar() {
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 3 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(3)}
               >
-                <span className="mr-3">⚙️</span>
+                <span className="mr-3"><SiBaremetrics /></span>
                 <span className={`${isOpen ? 'block' : 'hidden'} text-base font-medium`}>
-                  Settings
+                  KPIS
                 </span>
               </Link>
             </li>

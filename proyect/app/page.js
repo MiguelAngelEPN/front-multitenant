@@ -41,24 +41,36 @@ export default function Home() {
   };
 
   return (
-    <main className="homepage flex min-h-screen items-center flex-col justify-center">
-      <Header /> 
-      <div className="container flex flex-col items-center justify-center gap-16 sm:flex-row">
-        <Link href={`/companies`} className="card">
-          <div>
-            <figure className="icon-containder">
-              <BsBuildings
-                className="w-44 h-44 object-cover icon"
-                alt="companyImage" />
-            </figure>
-            <div className="contenido">
-              <h3>Company</h3>
-              <p>Chasqi for Companies</p>
+    <div className="flex flex-col min-h-screen">
+      {/* Header anclado en la parte superior */}
+      <header className="w-full">
+        <Header />
+      </header>
+
+      {/* Contenido principal que ocupa el espacio restante */}
+      <main className="homepage flex-grow w-full ">
+        <div className="flex flex-col items-center justify-center gap-16 sm:flex-row mt-28">
+          <Link href={`/companies`} className="card">
+            <div>
+              <figure className="icon-container">
+                <BsBuildings
+                  className="w-44 h-44 object-cover icon"
+                  alt="companyImage"
+                />
+              </figure>
+              <div className="contenido">
+                <h3>Company</h3>
+                <p>Chasqi for Companies</p>
+              </div>
             </div>
-          </div>
-        </Link>
-      </div>
-      <Footer />
-    </main>
+          </Link>
+        </div>
+      </main>
+
+      {/* Footer anclado en la parte inferior */}
+      <footer className="w-full">
+        <Footer />
+      </footer>
+    </div>
   );
 }
