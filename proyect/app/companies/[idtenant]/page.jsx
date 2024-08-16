@@ -1,12 +1,19 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function EmployeeList() {
+    let params = useParams();
+    console.log('params: ', params)
+
     const [tenantName, setTenantName] = useState('');
     const [employees, setEmployees] = useState([]);
     const router = useRouter();
+
+    useEffect(() => {
+        getEmployeeList()
+      },[]);
 
 
     const getEmployeeList = async () => {
@@ -16,7 +23,7 @@ export default function EmployeeList() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": tenantName, // Pasar el nombre de la empresa como x-tenant-id
+                    "x-tenant-id": params.idtenant, // Pasar el nombre de la empresa como x-tenant-id
                 },
             });
 
@@ -44,45 +51,19 @@ export default function EmployeeList() {
     const tableHeaders = getTableHeaders();
     const hasEmployees = employees.length > 0;
 
-    const handleButtonClick = (idTenant, idEmployee) => {
-        router.push(`/companies/${idTenant}/${idEmployee}`);
+    const handleButtonClick = (idEmployee) => {
+        router.push(`/companies/${params.idtenant}/${idEmployee}`);
     };
     //<div className="bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center min-h-screen p-4 flex-col">
     return (<>
-        <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
+        <div className=" homepage flex items-center min-h-screen p-4 flex-col">
             <div className='flex justify-end w-full'>
                 <Link href="/companies" className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>
             </div><br />
             <div className='flex flex-col justify-center items-center w-full h-full'>
-                <div className="bg-[--primary-color] rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-70 custom-shadow">
-                    <div className="flex flex-col items-center space-y-2">
-                        <label htmlFor="tenantName" className="block text-xl font-medium text-white mb-2">
-                            Company Name:
-                        </label>
-                        <input
-                            id="tenantName"
-                            type="text"
-                            placeholder="CompanyExample"
-                            className="block w-full border border-gray-300 rounded-lg px-3 py-2 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
-                            value={tenantName}
-                            onChange={e => {
-                                // Limitar la longitud del valor a 400 caracteres
-                                if (e.target.value.length <= 90) {
-                                    setTenantName(e.target.value)
-                                }
-                            }}
-                        />
-                        <button
-                            onClick={getEmployeeList}
-                            className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
-                        >
-                            Listar Empleados
-                        </button>
-                    </div>
-                </div>
-                <Link href={`/companies/${tenantName}/create-employee`}
+                <Link href={`/companies/${params.idtenant}/create-employee`}
                     className="mt-3 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[200px] text-center"
                 >
                     Crear Empleado
@@ -118,7 +99,7 @@ export default function EmployeeList() {
                                         ))}
                                         <td className="py-3 px-6">
                                             <button
-                                                onClick={() => handleButtonClick(tenantName, employee._id)}
+                                                onClick={() => handleButtonClick(employee._id)}
                                                 className="py-1 px-3 bg-blue-500 text-white rounded-full hover:bg-blue-600"
                                             >
                                                 Task
