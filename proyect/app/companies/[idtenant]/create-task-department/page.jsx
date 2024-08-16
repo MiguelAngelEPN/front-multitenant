@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 export default function AssignTasksToDepartment() { //registrar un empleado dado un tenant
     let params = useParams();
-    console.log('params: ', params)
-    console.log('params.idtenant: ', params.idtenant)
+    //console.log('params: ', params)
+    //console.log('params.idtenant: ', params.idtenant)
     const router = useRouter();
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -30,7 +30,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
     });
 
     const onFormSubmit = (data) => {
-        const { title, priority, startDate, endDate, concurrence, state, additionalFields } = data.task;
+        const { title, priority, startDate, endDate, concurrence, state, additionalFields, departament } = data.task;
         const additionalData = additionalFields.reduce((acc, field) => {
             if (field.key && field.value) {
                 switch (field.type) {
@@ -60,17 +60,18 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
             endDate: new Date(endDate).toISOString(),
             concurrence: concurrenceBool,
             state,
+            departament,
             ...additionalData,
         };
 
-        console.log(formattedData);
+        console.log("formattedData.departament: ", formattedData.departament);
         asignedTask(formattedData)
     }
 
     const asignedTask = async (formattedData) => {
         try {
             // Obtener usuarios de empresa_a
-            const responseA = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks`, {
+            const responseA = await fetch(`http://localhost:3000/employees/department/${formattedData.departament}/tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -78,6 +79,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                 },
                 body: JSON.stringify(formattedData),
             });
+            console.log("endpoint: ", `http://localhost:3000/employees/department/${formattedData.departament}/tasks`)
 
             if (!responseA.ok) {
                 throw new Error(`HTTP error! Status: ${responseA.status}`);
@@ -106,7 +108,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
 
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <div className='my-2 flex flex-col items-center'>
-                    <h2 className='text-center text-[32px] text-[--primary-color]'>Assign tasks</h2>
+                    <h2 className='text-center text-[32px] text-[--primary-color]'>Assign tasks to a department</h2>
                     <p className='text-[24px] text-[--secondary-color]'>EmployeeId: {params.idEmployee}</p>
                 </div>
 
@@ -176,6 +178,19 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                                 <option value="inactive">Inactive</option>
                             </select>
                             {errors.task?.state && <p className="mt-1 text-sm text-red-500">{errors.task.state.message}</p>}
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Departament</label>
+                            <select
+                                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                {...register("task.departament", { required: "Departament is required" })}
+                            >
+                                <option value="TI">TI</option>
+                                <option value="RRHH">RRHH</option>
+                                <option value="Ventas">Ventas</option>
+                                <option value="Desarrollo">Desarrollo</option>
+                            </select>
+                            {errors.task?.departament && <p className="mt-1 text-sm text-red-500">{errors.task.departament.message}</p>}
                         </div>
 
                     </div>
