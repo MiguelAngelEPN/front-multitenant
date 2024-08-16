@@ -112,11 +112,11 @@ export default function CreateKpibyQuestions() {
                     </Link>
                 </div>
 
-                <div className="bg-[--primary-color] backdrop-blur-md shadow-lg rounded-lg p-8 w-full max-w-lg">
-                    <h1 className="text-3xl font-semibold mb-6 text-center text-[--complementary-color]">Crear KPI para Tarea con evaluación por Questions</h1>
+                <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
+                    <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Crear KPI para Tarea con evaluación por Questions</h1>
                     <form onSubmit={handleSubmit} className='text-black'>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-[--complementary-color] mb-2">Título del KPI</label>
+                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">Título del KPI</label>
                             <input
                                 type="text"
                                 value={title}
@@ -128,7 +128,7 @@ export default function CreateKpibyQuestions() {
 
                         <div className='flex space-x-5'>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-[--complementary-color] mb-2">Objetivo (Target)</label>
+                                <label className="block text-sm font-medium text-[--secondary-color] mb-2">Objetivo (Target)</label>
                                 <input
                                     type="number"
                                     value={target}
@@ -138,7 +138,7 @@ export default function CreateKpibyQuestions() {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-[--complementary-color] mb-2">Unidad de tiempo (en días)</label>
+                                <label className="block text-sm font-medium text-[--secondary-color] mb-2">Unidad de tiempo (en días)</label>
                                 <select
                                     value={timeUnit}
                                     onChange={(e) => setTimeUnit(e.target.value)}
@@ -155,7 +155,7 @@ export default function CreateKpibyQuestions() {
                             </div>
                         </div>
                         <div className='mb-4'>
-                            <p className='block text-sm font-medium text-[--complementary-color] mb-2'>Campo a evaluar:</p>
+                            <p className='block text-m font-medium text-[--secondary-color] mb-2'>Campo a evaluar:</p>
                             <div className='flex justify-between items-center'>
                                 <select
                                     className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
@@ -176,10 +176,10 @@ export default function CreateKpibyQuestions() {
                         </div>
 
                         <div className="mb-6">
-                            <p className='block text-m font-medium text-[--complementary-color] mb-2'>Rango de fechas:</p>
+                            <p className='block text-m font-medium text-[--secondary-color] mb-2'>Rango de fechas:</p>
                             <div className='w-full flex justify-between'>
                                 <div className='w-[220px]'>
-                                    <p className='block text-sm font-medium text-[--complementary-color] mb-2'>fecha de inicio:</p>
+                                    <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Fecha de inicio:</p>
                                     <input
                                         type="datetime-local"
                                         value={startDate}
@@ -189,7 +189,7 @@ export default function CreateKpibyQuestions() {
                                     />
                                 </div>
                                 <div className='w-[220px]'>
-                                    <p className='block text-sm font-medium text-[--complementary-color] mb-2'>fecha de fin:</p>
+                                    <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Fecha de fin:</p>
                                     <input
                                         type="datetime-local"
                                         value={endDate}
@@ -202,7 +202,7 @@ export default function CreateKpibyQuestions() {
                         </div>
 
                         <div className="mb-6">
-                            <h2 className="text-lg font-semibold mb-4 text-[--complementary-color]">Evaluación por preguntas de sí o no</h2>
+                            <h2 className="text-lg font-semibold mb-4 text-[--secondary-color]">Evaluación por preguntas de sí o no</h2>
 
                             {questions.map((question, index) => (
                                 <div key={index} className="mb-4 flex items-center">
@@ -232,18 +232,20 @@ export default function CreateKpibyQuestions() {
                                 </div>
                             ))}
 
-                            <button
-                                type="button"
-                                onClick={addQuestion}
-                                className="w-full py-2 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            >
-                                Añadir Pregunta
-                            </button>
+                            <div className='flex justify-end'>
+                                <button
+                                    type="button"
+                                    onClick={addQuestion}
+                                    className="w-[40%] py-2 px-2 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+                                >
+                                    Añadir Pregunta
+                                </button>
+                            </div>
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full px-6 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 border-2"
+                            className="w-full px-6 py-2 text-sm font-semibold text-white bg-[--primary-color] rounded-full hover:bg-fuchsia-800 border-2"
                         >
                             Crear KPI
                         </button>

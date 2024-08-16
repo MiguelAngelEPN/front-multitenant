@@ -85,9 +85,13 @@ export default function KpiEvaluation() {
 
     return (
         <div className="homepage flex items-center justify-center min-h-screen p-4 flex-col">
-            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="absolute top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-                ⬅️ Back
-            </Link>
+
+            <div className='flex justify-end w-full'>
+                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    ⬅️ Back
+                </Link>
+            </div>
+
             <div className='flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-5'>
                 <div className='custom-shadow w-[500px] bg-white bg-opacity-50 p-8 rounded-lg shadow-lg backdrop-blur-sm text-[var(--tertiary-color)] border-2 border-[var(--primary-color)]'>
                     <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Evaluation Criteria</p><br />

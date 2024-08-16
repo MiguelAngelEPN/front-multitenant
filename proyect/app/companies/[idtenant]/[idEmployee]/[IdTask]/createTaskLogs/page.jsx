@@ -78,12 +78,12 @@ export default function CreateTaskLogs() {
             </Link>
         </div>
 
-            <div className="w-full max-w-2xl bg-[--primary-color] bg-opacity-80 p-8 rounded-lg shadow-lg backdrop-blur-md">
+            <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
-                    <h2 className="text-center text-3xl font-semibold text-[--complementary-color] mb-2">Register TaskLog</h2>
+                    <h2 className="text-center text-3xl font-semibold text-[--primary-color] mb-2">Register TaskLog</h2>
 
                     <div className="space-y-4">
-                        <label className="block text-xl font-medium text-[--complementary-color]">Additional Fields</label>
+                        <label className="block text-xl font-medium text-black ">Additional Fields</label>
                         {fields.map((field, index) => (
                             <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
                                 <div>
@@ -136,7 +136,7 @@ export default function CreateTaskLogs() {
                     <div className="flex justify-center mt-8">
                         <button
                             type="submit"
-                            className="px-6 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 border-2"
+                            className="px-6 py-2 w-full text-sm font-semibold text-white bg-[--primary-color] rounded-full hover:bg-fuchsia-900 border-2"
                         >
                             Submit
                         </button>
