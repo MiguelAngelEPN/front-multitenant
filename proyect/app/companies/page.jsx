@@ -40,7 +40,7 @@ function Companies() {
     return (
         <>
             <Header />
-            <div className="homepage flex items-center justify-center h-[640px] flex-col">
+            <div className="homepage flex items-center justify-center min-h-screen flex-col">
                 <div className="contenedorPadre flex flex-col items-center p-6 bg-opacity-70 rounded-lg shadow-lg">
                     <p className="title-left">REGISTER COMPANY</p><br/>
                     <div className="flex flex-col w-full space-y-4 text-black formularioregistercompany">
@@ -92,7 +92,7 @@ function Companies() {
                         </button>
 
                         <Link
-                            href="/companies/employee-list"
+                            href="/companies/log-in"
                             className="linkref py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700"
                         >
                             Siguiente
