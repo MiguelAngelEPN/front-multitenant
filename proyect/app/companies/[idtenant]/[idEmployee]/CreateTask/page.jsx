@@ -105,16 +105,16 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                 </Link>
             </div>
 
-            <div className="w-full max-w-2xl bg-[--primary-color] bg-opacity-80 p-8 rounded-lg shadow-lg backdrop-blur-md">
+            <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <div className='my-2 flex flex-col items-center'>
-                    <h2 className='text-center text-[32px] text-[--complementary-color]'>Assign tasks</h2>
-                    <p className='text-[24px] text-[--complementary-color]'>EmployeeId: {params.idEmployee}</p>
+                    <h2 className='text-center text-[32px] text-[--primary-color]'>Assign tasks</h2>
+                    <p className='text-[24px] text-[--secondary-color]'>EmployeeId: {params.idEmployee}</p>
                 </div>
 
                 <form onSubmit={handleSubmit(onFormSubmit)}>
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Title</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Title</label>
                             <input
                                 type="text"
                                 placeholder="Title"
@@ -124,7 +124,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                             {errors.task?.title && <p className="mt-1 text-sm text-red-500">{errors.task.title.message}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Priority</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Priority</label>
                             <input
                                 type="number"
                                 placeholder="Priority"
@@ -134,7 +134,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                             {errors.task?.priority && <p className="mt-1 text-sm text-red-500">{errors.task.priority.message}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Start Date</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Start Date</label>
                             <input
                                 type="date"
                                 placeholder="Start Date"
@@ -145,7 +145,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">End Date</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">End Date</label>
                             <input
                                 type="date"
                                 placeholder="End Date"
@@ -155,7 +155,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                             {errors.task?.endDate && <p className="mt-1 text-sm text-red-500">{errors.task.endDate.message}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">Concurrence</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">Concurrence</label>
                             <select
                                 className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.concurrence", { required: "Concurrence is required" })}
@@ -168,7 +168,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
 
 
                         <div>
-                            <label className="block text-sm font-medium text-[--complementary-color]">State</label>
+                            <label className="block text-sm font-medium text-[--secondary-color]">State</label>
                             <select
                                 className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.state", { required: "State is required" })}
@@ -182,7 +182,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                     </div>
 
                     <div className='space-y-4'>
-                        <label className="block text-xl font-medium text-[--complementary-color]">Additional Fields</label>
+                        <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
                         {fields.map((field, index) => (
                             <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
                                 <input
@@ -227,7 +227,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                     <div className="flex justify-center mt-8">
                         <button
                             type="submit"
-                            className="px-6 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 border-2"
+                            className="w-full px-6 py-2 text-sm font-semibold text-white bg-[--primary-color] rounded-full hover:bg-fuchsia-800 border-2"
                         >
                             Submit
                         </button>

@@ -66,7 +66,7 @@ export default function EmployeeList() {
                 <Link href={`/companies/${params.idtenant}/create-employee`}
                     className="mt-3 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[200px] text-center"
                 >
-                    Crear Empleado
+                    Create Employee
                 </Link><br />
                 {/*---------- tabla dinámica para empleados con campos variables ----------*/}
                 <div className="flex justify-center">

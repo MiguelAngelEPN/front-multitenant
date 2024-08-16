@@ -100,7 +100,7 @@ export default function PageTaskListEmployee() {
                         onClick={getTasksListEmployee}
                         className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
                     >
-                        Listar Tasks-Employee
+                        List Employee Tasks
                     </button>
                 </div>
 
@@ -109,7 +109,7 @@ export default function PageTaskListEmployee() {
             <Link href={`/companies/${params.idtenant}/${params.idEmployee}/CreateTask`}
                 className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[200px] text-center"
             >
-                Asignar Tarea Empleado
+                Assign Task to Employee
             </Link><br />
             {/*---------- tabla dinámica para tasks con campos variables ----------*/}
             <div className="flex justify-center">
