@@ -1,10 +1,14 @@
+"use client"
 import MainMenu from '@/components/navMenu/MainMenu';
 import Navbar from '@/components/companyNavbar/Navbar';
+import { useParams } from 'next/navigation';
 
 export default function RootLayout({ children }) {
+    let params = useParams();
+    console.log('params: ', params.idtenant)
     return (
         <div className=''>
-            <Navbar />
+            <Navbar idtenant={params.idtenant} />
             <div className='flex h-full'>
                 {/* Menú lateral */}
                 <MainMenu />

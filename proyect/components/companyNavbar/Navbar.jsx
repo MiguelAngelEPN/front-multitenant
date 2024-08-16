@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Navbar() {
+export default function Navbar({idtenant}) {
   const [user, setUser] = useState(null);
 //bg-[#A268A7]
   return (
@@ -17,7 +17,7 @@ export default function Navbar() {
         </div>
         <nav className="flex items-center justify-end w-full h-full">
           <div className='bg-[--complementary-color] rounded-full border-3 border-solid border-[#D4D2DB] pl-10 pr-2 h-10 flex items-center text-[--tertiary-color]'>
-            {user?.fullName ? user?.fullName : 'Loading ...'}
+            {idtenant ? idtenant : 'Loading ...'}
             <div className="cursor-pointer ml-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

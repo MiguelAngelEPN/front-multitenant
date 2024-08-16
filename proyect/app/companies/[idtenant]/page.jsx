@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function EmployeeList() {
     let params = useParams();
-    console.log('params: ', params)
+    //console.log('params: ', params)
 
     const [tenantName, setTenantName] = useState('');
     const [employees, setEmployees] = useState([]);

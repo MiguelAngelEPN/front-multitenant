@@ -33,7 +33,7 @@ export default function Sidebar() {
           </h1>
           <button
             onClick={toggleSidebar}
-            className="text-[var(--secondary-color)] focus:outline-none text-3xl"
+            className="text-[var(--secondary-color)] text-3xl"
           >
             {/* Aquí puedes poner un símbolo o cualquier representación visual */}
             {isOpen ? '🔙' : '🟰'}
