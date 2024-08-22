@@ -22,9 +22,7 @@ export default function KpiEvaluation() {
         );
     };
 
-    useEffect(() => {
-
-    }, []);
+    useEffect(() => {}, []);
 
     const getKPIEcaluation = async () => {
         console.log("entro a getKPIEcaluation")
@@ -33,7 +31,7 @@ export default function KpiEvaluation() {
         console.log("dias excluidas: ", excludedDays)
         try {
             //Obtener tareas de empleados con x-tenant-id
-            /**/const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpi/${params.idtenant}/evaluation`, {
+            /**/const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpi/${params.id_kpi}/evaluation`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
