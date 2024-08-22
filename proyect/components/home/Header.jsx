@@ -48,13 +48,13 @@ export default function Header() {
                     <li className='linkcontainer'>
                         <div className='linkmenu'>
                             <div className='buttonlink flex'>
-                                <Link href="/">
+                                <Link href="/login">
                                     <div className={` py-3 px-10 text-[16px] rounded-full  bg-[#65579d] hover:bg-[#6650bc] text-white text-center`}>
                                         Log in
                                     </div>
                                 </Link>
                                 <div className='m-2'></div>
-                                <Link href="/">
+                                <Link href="/register">
                                     <div className={` py-3 px-8 text-[16px] rounded-full bg-[var(--primary-color)] hover:bg-[#A257A9] text-white text-center`}>
                                         Sign Up
                                     </div>

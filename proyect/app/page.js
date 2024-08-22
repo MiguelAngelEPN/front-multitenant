@@ -50,7 +50,7 @@ export default function Home() {
       {/* Contenido principal que ocupa el espacio restante */}
       <main className="homepage flex-grow w-full ">
         <div className="flex flex-col items-center justify-center gap-16 sm:flex-row mt-28">
-          <Link href={`/companies`} className="card">
+          <Link href={`/register`} className="card">
             <div>
               <figure className="icon-container">
                 <BsBuildings
