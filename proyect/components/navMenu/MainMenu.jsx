@@ -1,15 +1,30 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './style.css'
 import { HiUserGroup } from "react-icons/hi2";
 import { SiGoogletasks } from "react-icons/si";
 import { SiBaremetrics } from "react-icons/si";
+import { useParams, useRouter } from 'next/navigation';
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedLink, setSelectedLink] = useState(null);
   const [idtenant, setIdtenant] = useState(null);
+  const [tenantId, setTenantId] = useState('');
+  let params = useParams();
+
+  useEffect(() => {
+      // Obtener el token del localStorage
+      const token = localStorage.getItem("authToken");
+
+      if (token) {
+          const userData = JSON.parse(token);
+          setTenantId(userData.tenantId);
+      }else{
+          router.push(`/login`);
+      }
+  }, []);
 
   const handleLinkClick = (index) => {
     setSelectedLink(index);
@@ -45,7 +60,7 @@ export default function Sidebar() {
           <ul className='space-y-2 px-2'>
             <li>
               <Link
-                href={`/companies/${idtenant}`}
+                href={`/company/employees`}
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 1 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(1)}
               >
@@ -57,7 +72,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href={`/companies/${idtenant}`}
+                href={`/company/employees/${params.idEmployee}`}
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 2 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(2)}
               >
@@ -69,7 +84,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href={`/companies/${idtenant}`}
+                href={`/company/employees/${params.idEmployee}/${params.IdTask}`}
                 className={`flex items-center h-[35px] pl-4 rounded-full hover:bg-[var(--complementary-color)] transition-colors duration-300 ${selectedLink === 3 ? 'bg-[var(--complementary-color)] border border-[#D7D6DD] shadow-[1px_3px_4px_rgba(0,0,0,0.1)]' : ''}`}
                 onClick={() => handleLinkClick(3)}
               >
