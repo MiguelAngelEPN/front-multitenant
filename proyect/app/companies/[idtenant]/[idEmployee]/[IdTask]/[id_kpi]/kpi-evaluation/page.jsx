@@ -22,9 +22,7 @@ export default function KpiEvaluation() {
         );
     };
 
-    useEffect(() => {
-
-    }, []);
+    useEffect(() => {}, []);
 
     const getKPIEcaluation = async () => {
         console.log("entro a getKPIEcaluation")
