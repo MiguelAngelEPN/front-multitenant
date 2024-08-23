@@ -56,11 +56,11 @@ const RegisterPage = () => {
       }
 
       // Iniciar sesión automáticamente después del registro
-      /*await signIn("credentials", {
+      await signIn("credentials", {
         redirect: false,
         tenantId: data.tenantId,
         password: data.password,
-      });*/
+      });
 
     } catch (error) {
       console.error("Error en el proceso de registro:", error);

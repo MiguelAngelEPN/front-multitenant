@@ -19,6 +19,7 @@ const schema = z.object({
 });
 
 const LogInPage = () => {
+  console.log("secret:", process.env.NEXT_PUBLIC_NEXTAUTH_SECRET)
   const {
     register,
     handleSubmit,
@@ -29,7 +30,7 @@ const LogInPage = () => {
 
   // Función para manejar el envío del formulario
   const onSubmit = async (data) => {
-    console.log(data)
+    //console.log(data)
     try {
       const response = await fetch("http://localhost:3000/tenants/login", {
         method: "POST",
@@ -53,11 +54,12 @@ const LogInPage = () => {
       }
 
       // Iniciar sesión con NextAuth.js
-      /*await signIn("credentials", {
+      await signIn("credentials", {
         redirect: false,
         tenantId: data.tenantId,
         password: data.password,
-      });*/
+      });
+      //window.location.href = "/app/companies";
 
     } catch (error) {
       console.error("Error during login process:", error);
