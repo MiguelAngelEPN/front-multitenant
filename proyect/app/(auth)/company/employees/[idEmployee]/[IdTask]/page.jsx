@@ -120,12 +120,12 @@ export default function PageTaskLogsKpis() {
 
     const handleDropdownAction = (kpiId) => {
         // Lógica para manejar la acción del botón "Dropdown Action"
-        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/${kpiId}/kpi-form-dropdown`);
+        router.push(`/company/employees/${params.idEmployee}/${params.IdTask}/${kpiId}/kpi-form-dropdown`);
     };
 
     const handleQuestionsEvaluation = (kpiId) => {
         // Lógica para manejar la acción del botón "Dropdown Action"
-        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/${kpiId}/kpi-form-questions`);
+        router.push(`/company/employees/${params.idEmployee}/${params.IdTask}/${kpiId}/kpi-form-questions`);
     }
 
     return (

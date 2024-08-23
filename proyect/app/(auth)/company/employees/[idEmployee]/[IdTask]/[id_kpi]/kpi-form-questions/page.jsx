@@ -1,24 +1,36 @@
 "use client"
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function KpiFormQuestions() {
+    const [tenantId, setTenantId] = useState('');
+    const router = useRouter();
+
+    useEffect(() => {
+        // Obtener el token del localStorage
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+            getKPIbyID(userData.tenantId)
+        }else{
+            router.push(`/login`);
+        }
+    }, []);
+
     let params = useParams();
     const [kpiInformation, setKpiInformation] = useState(null);
 
-    useEffect(() => {
-        getKPIbyID()
-    }, [])
-
-    const getKPIbyID = async () => {
+    const getKPIbyID = async (tenantId) => {
         console.log("entro a getKPIEcaluation")
         try {
             const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant,
+                    "x-tenant-id": tenantId,
                 },
             });
 
@@ -47,7 +59,7 @@ export default function KpiFormQuestions() {
         <div className="rounded-3xl homepage flex items-center justify-center min-h-screen p-4 flex-col">
 
             <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                <Link href={`/companies/employees/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>
             </div><br />

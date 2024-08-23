@@ -4,21 +4,33 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function KpiFormDropdown() {
+    const [tenantId, setTenantId] = useState('');
+    const router = useRouter();
+
+    useEffect(() => {
+        // Obtener el token del localStorage
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+            getKPIbyID(userData.tenantId);
+        }else{
+            router.push(`/login`);
+        }
+    }, []);
+
     let params = useParams();
     const [kpiInformation, setKpiInformation] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
 
-    useEffect(() => {
-        getKPIbyID();
-    }, []);
-
-    const getKPIbyID = async () => {
+    const getKPIbyID = async (tenantId) => {
         try {
             const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant,
+                    "x-tenant-id": tenantId,
                 },
             });
 
@@ -43,7 +55,7 @@ export default function KpiFormDropdown() {
         <>
             <div className="rounded-3xl homepage flex items-center justify-center min-h-screen p-4 flex-col">
                 <div className='flex justify-end w-full'>
-                    <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                         ⬅️ Back
                     </Link>
                 </div>
@@ -77,9 +89,9 @@ export default function KpiFormDropdown() {
                                 </thead>
                                 <tbody className="text-black">
                                     {kpiInformation.dropdownCriteria && kpiInformation.dropdownCriteria.map((criteria, index) => (
-                                        <tr 
-                                            key={index} 
-                                            className={`cursor-pointer ${selectedValue === criteria.value ? 'bg-[var(--secondary-color)] text-white' : 'hover:bg-gray-100'}`} 
+                                        <tr
+                                            key={index}
+                                            className={`cursor-pointer ${selectedValue === criteria.value ? 'bg-[var(--secondary-color)] text-white' : 'hover:bg-gray-100'}`}
                                             onClick={() => handleRowClick(criteria.value)}>
                                             <td className="border px-4 py-2">{criteria.value}</td>
                                             <td className="border px-4 py-2">{criteria.text}</td>
@@ -88,7 +100,7 @@ export default function KpiFormDropdown() {
                                 </tbody>
                             </table>
                         </div>
-                        
+
                         {selectedValue && (
                             <div className='mt-6 p-4 bg-[var(--primary-color)] text-white text-center text-lg font-bold rounded-lg'>
                                 Your evaluation is {selectedValue}%
