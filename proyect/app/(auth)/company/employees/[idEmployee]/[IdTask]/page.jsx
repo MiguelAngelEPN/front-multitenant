@@ -1,19 +1,33 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function PageTaskLogsKpis() {
+
+    const [tenantId, setTenantId] = useState('');
+
+    useEffect(() => {
+      // Obtener el token del localStorage
+      const token = localStorage.getItem("authToken");
+  
+      if (token) {
+        const userData = JSON.parse(token);
+        setTenantId(userData.tenantId);
+        getTasksLogsList(userData.tenantId);
+        getKPIsList(userData.tenantId);
+      }
+    }, []);
+
     let params = useParams();
     console.log('params: ', params)
-    const [tenantId, setTenantId] = useState(params.idtenant);
     const [employeeId, setEmployeeId] = useState(params.idEmployee);
     const [taskId, setTaskId] = useState(params.IdTask);
     const [kpis, setKpis] = useState([]);
     const [tasklogs, setTaskLogs] = useState([]);
     const router = useRouter();
 
-    const getTasksLogsList = async () => {
+    const getTasksLogsList = async (tenantId) => {
         try {
             //Obtener tareas de empleados con x-tenant-id
             const response = await fetch(`http://localhost:3000/employees/${employeeId}/task/${taskId}/tasklogs`, {
@@ -36,7 +50,7 @@ export default function PageTaskLogsKpis() {
         }
     };
 
-    const getKPIsList = async () => {
+    const getKPIsList = async (tenantId) => {
         try {
             //Obtener tareas de empleados con x-tenant-id
             const response = await fetch(`http://localhost:3000/employees/${employeeId}/tasks/${taskId}/kpis`, {
@@ -119,7 +133,7 @@ export default function PageTaskLogsKpis() {
             <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
 
                 <div className='flex justify-end w-full'>
-                    <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    <Link href={`/company/employees/${params.idEmployee}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                         ⬅️ Back
                     </Link>
                 </div><br />
@@ -133,42 +147,14 @@ export default function PageTaskLogsKpis() {
                             <p className='text-[20px] text-[--secondary-color]'>Task: {taskId}</p>
                         </div>
 
-                        <div className="bg-[--primary-color] rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-70 custom-shadow">
-                            <div className="flex flex-col items-center space-y-2">
-                                <label htmlFor="tenantName" className="block text-xl font-medium text-white mb-2">
-                                    Company Name:
-                                </label>
-                                <input
-                                    id="tenantName"
-                                    type="text"
-                                    placeholder="CompanyExample"
-                                    className="text-black block w-full border border-gray-300 rounded-lg px-3 py-2 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
-                                    value={tenantId}
-                                    onChange={e => {
-                                        // Limitar la longitud del valor a 400 caracteres
-                                        if (e.target.value.length <= 90) {
-                                            setTenantId(e.target.value);
-                                        }
-                                    }}
-                                />
-                                <button
-                                    onClick={() => { getTasksLogsList(); getKPIsList() }}
-                                    className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
-                                >
-                                    List TasksLogs and KPIs
-                                </button>
-                            </div>
-
-                        </div> <br />
-
                         <div className='flex space-x-7'>
-                            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`}
+                            <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createTaskLogs`}
                                 className="py-2 bg-green-500 text-white rounded-full font-[12px] hover:bg-green-600 transition-colors w-[120px] text-center"
                             >
                                 Registrar Log
                             </Link>
 
-                            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPI`}
+                            <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createKPI`}
                                 className="py-2 bg-blue-500 text-white rounded-full font-[12px] hover:bg-blue-600 transition-colors w-[130px] text-center"
                             >
                                 KPI Percentage

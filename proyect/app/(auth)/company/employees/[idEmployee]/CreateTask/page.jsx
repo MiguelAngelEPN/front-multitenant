@@ -6,9 +6,21 @@ import Link from 'next/link';
 import './tasks.css'
 
 export default function AssignTasks() { //registrar un empleado dado un tenant
+
+    const [tenantId, setTenantId] = useState('');
+
+    useEffect(() => {
+      // Obtener el token del localStorage
+      const token = localStorage.getItem("authToken");
+  
+      if (token) {
+        const userData = JSON.parse(token);
+        setTenantId(userData.tenantId);
+      }
+    }, []);
+
     let params = useParams();
     console.log('params: ', params)
-    console.log('params.idtenant: ', params.idtenant)
     const router = useRouter();
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -75,7 +87,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
                 },
                 body: JSON.stringify(formattedData),
             });
@@ -100,7 +112,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
         <div className="rounded-3xl homepage flex flex-col items-center justify-center min-h-screen p-8">
 
             <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                <Link href={`/company/employees/${params.idEmployee}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>
             </div>

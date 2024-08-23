@@ -5,22 +5,29 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function AssignTasksToDepartment() { //registrar un empleado dado un tenant
-    let params = useParams();
-    const [listDepartament, setListDepartament] = useState([])
-    //console.log('params: ', params)
-    //console.log('params.idtenant: ', params.idtenant)
-    const router = useRouter();
+    const [tenantId, setTenantId] = useState(null);
+
     useEffect(() => {
-        departamentlis()
+        // Obtener el token del localStorage
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+            departamentlis(userData.tenantId)
+        }
     }, []);
-    const departamentlis = async () => {
+    const [listDepartament, setListDepartament] = useState([])
+    //const router = useRouter();
+
+    const departamentlis = async (tenantId) => {
         try {
             // Obtener usuarios de empresa_a
             const responseA = await fetch(`http://localhost:3000/employees/departments`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
                 },
             });
 
@@ -106,7 +113,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
                 },
                 body: JSON.stringify(formattedData),
             });
@@ -132,7 +139,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
         <div className="rounded-3xl homepage flex flex-col items-center justify-center min-h-screen p-8">
 
             <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}/${params.idEmployee}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                <Link href={`/company/employees`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>
             </div>
@@ -140,7 +147,6 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <div className='my-2 flex flex-col items-center'>
                     <h2 className='text-center text-[32px] text-[--primary-color]'>Assign tasks to a department</h2>
-                    <p className='text-[24px] text-[--secondary-color]'>EmployeeId: {params.idEmployee}</p>
                 </div>
 
                 <form onSubmit={handleSubmit(onFormSubmit)}>

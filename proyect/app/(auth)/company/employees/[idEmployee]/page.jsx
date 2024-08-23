@@ -1,17 +1,29 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function PageTaskListEmployee() {
-    let params = useParams();
+    const [tenantId, setTenantId] = useState('');
+
+    useEffect(() => {
+      // Obtener el token del localStorage
+      const token = localStorage.getItem("authToken");
+  
+      if (token) {
+        const userData = JSON.parse(token);
+        setTenantId(userData.tenantId);
+        getTasksListEmployee(userData.tenantId)
+      }
+    }, []);
+  
+    let params = useParams(); 
     console.log('params: ', params)
-    const [tenantId, setTenantId] = useState(params.idtenant);
     const [employeeId, setEmployeeId] = useState(params.idEmployee);
     const [tasks, setTasks] = useState([]);
     const router = useRouter();
 
-    const getTasksListEmployee = async () => {
+    const getTasksListEmployee = async (tenantId) => {
         try {
             //Obtener tareas de empleados con x-tenant-id
             const response = await fetch(`http://localhost:3000/employees/${employeeId}/tasks`, {
@@ -46,7 +58,7 @@ export default function PageTaskListEmployee() {
     const hasTasks = tasks.length > 0;
 
     const handleButtonClickKPI = (IdTask) => {
-        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${IdTask}`);
+        router.push(`/company/employees/${params.idEmployee}/${IdTask}`);
     };
 
     const handleButtonClickLogs = () => {
@@ -68,7 +80,7 @@ export default function PageTaskListEmployee() {
     return (<>
         <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
             <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                <Link href={`/company/employees`} className=" top-4 left-4 bg-[--primary-color] bg-opacity-50 hover:bg-[--secondary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>
             </div><br />
@@ -78,35 +90,7 @@ export default function PageTaskListEmployee() {
                 <p className='text-[24px] text-[--secondary-color]'>Employee: {employeeId}</p>
             </div>
 
-            <div className="bg-[--primary-color] rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-70 custom-shadow">
-                <div className="flex flex-col items-center space-y-2">
-                    <label htmlFor="tenantName" className="block text-xl font-medium text-white mb-2">
-                        Company Name:
-                    </label>
-                    <input
-                        id="tenantName"
-                        type="text"
-                        placeholder="CompanyExample"
-                        className="text-black block w-full border border-gray-300 rounded-lg px-3 py-2 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
-                        value={tenantId}
-                        onChange={e => {
-                            // Limitar la longitud del valor a 400 caracteres
-                            if (e.target.value.length <= 90) {
-                                setTenantId(e.target.value);
-                            }
-                        }}
-                    />
-                    <button
-                        onClick={getTasksListEmployee}
-                        className="w-[85%] mt-2 py-2 bg-[--complementary-color] text-black rounded-lg font-semibold hover:bg-slate-300 transition-colors"
-                    >
-                        List Employee Tasks
-                    </button>
-                </div>
-
-            </div> <br />
-
-                <Link href={`/companies/${params.idtenant}/${params.idEmployee}/CreateTask`}
+                <Link href={`/company/employees/${params.idEmployee}/CreateTask`}
                     className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
                 >
                     Assign Task to Employee

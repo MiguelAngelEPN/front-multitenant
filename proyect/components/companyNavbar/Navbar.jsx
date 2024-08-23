@@ -4,8 +4,18 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Navbar({idtenant}) {
-  const [user, setUser] = useState(null);
+export default function Navbar() {  
+  const [tenantId, setTenantId] = useState(null);
+
+  useEffect(() => {
+    // Obtener el token del localStorage
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      const userData = JSON.parse(token);
+      setTenantId(userData.tenantId);
+    }
+  }, []);
 //bg-[#A268A7]
   return (
     <div className="w-full flex h-14 bg-[#E7E5EE]">
@@ -17,7 +27,7 @@ export default function Navbar({idtenant}) {
         </div>
         <nav className="flex items-center justify-end w-full h-full">
           <div className='bg-[--complementary-color] rounded-full border-3 border-solid border-[#D4D2DB] pl-10 pr-2 h-10 flex items-center text-[--tertiary-color]'>
-            {idtenant ? idtenant : 'Loading ...'}
+            {tenantId ? tenantId : 'Loading ...'}
             <div className="cursor-pointer ml-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

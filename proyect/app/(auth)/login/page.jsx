@@ -61,7 +61,7 @@ const LogInPage = () => {
       localStorage.setItem("authToken", token);
 
       // Redirigir a la página principal de la aplicación
-      window.location.href = "/practica";
+      window.location.href = "/company/employees";
     } catch (error) {
       console.error("Error during login process:", error);
       alert("Login failed, please try again.");

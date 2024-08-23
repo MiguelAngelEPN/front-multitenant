@@ -1,14 +1,25 @@
 "use client";
 import { useRouter, useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function CreateKpi() {
+
+  const [tenantId, setTenantId] = useState('');
+
+    useEffect(() => {
+      // Obtener el token del localStorage
+      const token = localStorage.getItem("authToken");
+  
+      if (token) {
+        const userData = JSON.parse(token);
+        setTenantId(userData.tenantId);
+      }
+    }, []);
+
   const router = useRouter();
   let params = useParams();
   console.log('params: ', params)
-  console.log('params.idTask: ', params.IdTask)
-  console.log('params.idEmployee: ', params.idEmployee)
 
   const [title, setTitle] = useState('');
   const [target, setTarget] = useState('');
@@ -16,7 +27,6 @@ export default function CreateKpi() {
   const [formula, setFormula] = useState('');
   const [fieldFilter, setFieldFilter] = useState([""]);
   const [selectedField, setSelectedField] = useState("");
-  const [fieldtobeevaluated, setFieldToBeEvaluated] = useState('');
   const [additionalFields, setAdditionalFields] = useState([
     { type: 'string', name: '', value: '' }
   ]);
@@ -43,7 +53,7 @@ export default function CreateKpi() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+          "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
         }
       });
 
@@ -86,7 +96,7 @@ export default function CreateKpi() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+        "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
       },
       body: JSON.stringify(kpiData),
     });
@@ -103,7 +113,7 @@ export default function CreateKpi() {
     <>
       <div className="rounded-3xl min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 p-6 homepage">
       <div className='flex justify-end w-full'>
-        <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+        <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}`} className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
           ⬅️ Back
         </Link>
       </div><br />

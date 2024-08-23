@@ -1,9 +1,20 @@
 "use client"
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import Link from 'next/link';
 
-export default function CreateEmployees({ params }) {
+export default function CreateEmployees() {
+    const [tenantId, setTenantId] = useState('');
+
+    useEffect(() => {
+        // Obtener el token del localStorage
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+        }
+    }, []);
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
@@ -55,7 +66,7 @@ export default function CreateEmployees({ params }) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-tenant-id": params.idtenant, // Pasar el nombre de la empresa como x-tenant-id
+                "x-tenant-id": tenantId, // Pasar el nombre de la empresa como x-tenant-id
             },
             body: JSON.stringify(
                 formattedData
@@ -75,7 +86,7 @@ export default function CreateEmployees({ params }) {
         <div className="rounded-3xl homepage flex flex-col items-center justify-center min-h-screen p-8">
 
             <div className='flex justify-end w-full'>
-                <Link href={`/companies/${params.idtenant}`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                <Link href={`/company/employees`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
                 </Link>
             </div>
@@ -139,7 +150,7 @@ export default function CreateEmployees({ params }) {
                                 </div>
                                 <div>
                                     <select
-                                         className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-[var(--secondary-color)] focus:ring-1 focus:ring-[var(--secondary-color)]"
+                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-[var(--secondary-color)] focus:ring-1 focus:ring-[var(--secondary-color)]"
                                         {...register(`employee.additionalFields.${index}.type`)}
                                     >
                                         <option value="string">String</option>

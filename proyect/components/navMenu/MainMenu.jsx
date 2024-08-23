@@ -6,9 +6,10 @@ import { HiUserGroup } from "react-icons/hi2";
 import { SiGoogletasks } from "react-icons/si";
 import { SiBaremetrics } from "react-icons/si";
 
-export default function Sidebar({idtenant}) {
+export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedLink, setSelectedLink] = useState(null);
+  const [idtenant, setIdtenant] = useState(null);
 
   const handleLinkClick = (index) => {
     setSelectedLink(index);
