@@ -10,43 +10,53 @@ const handler = NextAuth({
                 tenantId: { label: "Tenant ID", type: "text" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials) {
-                try {
-                    const response = await fetch("http://localhost:3000/tenants/login", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            tenantId: credentials.tenantId,
-                            password: credentials.password,
-                        }),
-                    });
+            authorize: async (credentials) => {
+                // Realiza una solicitud a tu backend para autenticar al usuario
+                const res = await fetch("http://localhost:3000/tenants/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        tenantId: credentials.tenantId,
+                        password: credentials.password,
+                    }),
+                });
 
-                    const user = await response.json();
+                const user = await res.json();
 
-                    if (!response.ok) {
-                        throw new Error(user.message || "Login failed");
-                    }
-
-                    if (user && user.status === "success") {
-                        return user; // Devuelve el objeto del usuario si la autenticación es exitosa
-                    } else {
-                        return null;
-                    }
-                } catch (error) {
-                    console.error("Error during authorization:", error);
-                    return null;
+                // Si la autenticación es exitosa, devuelve un objeto usuario
+                if (res.ok && user.status === "success") {
+                    return {
+                        id: user.data.id,
+                        name: user.data.name,
+                        email: user.data.email, // Ajusta según los datos que recibas
+                    };
                 }
+
+                // Si la autenticación falla, devuelve null
+                return null;
             },
         }),
     ],
+    secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
     pages: {
-        signIn: "/auth/login", // Ruta personalizada para la página de login
+        signIn: "/auth/login",
+        error: "/auth/error",
     },
-    session: {
-        strategy: "jwt",
+    callbacks: {
+        async jwt({ token, user }) {
+            // Agrega el id del usuario al token
+            if (user) {
+                token.id = user.id;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            // Agrega el id del usuario a la sesión
+            session.user.id = token.id;
+            return session;
+        },
     },
-    secret: process.env.NEXTAUTH_SECRET,
 });
 export const { GET, POST } = handler;

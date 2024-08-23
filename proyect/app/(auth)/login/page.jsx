@@ -30,8 +30,8 @@ const LogInPage = () => {
 
   // Función para manejar el envío del formulario
   const onSubmit = async (data) => {
-    //console.log(data)
     try {
+      // Llama al endpoint de login en tu backend
       const response = await fetch("http://localhost:3000/tenants/login", {
         method: "POST",
         headers: {
@@ -45,26 +45,29 @@ const LogInPage = () => {
       }
 
       const result = await response.json();
-      console.log(result);
-      if (result.status == "error") {
-        alert(result.message)
-      }
-      if (result.status == "success") {
-        alert(result.message)
+      if (result.status === "error") {
+        alert(result.message);
+        return;
       }
 
-      // Iniciar sesión con NextAuth.js
-      await signIn("credentials", {
-        redirect: false,
+      // Crear un token simple con la información del usuario
+      const token = JSON.stringify({
         tenantId: data.tenantId,
-        password: data.password,
+        loggedIn: true,
+        // Puedes agregar más información si es necesario
       });
-      //window.location.href = "/app/companies";
 
+      // Guardar el token en localStorage
+      localStorage.setItem("authToken", token);
+
+      // Redirigir a la página principal de la aplicación
+      window.location.href = "/practica";
     } catch (error) {
       console.error("Error during login process:", error);
+      alert("Login failed, please try again.");
     }
   };
+  
 
   return (
     <div className="fixed-scale mx-auto min-h-screen">
