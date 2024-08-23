@@ -97,7 +97,7 @@ const RegisterPage = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                   <div>
-                    <p htmlFor="companyName" className="block text-xl text-[--complementary-color] text-left">Nombre de la Empresa</p>
+                    <p htmlFor="companyName" className="block text-xl text-[--complementary-color] text-left">Company Name</p>
                     <input
                       id="companyName"
                       type="text"
@@ -109,7 +109,7 @@ const RegisterPage = () => {
 
 
                   <div>
-                    <label htmlFor="tenantId" className="block text-xl text-[--complementary-color] text-left">ID de la Empresa</label>
+                    <label htmlFor="tenantId" className="block text-xl text-[--complementary-color] text-left">Company Id</label>
                     <input
                       id="tenantId"
                       type="text"
@@ -120,7 +120,7 @@ const RegisterPage = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="password" className="block text-xl text-[--complementary-color] text-left">Contraseña</label>
+                    <label htmlFor="password" className="block text-xl text-[--complementary-color] text-left">Password</label>
                     <input
                       id="password"
                       type="password"
