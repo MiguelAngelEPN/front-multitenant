@@ -1,9 +1,22 @@
 "use client";
 import { useRouter, useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default function CreateKpibyQuestions() {
+export default function CreateKpibyQuestions() {44
+
+    const [tenantId, setTenantId] = useState('');
+
+    useEffect(() => {
+      // Obtener el token del localStorage
+      const token = localStorage.getItem("authToken");
+  
+      if (token) {
+        const userData = JSON.parse(token);
+        setTenantId(userData.tenantId);
+      }
+    }, []);
+
     const router = useRouter();
     let params = useParams();
     console.log('params: ', params)
@@ -47,7 +60,7 @@ export default function CreateKpibyQuestions() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-tenant-id": params.idtenant, //Pasar el id de la empresa como x-tenant-id
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
                 }
             });
 
@@ -89,7 +102,7 @@ export default function CreateKpibyQuestions() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "x-tenant-id": params.idtenant, // Pasar el id de la empresa como x-tenant-id
+                "x-tenant-id": tenantId, // Pasar el id de la empresa como x-tenant-id
             },
             body: JSON.stringify(kpiData),
         });
@@ -107,7 +120,7 @@ export default function CreateKpibyQuestions() {
             <div className="rounded-3xl min-h-screen flex flex-col items-center justify-center p-6 homepage">
 
                 <div className='flex justify-end w-full'>
-                    <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+                    <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createKPIForm`} className="top-4 left-4 bg-[--secondary-color] hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                         ⬅️ Back
                     </Link>
                 </div>
