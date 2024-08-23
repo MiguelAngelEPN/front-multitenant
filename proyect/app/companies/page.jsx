@@ -5,6 +5,8 @@ import Link from 'next/link';
 import './style.css'
 import Header from '@/components/home/Header';
 import Footer from "@/components/home/Footer";
+import { getServerSession } from "next-auth/next";
+import authOptions from "@/auth";
 
 function Companies() {
 
