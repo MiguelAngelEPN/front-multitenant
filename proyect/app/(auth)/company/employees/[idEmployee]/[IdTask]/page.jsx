@@ -95,15 +95,15 @@ export default function PageTaskLogsKpis() {
     const tableKPIsHeaders = getTableKPIsHeaders();
     const hasKPIs = kpis.length > 0;
     const handleButtonClickKPIEvaluetion = (id_kpi) => {
-        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/${id_kpi}/kpi-evaluation`);
+        router.push(`/company/employees/${params.idEmployee}/${params.IdTask}/${id_kpi}/kpi-evaluation`);
     };
 
     const handleButtonClickKPI = () => {
-        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPI`);
+        //router.push(`/company/employees/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPI`);
     };
 
     const handleButtonClickLogs = () => {
-        router.push(`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`);
+        router.push(`/company/employees/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`);
     };
 
     const renderCellContent = (header, value) => {
@@ -160,7 +160,7 @@ export default function PageTaskLogsKpis() {
                                 KPI Percentage
                             </Link>
 
-                            <Link href={`/companies/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createKPIForm`}
+                            <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createKPIForm`}
                                 className="py-2 bg-yellow-500 text-black rounded-full font-[12px] hover:bg-yellow-600 transition-colors w-[120px] text-center"
                             >
                                 KPI Form
