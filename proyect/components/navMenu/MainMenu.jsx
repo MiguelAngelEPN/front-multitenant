@@ -13,6 +13,7 @@ export default function Sidebar() {
   const [idtenant, setIdtenant] = useState(null);
   const [tenantId, setTenantId] = useState('');
   let params = useParams();
+  const router = useRouter()
 
   useEffect(() => {
       // Obtener el token del localStorage

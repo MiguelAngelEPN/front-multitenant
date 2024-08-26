@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 export default function PageTaskListEmployee() {
     const [tenantId, setTenantId] = useState('');
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
     useEffect(() => {
       // Obtener el token del localStorage
@@ -26,7 +27,7 @@ export default function PageTaskListEmployee() {
     const getTasksListEmployee = async (tenantId) => {
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${employeeId}/tasks`, {
+            const response = await fetch(`${backdorection}/employees/${employeeId}/tasks`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

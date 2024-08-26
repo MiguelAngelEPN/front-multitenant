@@ -4,6 +4,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function KpiFormDropdown() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const [tenantId, setTenantId] = useState('');
     const router = useRouter();
 
@@ -26,7 +27,7 @@ export default function KpiFormDropdown() {
 
     const getKPIbyID = async (tenantId) => {
         try {
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

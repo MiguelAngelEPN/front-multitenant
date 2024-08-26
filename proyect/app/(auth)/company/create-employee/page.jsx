@@ -4,6 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import Link from 'next/link';
 
 export default function CreateEmployees() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const [tenantId, setTenantId] = useState('');
 
     useEffect(() => {
@@ -62,7 +63,7 @@ export default function CreateEmployees() {
 
         console.log("data send: ", formattedData);
         // Aquí puedes realizar la petición API con formattedData
-        const response = await fetch(`http://localhost:3000/employees`, {
+        const response = await fetch(`${backdorection}/employees`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

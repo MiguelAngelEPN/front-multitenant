@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const router = useRouter();
+  const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
   const [tenantId, setTenantId] = useState(null);
 
@@ -24,7 +25,7 @@ export default function EmployeeList() {
   const getEmployeeList = async (tenantId) => {
     try {
       // Obtener usuarios de empresa con x-tenant-id
-      const response = await fetch(`http://localhost:3000/employees`, {
+      const response = await fetch(`${backdorection}/employees`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

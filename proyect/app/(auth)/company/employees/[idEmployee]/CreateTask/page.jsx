@@ -8,6 +8,7 @@ import './tasks.css'
 export default function AssignTasks() { //registrar un empleado dado un tenant
 
     const [tenantId, setTenantId] = useState('');
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
     useEffect(() => {
       // Obtener el token del localStorage
@@ -83,7 +84,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
     const asignedTask = async (formattedData) => {
         try {
             // Obtener usuarios de empresa_a
-            const responseA = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks`, {
+            const responseA = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

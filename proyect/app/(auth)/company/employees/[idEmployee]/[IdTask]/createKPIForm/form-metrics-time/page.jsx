@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function CreateKpibyMetricsTime() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const router = useRouter();
     let params = useParams();
     console.log('params: ', params)
@@ -45,7 +46,7 @@ export default function CreateKpibyMetricsTime() {
 
         // Enviar los datos al backend
         /* */
-        const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis`, {
+        const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

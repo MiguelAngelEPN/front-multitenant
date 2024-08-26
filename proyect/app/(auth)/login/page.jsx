@@ -19,7 +19,8 @@ const schema = z.object({
 });
 
 const LogInPage = () => {
-  console.log("secret:", process.env.NEXT_PUBLIC_NEXTAUTH_SECRET)
+  //console.log("secret:", process.env.NEXT_PUBLIC_NEXTAUTH_SECRET)
+  const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
   const {
     register,
     handleSubmit,
@@ -32,7 +33,7 @@ const LogInPage = () => {
   const onSubmit = async (data) => {
     try {
       // Llama al endpoint de login en tu backend
-      const response = await fetch("http://localhost:3000/tenants/login", {
+      const response = await fetch(`${backdorection}/tenants/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

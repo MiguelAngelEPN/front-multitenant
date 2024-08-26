@@ -10,6 +10,7 @@ import Header from "@/components/home/Header";
 import "./register.css"
 import Image from "next/image";
 import Link from "next/link";
+import {useRouter } from 'next/navigation';
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=])[A-Za-z\d@#$%^&+=]{8,}$/;
 // Definir el esquema de validación con zod
@@ -22,6 +23,9 @@ const schema = z.object({
 });
 
 const RegisterPage = () => {
+  const router = useRouter()
+  const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
+
   const {
     register,
     handleSubmit,
@@ -34,7 +38,7 @@ const RegisterPage = () => {
   const onSubmit = async (data) => {
     console.log(data)
     try {
-      const response = await fetch("http://localhost:3000/tenants", {
+      const response = await fetch(`${backdorection}/tenants`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,14 +57,15 @@ const RegisterPage = () => {
       }
       if (result.status == "success") {
         alert(result.message)
+        router.push(`/login`);
       }
 
       // Iniciar sesión automáticamente después del registro
-      await signIn("credentials", {
+      /*await signIn("credentials", {
         redirect: false,
         tenantId: data.tenantId,
         password: data.password,
-      });
+      });*/
 
     } catch (error) {
       console.error("Error en el proceso de registro:", error);
@@ -94,44 +99,44 @@ const RegisterPage = () => {
           <div className="formulario-container px-0">
             <div className="formulario mt-0">
               <h1 className="title-left">Sign Up</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
 
-                  <div>
-                    <p htmlFor="companyName" className="block text-xl text-[--complementary-color] text-left">Company Name</p>
-                    <input
-                      id="companyName"
-                      type="text"
-                      className={` ${errors.companyName ? 'border-red-500' : 'border-gray-300'}`}
-                      {...register("companyName")}
-                    />
-                    {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>}
-                  </div>
+                <div>
+                  <p htmlFor="companyName" className="block text-xl text-[--complementary-color] text-left">Company Name</p>
+                  <input
+                    id="companyName"
+                    type="text"
+                    className={` ${errors.companyName ? 'border-red-500' : 'border-gray-300'}`}
+                    {...register("companyName")}
+                  />
+                  {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>}
+                </div>
 
 
-                  <div>
-                    <label htmlFor="tenantId" className="block text-xl text-[--complementary-color] text-left">Company Id</label>
-                    <input
-                      id="tenantId"
-                      type="text"
-                      className={`${errors.tenantId ? 'border-red-500' : 'border-gray-300'}`}
-                      {...register("tenantId")}
-                    />
-                    {errors.tenantId && <p className="text-red-500 text-sm mt-1">{errors.tenantId.message}</p>}
-                  </div>
+                <div>
+                  <label htmlFor="tenantId" className="block text-xl text-[--complementary-color] text-left">Company Id</label>
+                  <input
+                    id="tenantId"
+                    type="text"
+                    className={`${errors.tenantId ? 'border-red-500' : 'border-gray-300'}`}
+                    {...register("tenantId")}
+                  />
+                  {errors.tenantId && <p className="text-red-500 text-sm mt-1">{errors.tenantId.message}</p>}
+                </div>
 
-                  <div>
-                    <label htmlFor="password" className="block text-xl text-[--complementary-color] text-left">Password</label>
-                    <input
-                      id="password"
-                      type="password"
-                      className={`text-black ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-                      {...register("password")}
-                    />
-                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-                  </div>
+                <div>
+                  <label htmlFor="password" className="block text-xl text-[--complementary-color] text-left">Password</label>
+                  <input
+                    id="password"
+                    type="password"
+                    className={`text-black ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                    {...register("password")}
+                  />
+                  {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                </div>
 
-                  <button type="submit" className="button-signup">Registrarse</button>
-                </form>
+                <button type="submit" className="button-signup">Registrarse</button>
+              </form>
             </div>
           </div>
 

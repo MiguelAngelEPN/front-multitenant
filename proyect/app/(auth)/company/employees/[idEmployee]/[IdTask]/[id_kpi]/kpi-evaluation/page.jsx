@@ -4,6 +4,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function KpiEvaluation() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const [tenantId, setTenantId] = useState('');
     const router = useRouter();
 
@@ -44,7 +45,7 @@ export default function KpiEvaluation() {
         console.log("dias excluidas: ", excludedDays)
         try {
             //Obtener tareas de empleados con x-tenant-id
-            /**/const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpi/${params.id_kpi}/evaluation`, {
+            /**/const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/kpi/${params.id_kpi}/evaluation`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -73,7 +74,7 @@ export default function KpiEvaluation() {
         console.log("entro a getKPIEcaluation")
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

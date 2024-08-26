@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 export default function AssignTasksToDepartment() { //registrar un empleado dado un tenant
     const [tenantId, setTenantId] = useState(null);
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
     useEffect(() => {
         // Obtener el token del localStorage
@@ -23,7 +24,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
     const departamentlis = async (tenantId) => {
         try {
             // Obtener usuarios de empresa_a
-            const responseA = await fetch(`http://localhost:3000/employees/departments`, {
+            const responseA = await fetch(`${backdorection}/employees/departments`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -109,7 +110,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
     const asignedTask = async (formattedData) => {
         try {
             // Obtener usuarios de empresa_a
-            const responseA = await fetch(`http://localhost:3000/employees/department/${formattedData.departament}/tasks`, {
+            const responseA = await fetch(`${backdorection}/employees/department/${formattedData.departament}/tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -117,7 +118,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                 },
                 body: JSON.stringify(formattedData),
             });
-            console.log("endpoint: ", `http://localhost:3000/employees/department/${formattedData.departament}/tasks`)
+            //console.log("endpoint: ", `http://localhost:3000/employees/department/${formattedData.departament}/tasks`)
 
             if (!responseA.ok) {
                 throw new Error(`HTTP error! Status: ${responseA.status}`);

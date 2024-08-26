@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function CreateKpibyDropdown() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
     const [tenantId, setTenantId] = useState('');
 
@@ -52,7 +53,7 @@ export default function CreateKpibyDropdown() {
         console.log("entro a getFields")
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklog-keys`, {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklog-keys`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -93,7 +94,7 @@ export default function CreateKpibyDropdown() {
 
         // Enviar los datos al backend
         /* */
-        const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis`, {
+        const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

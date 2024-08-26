@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function KpiFormQuestions() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const [tenantId, setTenantId] = useState('');
     const router = useRouter();
 
@@ -26,7 +27,7 @@ export default function KpiFormQuestions() {
     const getKPIbyID = async (tenantId) => {
         console.log("entro a getKPIEcaluation")
         try {
-            const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/kpis/${params.id_kpi}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

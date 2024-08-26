@@ -4,7 +4,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function PageTaskLogsKpis() {
-
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const [tenantId, setTenantId] = useState('');
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function PageTaskLogsKpis() {
     const getTasksLogsList = async (tenantId) => {
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${employeeId}/task/${taskId}/tasklogs`, {
+            const response = await fetch(`${backdorection}/employees/${employeeId}/task/${taskId}/tasklogs`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export default function PageTaskLogsKpis() {
     const getKPIsList = async (tenantId) => {
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`http://localhost:3000/employees/${employeeId}/tasks/${taskId}/kpis`, {
+            const response = await fetch(`${backdorection}/employees/${employeeId}/tasks/${taskId}/kpis`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

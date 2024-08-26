@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-export default function Navbar() {  
+export default function Navbar() {
   const [tenantId, setTenantId] = useState(null);
+  const router = useRouter()
 
   useEffect(() => {
     // Obtener el token del localStorage
@@ -14,9 +16,18 @@ export default function Navbar() {
     if (token) {
       const userData = JSON.parse(token);
       setTenantId(userData.tenantId);
+    } else {
+      router.push(`/login`);
     }
   }, []);
-//bg-[#A268A7]
+  //bg-[#A268A7]
+  const handleLogout = () => {
+    // Eliminar el token del localStorage
+    localStorage.removeItem("authToken");
+
+    // Redirigir a la página de inicio de sesión
+    router.push(`/login`);
+  };
   return (
     <div className="w-full flex h-14 bg-[#E7E5EE]">
       <div className="flex w-full">
@@ -28,7 +39,8 @@ export default function Navbar() {
         <nav className="flex items-center justify-end w-full h-full">
 
           <div className='mr-8'>
-            <button className='bg-red-600 text-white rounded-full p-2 w-20'>
+            <button className='bg-red-600 text-white rounded-full p-2 w-20'
+              onClick={handleLogout}>
               Salir
             </button>
           </div>

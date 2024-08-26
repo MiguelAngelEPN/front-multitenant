@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function CreateTaskLogs() {
+    const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
     const [tenantId, setTenantId] = useState('');
 
@@ -61,7 +62,7 @@ export default function CreateTaskLogs() {
 
         console.log("data send: ", formattedData);
         // Aquí puedes realizar la petición API con formattedData
-        const response = await fetch(`http://localhost:3000/employees/${params.idEmployee}/task/${params.IdTask}/tasklogs`, {
+        const response = await fetch(`${backdorection}/employees/${params.idEmployee}/task/${params.IdTask}/tasklogs`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
