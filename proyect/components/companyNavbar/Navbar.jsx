@@ -26,6 +26,13 @@ export default function Navbar() {
           </Link>
         </div>
         <nav className="flex items-center justify-end w-full h-full">
+
+          <div className='mr-8'>
+            <button className='bg-red-600 text-white rounded-full p-2 w-20'>
+              Salir
+            </button>
+          </div>
+
           <div className='bg-[--complementary-color] rounded-full border-3 border-solid border-[#D4D2DB] pl-10 pr-2 h-10 flex items-center text-[--tertiary-color]'>
             {tenantId ? tenantId : 'Loading ...'}
             <div className="cursor-pointer ml-10">

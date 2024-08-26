@@ -62,11 +62,7 @@ export default function EmployeeList() {
   //<div className="bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center min-h-screen p-4 flex-col">
   return (<>
     <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
-      <div className='flex justify-end w-full'>
-        <Link href="/companies" className=" top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
-          ⬅️ Back
-        </Link>
-      </div><br />
+      
       <div className='flex flex-col justify-center items-center w-full h-full'>
         <div className='flex space-x-3 mb-3'>
           <Link href={`/company/create-employee`}
