@@ -11,20 +11,20 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
     const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
 
     useEffect(() => {
-      // Obtener el token del localStorage
-      const token = localStorage.getItem("authToken");
-  
-      if (token) {
-        const userData = JSON.parse(token);
-        setTenantId(userData.tenantId);
-      }
+        // Obtener el token del localStorage
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+        }
     }, []);
 
     let params = useParams();
     console.log('params: ', params)
     const router = useRouter();
 
-    const { register, handleSubmit, control, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, formState: { errors }, watch } = useForm({
         defaultValues: {
             task: {
                 title: '',
@@ -196,34 +196,53 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
 
                     <div className='space-y-4'>
                         <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
-                        {fields.map((field, index) => (
-                            <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
-                                <input
-                                    type="text"
-                                    placeholder="Additional Field Key"
-                                    className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                    {...register(`task.additionalFields.${index}.key`)}
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Additional Field Value"
-                                    className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                    {...register(`task.additionalFields.${index}.value`)}
-                                />
-                                <select
-                                    className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                    {...register(`task.additionalFields.${index}.type`)}
-                                >
-                                    <option value="string">String</option>
-                                    <option value="number">Number</option>
-                                    <option value="boolean">Boolean</option>
-                                    <option value="date">Date</option>
-                                </select>
-                                <button type="button"
-                                    className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
-                                    onClick={() => remove(index)}>Remove</button>
-                            </div>
-                        ))}
+                        {fields.map((field, index) => {
+                            const type = watch(`task.additionalFields.${index}.type`, 'string');
+                            return (
+                                <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
+                                    <input
+                                        type="text"
+                                        placeholder="Additional Field Key"
+                                        className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                        {...register(`task.additionalFields.${index}.key`)}
+                                    />
+                                    <div>
+                                        {type === 'boolean' ? (
+                                            <select
+                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                                {...register(`task.additionalFields.${index}.value`)}
+                                            >
+                                                <option value="true">Yes</option>
+                                                <option value="false">No</option>
+                                            </select>
+                                        ) : (
+                                            <input
+                                                type={type === 'string' ? 'text' : type}
+                                                placeholder="Additional Field Value"
+                                                className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                                {...register(`task.additionalFields.${index}.value`)}
+                                            />
+                                        )}
+                                    </div>
+                                    <select
+                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                        {...register(`task.additionalFields.${index}.type`)}
+                                    >
+                                        <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                        <option value="boolean">Boolean</option>
+                                        <option value="date">Date</option>
+                                    </select>
+                                    <button
+                                        type="button"
+                                        className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
+                                        onClick={() => remove(index)}
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            );
+                        })}
 
                         <div className="flex justify-end">
                             <button
@@ -234,8 +253,8 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                                 Add Field
                             </button>
                         </div>
-
                     </div>
+
 
                     <div className="flex justify-center mt-8">
                         <button
