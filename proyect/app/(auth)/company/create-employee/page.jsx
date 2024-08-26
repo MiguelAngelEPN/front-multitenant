@@ -1,5 +1,5 @@
 "use client"
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import Link from 'next/link';
 
@@ -17,7 +17,7 @@ export default function CreateEmployees() {
         }
     }, []);
 
-    const { register, handleSubmit, control, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, formState: { errors }, watch  } = useForm({
         defaultValues: {
             employee: {
                 name: '',
@@ -131,44 +131,57 @@ export default function CreateEmployees() {
 
                     <div className="space-y-4">
                         <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
-                        {fields.map((field, index) => (
-                            <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Field Key"
-                                        className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        {...register(`employee.additionalFields.${index}.key`)}
-                                    />
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Field Value"
-                                        className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        {...register(`employee.additionalFields.${index}.value`)}
-                                    />
-                                </div>
-                                <div>
-                                    <select
-                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-[var(--secondary-color)] focus:ring-1 focus:ring-[var(--secondary-color)]"
-                                        {...register(`employee.additionalFields.${index}.type`)}
+                        {fields.map((field, index) => {
+                            const type = watch(`employee.additionalFields.${index}.type`, 'string');
+                            return (
+                                <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
+                                    <div>
+                                        <input
+                                            type="text"
+                                            placeholder="Field Key"
+                                            className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                            {...register(`employee.additionalFields.${index}.key`)}
+                                        />
+                                    </div>
+                                    <div>
+                                        {type === 'boolean' ? (
+                                            <select
+                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                                {...register(`employee.additionalFields.${index}.value`)}
+                                            >
+                                                <option value="true">Yes</option>
+                                                <option value="false">No</option>
+                                            </select>
+                                        ) : (
+                                            <input
+                                                type={type === 'string' ? 'text' : type}
+                                                placeholder="Field Value"
+                                                className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                                {...register(`employee.additionalFields.${index}.value`)}
+                                            />
+                                        )}
+                                    </div>
+                                    <div>
+                                        <select
+                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-[var(--secondary-color)] focus:ring-1 focus:ring-[var(--secondary-color)]"
+                                            {...register(`employee.additionalFields.${index}.type`)}
+                                        >
+                                            <option value="string">String</option>
+                                            <option value="number">Number</option>
+                                            <option value="boolean">Boolean</option>
+                                            <option value="date">Date</option>
+                                        </select>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
+                                        onClick={() => remove(index)}
                                     >
-                                        <option value="string">String</option>
-                                        <option value="number">Number</option>
-                                        <option value="boolean">Boolean</option>
-                                        <option value="date">Date</option>
-                                    </select>
+                                        Remove
+                                    </button>
                                 </div>
-                                <button
-                                    type="button"
-                                    className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
-                                    onClick={() => remove(index)}
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                        ))}
+                            );
+                        })}
                         <div className="flex justify-end">
                             <button
                                 type="button"
