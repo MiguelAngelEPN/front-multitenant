@@ -1,28 +1,25 @@
 "use client"
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function CreateTaskLogs() {
     const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
-
     const [tenantId, setTenantId] = useState('');
 
     useEffect(() => {
-      // Obtener el token del localStorage
-      const token = localStorage.getItem("authToken");
-  
-      if (token) {
-        const userData = JSON.parse(token);
-        setTenantId(userData.tenantId);
-      }
+        const token = localStorage.getItem("authToken");
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+        }
     }, []);
 
     let params = useParams();
-    console.log('params: ', params)
+    console.log('params: ', params);
 
-    const { register, handleSubmit, control, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, watch } = useForm({
         defaultValues: {
             tasklogs: {
                 additionalFields: [{ key: '', value: '', type: 'string' }],
@@ -32,7 +29,7 @@ export default function CreateTaskLogs() {
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "tasklogs.additionalFields"
+        name: "tasklogs.additionalFields",
     });
 
     const onFormSubmit = async (data) => {
@@ -82,59 +79,71 @@ export default function CreateTaskLogs() {
         alert("TaskLogs Successfully Registered")
     }
 
-    return (<>
+    return (
         <div className="rounded-3xl homepage flex flex-col items-center justify-center min-h-screen p-8">
-
-        <div className='flex justify-end w-full'>
-            <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
+            <div className='flex justify-end w-full'>
+                <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}`} className="top-4 left-4 bg-[--secondary-color] bg-opacity-50 hover:bg-[--primary-color] text-white font-semibold py-2 px-4 rounded-full shadow-md transition-all">
                     ⬅️ Back
-            </Link>
-        </div>
+                </Link>
+            </div>
 
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
                 <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
                     <h2 className="text-center text-3xl font-semibold text-[--primary-color] mb-2">Register TaskLog</h2>
 
                     <div className="space-y-4">
-                        <label className="block text-xl font-medium text-black ">Additional Fields</label>
-                        {fields.map((field, index) => (
-                            <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Field Key"
-                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        {...register(`tasklogs.additionalFields.${index}.key`)}
-                                    />
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Field Value"
-                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        {...register(`tasklogs.additionalFields.${index}.value`)}
-                                    />
-                                </div>
-                                <div>
-                                    <select
-                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                        {...register(`tasklogs.additionalFields.${index}.type`)}
+                        <label className="block text-xl font-medium text-black">Additional Fields</label>
+                        {fields.map((field, index) => {
+                            const type = watch(`tasklogs.additionalFields.${index}.type`, 'string');
+                            return (
+                                <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
+                                    <div>
+                                        <input
+                                            type="text"
+                                            placeholder="Field Key"
+                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                            {...register(`tasklogs.additionalFields.${index}.key`)}
+                                        />
+                                    </div>
+                                    <div>
+                                        {type === 'boolean' ? (
+                                            <select
+                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                                {...register(`tasklogs.additionalFields.${index}.value`)}
+                                            >
+                                                <option value="true">True</option>
+                                                <option value="false">False</option>
+                                            </select>
+                                        ) : (
+                                            <input
+                                                type={type === 'string' ? 'text' : type}
+                                                placeholder="Field Value"
+                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                                {...register(`tasklogs.additionalFields.${index}.value`)}
+                                            />
+                                        )}
+                                    </div>
+                                    <div>
+                                        <select
+                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                            {...register(`tasklogs.additionalFields.${index}.type`)}
+                                        >
+                                            <option value="string">String</option>
+                                            <option value="number">Number</option>
+                                            <option value="boolean">Boolean</option>
+                                            <option value="date">Date</option>
+                                        </select>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
+                                        onClick={() => remove(index)}
                                     >
-                                        <option value="string">String</option>
-                                        <option value="number">Number</option>
-                                        <option value="boolean">Boolean</option>
-                                        <option value="date">Date</option>
-                                    </select>
+                                        Remove
+                                    </button>
                                 </div>
-                                <button
-                                    type="button"
-                                    className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
-                                    onClick={() => remove(index)}
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                        ))}
+                            );
+                        })}
                         <div className="flex justify-end">
                             <button
                                 type="button"
@@ -157,7 +166,5 @@ export default function CreateTaskLogs() {
                 </form>
             </div>
         </div>
-
-    </>)
-
+    );
 }
