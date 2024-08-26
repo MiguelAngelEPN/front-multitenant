@@ -143,7 +143,7 @@ const LogInPage = () => {
             </h1><br />
 
             <button className="sigupLogin">
-              <Link href="/home-chasqi/sign-up">
+              <Link href="/">
                 Register Here
               </Link>
             </button>

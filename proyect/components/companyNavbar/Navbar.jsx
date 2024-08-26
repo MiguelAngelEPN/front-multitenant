@@ -32,7 +32,7 @@ export default function Navbar() {
     <div className="w-full flex h-14 bg-[#E7E5EE]">
       <div className="flex w-full">
         <div className="">
-          <Link href="/">
+          <Link href="/company/employees">
             <Image src="/assets/backgrounds/icon_62.png" alt="ConstruEX Logo" width={260} height={50} className="logoCX" priority />
           </Link>
         </div>

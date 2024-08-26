@@ -109,7 +109,7 @@ const RegisterPage = () => {
                     className={` ${errors.companyName ? 'border-red-500' : 'border-gray-300'}`}
                     {...register("companyName")}
                   />
-                  {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>}
+                  {errors.companyName && <p className="text-red-200 text-sm mt-1">{errors.companyName.message}</p>}
                 </div>
 
 
@@ -121,7 +121,7 @@ const RegisterPage = () => {
                     className={`${errors.tenantId ? 'border-red-500' : 'border-gray-300'}`}
                     {...register("tenantId")}
                   />
-                  {errors.tenantId && <p className="text-red-500 text-sm mt-1">{errors.tenantId.message}</p>}
+                  {errors.tenantId && <p className="text-red-200 text-sm mt-1">{errors.tenantId.message}</p>}
                 </div>
 
                 <div>
@@ -132,7 +132,7 @@ const RegisterPage = () => {
                     className={`text-black ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
                     {...register("password")}
                   />
-                  {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                  {errors.password && <p className="text-red-200 text-sm mt-1">{errors.password.message}</p>}
                 </div>
 
                 <button type="submit" className="button-signup">Registrarse</button>

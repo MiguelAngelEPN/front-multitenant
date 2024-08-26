@@ -157,7 +157,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                             <input
                                 type="text"
                                 placeholder="Title"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.title", { required: "Title is required" })}
                             />
                             {errors.task?.title && <p className="mt-1 text-sm text-red-500">{errors.task.title.message}</p>}
@@ -167,7 +167,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                             <input
                                 type="number"
                                 placeholder="Priority"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.priority", { required: "Priority is required" })}
                             />
                             {errors.task?.priority && <p className="mt-1 text-sm text-red-500">{errors.task.priority.message}</p>}
@@ -177,7 +177,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                             <input
                                 type="date"
                                 placeholder="Start Date"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.startDate", { required: "Start Date is required" })}
                             />
                             {errors.task?.startDate && <p className="mt-1 text-sm text-red-500">{errors.task.startDate.message}</p>}
@@ -188,7 +188,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                             <input
                                 type="date"
                                 placeholder="End Date"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                 {...register("task.endDate", { required: "End Date is required" })}
                             />
                             {errors.task?.endDate && <p className="mt-1 text-sm text-red-500">{errors.task.endDate.message}</p>}
@@ -242,13 +242,13 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
                                 <input
                                     type="text"
                                     placeholder="Additional Field Key"
-                                    className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                    className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                     {...register(`task.additionalFields.${index}.key`)}
                                 />
                                 <input
                                     type="text"
                                     placeholder="Additional Field Value"
-                                    className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                    className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                     {...register(`task.additionalFields.${index}.value`)}
                                 />
                                 <select
