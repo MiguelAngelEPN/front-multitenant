@@ -1,0 +1,152 @@
+* {
+    font-family: var(--font-worksans);
+  }
+  
+  .loginContainer {
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    background: white;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 0px 10px rgba(0, 0, 0, 0.22);
+    width: 100%;
+    max-width: 770px;
+  }
+  
+  .leftHalf,
+  .rightHalf {
+    height: 100%;
+    flex: 1;
+  }
+  
+  .leftHalf {
+    background: var(--secondary-color);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rightHalf {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .loginForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .loginForm2 {
+    width: 80%;
+  }
+  
+  .loginForm2 input {
+    padding-left: 5px;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    color: #000000;
+  }
+  
+  .buttonLogin {
+    border-radius: 9999px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px;
+    padding: 8px 30px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .sigupLogin:hover,
+  .buttonLogin:hover {
+    letter-spacing: 3px;
+  }
+  
+  .sigupLogin:hover,
+  .buttonLogin:active {
+    transform: scale(0.95);
+  }
+  
+  .buttonLogin:focus {
+    outline: none;
+  }
+  
+  .socialbuttonLogin {
+    margin: 20px 0;
+  }
+  
+  .socialLogin {
+    color: var(--complementary-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 33px;
+    height: 40px;
+    width: 40px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .socialbuttonLogin .socialLogin:hover {
+    color: var(--tertiary-color);
+  }
+  
+  .sigupLogin {
+    background-color: var(--primary-color);
+    border: 1px solid #262626;
+    border-radius: 9999px;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    margin: 9px;
+    padding: 10px 70px;
+    font-size: 24px;
+  }
+   
+  @media (max-width: 640px) {
+  
+    /*.loginContainer {
+      margin: 5px;
+    }
+    .rightHalf {
+      display: none;
+    }
+  
+    */
+    .chasqilogo {
+      display: none;
+    }
+  
+    .loginContainer {
+      flex-direction: column;
+      align-items: center;
+      margin: 7px;
+    }
+  
+    .leftHalf,
+    .rightHalf {
+      width: 100%;
+    }
+  
+    .sigupLogin {
+      background-color: var(--primary-color);
+      border: 1px solid #262626;
+      border-radius: 10px;
+      color: #fff;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      margin: 9px;
+      padding: 10px 50px;
+      font-size: 18px;
+    }
+  }
