@@ -11,6 +11,7 @@ import Link from "next/link";
 import Header from "@/components/home/Header";
 import Footer from "@/components/home/Footer";
 import { FaGoogle } from "react-icons/fa";
+import Btn from "@/components/Btn";
 
 // Definir el esquema de validación con zod
 const schema = z.object({
@@ -30,6 +31,7 @@ const LogInPage = () => {
   });
 
   // Función para manejar el envío del formulario
+  /* 
   const onSubmit = async (data) => {
     try {
       // Llama al endpoint de login en tu backend
@@ -68,7 +70,21 @@ const LogInPage = () => {
       alert("Login failed, please try again.");
     }
   };
-  
+  */
+  // Función para manejar el envío del formulario
+  const onSubmit = async (data) => {
+    const result = await signIn("credentials", {
+      redirect: false,
+      tenantId: data.tenantId,
+      password: data.password,
+    });
+
+    if (!result.error) {
+      window.location.href = '/company/employees';
+    } else {
+      alert('Login failed');
+    }
+  };
 
   return (
     <div className="fixed-scale mx-auto min-h-screen">
@@ -76,7 +92,7 @@ const LogInPage = () => {
       <Header />
 
       <div className="homepage flex justify-evenly items-center min-h-[80vh]">
-
+        <Btn />
         <div className="loginContainer">
 
           <div className="leftHalf">
