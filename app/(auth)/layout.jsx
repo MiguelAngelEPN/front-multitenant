@@ -2,8 +2,8 @@
 import SessionAuthProvider from '@/context/SessionAuthProvider';
 export default function AuthLayout({ children }) {
     return (
-        <SessionAuthProvider>
+        <div>
             {children}
-        </SessionAuthProvider>
+        </div>
     );
 }

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useSession } from "next-auth/react";
 
 export default function EmployeeList() {
-  const {data: session, status} = useSession();
   const [employees, setEmployees] = useState([]);
   const router = useRouter();
   const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;

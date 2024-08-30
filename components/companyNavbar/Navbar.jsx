@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 import {useSession } from "next-auth/react";
 export default function Navbar() {
   
-  const {data: session, status} = useSession();
-  console.log({session, status})
+  //const {data: session, status} = useSession();
+  //console.log({session, status})
   const [tenantId, setTenantId] = useState(null);
   const router = useRouter()
 

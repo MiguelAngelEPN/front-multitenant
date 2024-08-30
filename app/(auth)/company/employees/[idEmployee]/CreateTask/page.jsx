@@ -21,7 +21,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
     }, []);
 
     let params = useParams();
-    console.log('params: ', params)
+    //console.log('params: ', params)
     const router = useRouter();
 
     const { register, handleSubmit, control, formState: { errors }, watch } = useForm({
@@ -45,21 +45,10 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
 
     const onFormSubmit = (data) => {
         const { title, priority, startDate, endDate, concurrence, state, additionalFields } = data.task;
+
         const additionalData = additionalFields.reduce((acc, field) => {
-            if (field.key && field.value) {
-                switch (field.type) {
-                    case 'number':
-                        acc[field.key] = parseFloat(field.value);
-                        break;
-                    case 'boolean':
-                        acc[field.key] = field.value === 'true';
-                        break;
-                    case 'date':
-                        acc[field.key] = new Date(field.value);
-                        break;
-                    default:
-                        acc[field.key] = field.value;
-                }
+            if (field.key && field.type) {
+                acc[field.key] = { name: field.key, value: field.type };
             }
             return acc;
         }, {});
@@ -78,8 +67,8 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
         };
 
         console.log(formattedData);
-        asignedTask(formattedData)
-    }
+        asignedTask(formattedData);
+    };
 
     const asignedTask = async (formattedData) => {
         try {
@@ -197,7 +186,6 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                     <div className='space-y-4'>
                         <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
                         {fields.map((field, index) => {
-                            const type = watch(`task.additionalFields.${index}.type`, 'string');
                             return (
                                 <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
                                     <input
@@ -206,24 +194,6 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                                         className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                         {...register(`task.additionalFields.${index}.key`)}
                                     />
-                                    <div>
-                                        {type === 'boolean' ? (
-                                            <select
-                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                                {...register(`task.additionalFields.${index}.value`)}
-                                            >
-                                                <option value="true">Yes</option>
-                                                <option value="false">No</option>
-                                            </select>
-                                        ) : (
-                                            <input
-                                                type={type === 'string' ? 'text' : type}
-                                                placeholder="Additional Field Value"
-                                                className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                                {...register(`task.additionalFields.${index}.value`)}
-                                            />
-                                        )}
-                                    </div>
                                     <select
                                         className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                         {...register(`task.additionalFields.${index}.type`)}

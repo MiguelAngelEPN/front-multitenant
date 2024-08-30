@@ -31,7 +31,7 @@ const LogInPage = () => {
   });
 
   // Función para manejar el envío del formulario
-  /* 
+  
   const onSubmit = async (data) => {
     try {
       // Llama al endpoint de login en tu backend
@@ -70,9 +70,9 @@ const LogInPage = () => {
       alert("Login failed, please try again.");
     }
   };
-  */
+  
   // Función para manejar el envío del formulario
-  const onSubmit = async (data) => {
+  /* const onSubmit = async (data) => {
     const result = await signIn("credentials", {
       redirect: false,
       tenantId: data.tenantId,
@@ -84,7 +84,7 @@ const LogInPage = () => {
     } else {
       alert('Login failed');
     }
-  };
+  };*/
 
   return (
     <div className="fixed-scale mx-auto min-h-screen">
@@ -92,7 +92,7 @@ const LogInPage = () => {
       <Header />
 
       <div className="homepage flex justify-evenly items-center min-h-[80vh]">
-        <Btn />
+        {/*<Btn />*/}
         <div className="loginContainer">
 
           <div className="leftHalf">
