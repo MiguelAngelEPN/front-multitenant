@@ -15,12 +15,14 @@ export default function PageTaskListEmployee() {
         const userData = JSON.parse(token);
         setTenantId(userData.tenantId);
         getTasksListEmployee(userData.tenantId)
+        getEmployeeName(userData.tenantId);
       }
     }, []);
   
     let params = useParams(); 
     console.log('params: ', params)
     const [employeeId, setEmployeeId] = useState(params.idEmployee);
+    const [employeeName, setEmployeeName] = useState('');
     const [tasks, setTasks] = useState([]);
     const router = useRouter();
 
@@ -47,12 +49,35 @@ export default function PageTaskListEmployee() {
         }
     };
 
+    const getEmployeeName = async (tenantId) => {
+        try {
+            //Obtener el nombre del empleado con x-tenant-id en backend
+            const response = await fetch(`${backdorection}/employees/${employeeId}/name`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const name = await response.text();
+            setEmployeeName(name);
+            console.log("Respuesta: ", name);
+        } catch (error) {
+            console.error("Fetch error: ", error);
+        }
+    };
+
     const getTableHeaders = () => {
         const allKeys = tasks.reduce((keys, task) => {
             return [...keys, ...Object.keys(task)];
         }, []);
 
-        return [...new Set(allKeys)].filter((key) => key !== 'kpis' && key !== 'tasklogs');
+        return [...new Set(allKeys)].filter((key) => key !== 'kpis' && key !== 'tasklogs' && key !== '_id');
     };
 
     const tableHeaders = getTableHeaders();
@@ -86,13 +111,13 @@ export default function PageTaskListEmployee() {
                 </Link>
             </div><br />
 
-            <div className='my-10'>
+            <div className='mt-10'>
                 <h2 className='text-center text-[32px] text-[--primary-color]'>List tasks</h2>
-                <p className='text-[24px] text-[--secondary-color]'>Employee: {employeeId}</p>
+                <p className='text-[24px] text-[--secondary-color]'>Employee: {employeeName}</p>
             </div>
 
                 <Link href={`/company/employees/${params.idEmployee}/CreateTask`}
-                    className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+                    className="my-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
                 >
                     Assign Task to Employee
                 </Link>
