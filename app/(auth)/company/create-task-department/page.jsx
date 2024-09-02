@@ -224,7 +224,7 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
 
                     </div>
 
-                    <div className='space-y-4'>
+                    <div className='space-y-4 mt-2'>
                         <label className="block text-xl font-medium text-[--secondary-color]">Fields to assign</label>
                         {fields.map((field, index) => {
                             return (
