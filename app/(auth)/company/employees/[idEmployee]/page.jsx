@@ -146,7 +146,7 @@ export default function PageTaskListEmployee() {
                                 >
                                     {tableHeaders.map((header) => (
                                         <td key={header} className="py-3 px-3 text-[12px] text-center">
-                                            {renderCellContent(header, task[header])}
+                                            {renderCellContent(header, task[header]?.name || task[header])}
                                         </td>
                                     ))}
                                     <td className="py-3 px-2">

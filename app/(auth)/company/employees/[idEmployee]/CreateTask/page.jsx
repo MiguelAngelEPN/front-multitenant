@@ -222,7 +222,7 @@ export default function AssignTasks() { //registrar un empleado dado un tenant
                     </div>
 
                     <div className='space-y-4'>
-                        <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
+                        <label className="block text-xl font-medium text-[--secondary-color]">Fields to assign</label>
                         {fields.map((field, index) => {
                             return (
                                 <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">

@@ -61,10 +61,15 @@ export default function EmployeeList() {
   const handleButtonClick = (idEmployee) => {
     router.push(`/company/employees/${idEmployee}`);
   };
+  
+  const handleCopyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("copied text")
+  };
   //<div className="bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center min-h-screen p-4 flex-col">
   return (<>
     <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
-      
+
       <div className='flex flex-col justify-center items-center w-full h-full'>
         <div className='flex space-x-3 mb-3'>
           <Link href={`/company/create-employee`}
@@ -95,7 +100,7 @@ export default function EmployeeList() {
                   )}
                 </tr>
               </thead>
-              <tbody className='text-black'>
+              <tbody className="text-black">
                 {employees.map((employee, index) => (
                   <tr
                     key={employee._id}
@@ -103,7 +108,17 @@ export default function EmployeeList() {
                   >
                     {tableHeaders.map((header) => (
                       <td key={header} className="py-3 px-3 text-[12px] text-center">
-                        {typeof employee[header] === 'object'
+                        {header === '_id' ? (
+                          <button
+                            onClick={() => handleCopyToClipboard(employee[header])}
+                            className="text-blue-500 hover:underline"
+                            title="Click to copy ID"
+                          >
+                            {employee[header].length > 8
+                              ? `${employee[header].substring(0, 8)}...`
+                              : employee[header]}
+                          </button>
+                        ) : typeof employee[header] === 'object'
                           ? JSON.stringify(employee[header], null, 2)
                           : employee[header] ?? 'N/A'}
                       </td>

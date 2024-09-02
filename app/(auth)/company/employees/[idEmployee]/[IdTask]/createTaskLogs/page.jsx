@@ -61,9 +61,12 @@ export default function CreateTaskLogs() {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            let data = await response.json();
 
-            const data = await response.json();
+            // Filtrar el campo 'departament'
+            data = data.filter(field => field !== 'departament');
             console.log("field result: ", data);
+
             setAdditionalFields(data);
 
         } catch (error) {
@@ -120,7 +123,6 @@ export default function CreateTaskLogs() {
     const renderFields = () => {
         return additionalFields.map((field, index) => {
             const matchedField = task[field] || {}; // Hacer "match" con los datos de la tarea
-
             // Determinar el tipo de input basado en el valor esperado
             let inputType;
             switch (matchedField.value) {
@@ -182,6 +184,7 @@ export default function CreateTaskLogs() {
                         <p><strong>Start Date:</strong> {new Date(task.startDate).toLocaleDateString()}</p>
                         <p><strong>End Date:</strong> {new Date(task.endDate).toLocaleDateString()}</p>
                         <p><strong>State:</strong> {task.state}</p>
+                        <p><strong>{task.departament ? 'Departament:' : ''}</strong> {task.departament ? task.departament : ''}</p>
                     </div>
                 )}
                 <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
