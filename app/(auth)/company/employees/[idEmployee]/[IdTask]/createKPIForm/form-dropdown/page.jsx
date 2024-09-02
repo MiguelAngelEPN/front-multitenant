@@ -26,9 +26,9 @@ export default function CreateKpibyDropdown() {
     const [timeUnit, setTimeUnit] = useState('');
 
     const [title, setTitle] = useState('');
-    const [target, setTarget] = useState('');
+    const [target, setTarget] = useState(0);
     const [selectedField, setSelectedField] = useState("");
-    const [fieldFilter, setFieldFilter] = useState([""]);
+    const [fieldFilter, setFieldFilter] = useState(["title", "priority", "startDate", "endDate", "concurrence", "state"]);
 
     const [dropdownCriteria, setDropdownCriteria] = useState([]);
     const [newCriterionText, setNewCriterionText] = useState('');
@@ -113,6 +113,19 @@ export default function CreateKpibyDropdown() {
 
     const handleSelectChange = (event) => {
         setSelectedField(event.target.value);
+    };
+
+    const handleValueChange = (e) => {
+        const value = e.target.value;
+        const numericValue = parseInt(value, 10);
+        
+        // Asegurarse de que el valor numérico no exceda el target
+        if (!isNaN(numericValue) && numericValue <= target) {
+            setNewCriterionValue(value);
+        } else {
+            // Opcional: Puedes proporcionar retroalimentación al usuario si el valor excede el target
+            // e.g., alert('El valor no puede ser mayor que el objetivo.');
+        }
     };
 
     return (
@@ -223,8 +236,9 @@ export default function CreateKpibyDropdown() {
                                 />
                                 <input
                                     type="number"
+                                    min = {0}
                                     value={newCriterionValue}
-                                    onChange={(e) => setNewCriterionValue(e.target.value)}
+                                    onChange={handleValueChange}
                                     placeholder="Ingrese un valor numérico"
                                     className="w-full p-3 mb-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[--primary-color]"
                                 />

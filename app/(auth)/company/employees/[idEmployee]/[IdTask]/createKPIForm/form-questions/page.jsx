@@ -24,7 +24,8 @@ export default function CreateKpibyQuestions() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [timeUnit, setTimeUnit] = useState('');
-    const [fieldFilter, setFieldFilter] = useState([""]);
+    const [fieldFilter, setFieldFilter] = useState(["title", "priority", "startDate", "endDate", "concurrence", "state"]);
+
     const [selectedField, setSelectedField] = useState("");
 
     const [title, setTitle] = useState('');

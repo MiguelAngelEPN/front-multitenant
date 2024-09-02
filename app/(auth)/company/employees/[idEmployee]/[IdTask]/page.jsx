@@ -258,7 +258,7 @@ export default function PageTaskLogsKpis() {
                                     >
                                         {tableTaskLogsHeaders.map((header) => (
                                             <td key={header} className="py-3 px-3 text-[12px] text-center">
-                                                {renderCellContent(header, taskLog[header].name || taskLog[header])}
+                                                {renderCellContent(header, taskLog[header].userInput || taskLog[header])}
                                             </td>
                                         ))}
                                         <td className="py-3 px-2">

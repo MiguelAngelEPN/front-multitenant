@@ -40,6 +40,7 @@ export default function KpiFormDropdown() {
             }
 
             const data1 = await response.json();
+            console.log('respusl', data1)
             setKpiInformation(data1);
 
         } catch (error) {
@@ -78,6 +79,10 @@ export default function KpiFormDropdown() {
                             <p className='text-lg text-[var(--secondary-color)] mr-2'>Evaluation Type:</p>
                             <p className='text-lg text-black'>{kpiInformation.evaluationType}</p>
                         </div>
+                        <div className="flex mb-2">
+                            <p className='text-lg text-[var(--secondary-color)] mr-2'>target:</p>
+                            <p className='text-lg text-black'>{kpiInformation.target}</p>
+                        </div>
 
                         <div>
                             <p className='text-center text-[24px] font-bold text-[var(--primary-color)]'>Dropdown Criteria</p><br />
@@ -104,7 +109,7 @@ export default function KpiFormDropdown() {
 
                         {selectedValue && (
                             <div className='mt-6 p-4 bg-[var(--primary-color)] text-white text-center text-lg font-bold rounded-lg'>
-                                Your evaluation is {selectedValue}%
+                                Your evaluation is {(selectedValue / kpiInformation.target) * 100}%
                             </div>
                         )}
                     </div><br />
