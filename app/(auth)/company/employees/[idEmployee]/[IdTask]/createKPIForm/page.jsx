@@ -31,7 +31,7 @@ export default function CreateKpiForm() {
                 </div><br />
 
                 <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
-                    <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Elige el tipo de pregunta</h1>
+                    <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Choose the type of question</h1>
                     <div className='w-full flex space-x-3'>
                         <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createKPIForm/form-dropdown`}
                             className="w-full py-3 px-4 border-2 border-[--secondary-color] bg-[--complentary-color] text-[--secondary-color] rounded text-center hover:bg-[--secondary-color] hover:text-white hover:border-[--complementary-color]"

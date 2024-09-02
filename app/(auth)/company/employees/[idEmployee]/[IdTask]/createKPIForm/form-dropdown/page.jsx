@@ -138,10 +138,10 @@ export default function CreateKpibyDropdown() {
                 </div><br />
 
                 <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
-                    <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Crear KPI para Tarea con evaluación por dropdown</h1>
+                    <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Create KPI for Task with dropdown evaluation</h1>
                     <form onSubmit={handleSubmit} className='text-black'>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">Título del KPI</label>
+                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">KPI Title</label>
                             <input
                                 type="text"
                                 value={title}
@@ -151,7 +151,7 @@ export default function CreateKpibyDropdown() {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">Objetivo (Target)</label>
+                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">Target</label>
                             <input
                                 type="number"
                                 value={target}
@@ -161,14 +161,14 @@ export default function CreateKpibyDropdown() {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">Unidad de tiempo (en días)</label>
+                            <label className="block text-sm font-medium text-[--secondary-color] mb-2">Time Unit(in days)</label>
                             <select
                                 value={timeUnit}
                                 onChange={(e) => setTimeUnit(e.target.value)}
                                 required
                                 className="w-full h-[42px] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                             >
-                                <option value="">Selecciona una opción</option>
+                                <option value="">Select a option</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -178,7 +178,7 @@ export default function CreateKpibyDropdown() {
                         </div>
 
                         <div className='mb-4'>
-                            <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Campo a evaluar:</p>
+                            <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Field to be evaluated:</p>
                             <div className='flex justify-between items-center'>
                                 <select
                                     className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
@@ -193,16 +193,16 @@ export default function CreateKpibyDropdown() {
                                     ))}
                                 </select>
                                 <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                                    Obtener campos
+                                    Get fields
                                 </button>
                             </div>
                         </div>
 
                         <div className="mb-6">
-                            <p className='block text-m font-medium text-[--secondary-color] mb-2'>Rango de fechas:</p>
+                            <p className='block text-m font-medium text-[--secondary-color] mb-2'>Date range:</p>
                             <div className='w-full flex justify-between'>
                                 <div className='w-[220px]'>
-                                    <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Fecha de inicio:</p>
+                                    <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Start Date:</p>
                                     <input
                                         type="datetime-local"
                                         value={startDate}
@@ -212,7 +212,7 @@ export default function CreateKpibyDropdown() {
                                     />
                                 </div>
                                 <div className='w-[220px]'>
-                                    <p className='block text-sm font-medium text-[--secondary-color] mb-2'>Fecha de fin:</p>
+                                    <p className='block text-sm font-medium text-[--secondary-color] mb-2'>End Date:</p>
                                     <input
                                         type="datetime-local"
                                         value={endDate}
@@ -225,13 +225,13 @@ export default function CreateKpibyDropdown() {
                         </div>
 
                         <div className="mb-6">
-                            <h2 className="text-lg font-semibold mb-4 text-[--primary-color]">Evaluación por dropdown</h2>
+                            <h2 className="text-lg font-semibold mb-4 text-[--primary-color]">Evaluation by dropdown</h2>
                             <div className="mb-4">
                                 <input
                                     type="text"
                                     value={newCriterionText}
                                     onChange={(e) => setNewCriterionText(e.target.value)}
-                                    placeholder="Ingrese un criterio"
+                                    placeholder="Enter a criterion"
                                     className="w-full p-3 mb-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[--primary-color]"
                                 />
                                 <input
@@ -239,7 +239,7 @@ export default function CreateKpibyDropdown() {
                                     min = {0}
                                     value={newCriterionValue}
                                     onChange={handleValueChange}
-                                    placeholder="Ingrese un valor numérico"
+                                    placeholder="Enter a numerical value"
                                     className="w-full p-3 mb-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[--primary-color]"
                                 />
                                 <div className="flex justify-end mt-2">
@@ -248,7 +248,7 @@ export default function CreateKpibyDropdown() {
                                         onClick={handleAddCriterion}
                                         className="px-4 py-2 text-sm text-white bg-[--secondary-color] rounded-full hover:bg-[--primary-color] transition-all"
                                     >
-                                        Añadir Criterio
+                                        Add Criteria
                                     </button>
                                 </div>
                             </div>
@@ -275,7 +275,7 @@ export default function CreateKpibyDropdown() {
                             type="submit"
                             className="w-full py-3 px-4 bg-[--primary-color] text-white rounded-full hover:bg-[--secondary-color] focus:outline-none focus:ring-2 focus:ring-[--primary-color] transition-all"
                         >
-                            Crear KPI
+                            Create KPI
                         </button>
                     </form>
                 </div>
