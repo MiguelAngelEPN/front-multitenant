@@ -52,7 +52,7 @@ export default function EmployeeList() {
     }, []);
 
     // Exclude 'tasks' and 'Actions' since it will be manually added
-    return [...new Set(allKeys)].filter((key) => key !== 'tasks' && key !== 'tenantId');
+    return [...new Set(allKeys)].filter((key) => key !== 'tasks' && key !== 'tenantId' && key !== '__v');
   };
 
   const tableHeaders = getTableHeaders();
@@ -68,12 +68,12 @@ export default function EmployeeList() {
       <div className='flex flex-col justify-center items-center w-full h-full'>
         <div className='flex space-x-3 mb-3'>
           <Link href={`/company/create-employee`}
-            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
           >
             Create Employee
           </Link><br />
           <Link href={`/company/create-task-department`}
-            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
           >
             Assign Task to Department
           </Link>
@@ -86,12 +86,12 @@ export default function EmployeeList() {
               <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                 <tr>
                   {tableHeaders.map((header) => (
-                    <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
+                    <th key={header} className="py-3 px-3 uppercase tracking-wider text-[13px] text-center">
                       {header.replace(/_/g, ' ')}
                     </th>
                   ))}
                   {hasEmployees && (
-                    <th className="py-3 px-6 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
+                    <th className="py-3 px-6 uppercase tracking-wider text-[13px] text-center">Actions</th>
                   )}
                 </tr>
               </thead>
