@@ -61,10 +61,22 @@ export default function EmployeeList() {
   const handleButtonClick = (idEmployee) => {
     router.push(`/company/employees/${idEmployee}`);
   };
-  
+
   const handleCopyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     alert("copied text")
+  };
+
+  const renderCellContent = (header, value) => {
+    if (typeof value === 'boolean') {
+      return value ? (
+        <span className="text-green-500 font-bold">&#10003;</span>
+      ) : (
+        <span className="text-red-500 font-bold">&#10007;</span>
+      );
+    }
+
+    return typeof value === 'object' ? JSON.stringify(value, null, 2) : value ?? 'N/A';
   };
   //<div className="bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center min-h-screen p-4 flex-col">
   return (<>
@@ -118,11 +130,12 @@ export default function EmployeeList() {
                               ? `${employee[header].substring(0, 8)}...`
                               : employee[header]}
                           </button>
-                        ) : typeof employee[header] === 'object'
-                          ? JSON.stringify(employee[header], null, 2)
-                          : employee[header] ?? 'N/A'}
+                        ) : (
+                          renderCellContent(header, employee[header])
+                        )}
                       </td>
                     ))}
+
                     <td className="py-3 px-6">
                       <button
                         onClick={() => handleButtonClick(employee._id)}
