@@ -121,10 +121,10 @@ export default function CreateKpi() {
         </div><br />
 
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
-          <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Crear KPI para Tarea</h1>
+          <h1 className="text-3xl font-semibold mb-6 text-center text-[--primary-color]">Create KPI for Task</h1>
           <form onSubmit={handleSubmit} className='text-black'>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-[--secondary-color] mb-2">Título del KPI</label>
+              <label className="block text-sm font-medium text-[--secondary-color] mb-2">KPI Title</label>
               <input
                 type="text"
                 value={title}
@@ -135,7 +135,7 @@ export default function CreateKpi() {
             </div>
             <div className='flex space-x-5'>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-[--secondary-color] mb-2">Objetivo (Target)</label>
+                <label className="block text-sm font-medium text-[--secondary-color] mb-2">Target</label>
                 <input
                   type="number"
                   value={target}
@@ -146,7 +146,7 @@ export default function CreateKpi() {
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium text-[--secondary-color] mb-2">Unidad de tiempo (en días)</label>
+                <label className="block text-sm font-medium text-[--secondary-color] mb-2">Time Unit (in days)</label>
                 <select
                   value={timeUnit}
                   onChange={(e) => setTimeUnit(e.target.value)}
@@ -164,7 +164,7 @@ export default function CreateKpi() {
             </div>
 
             <div className='mb-4'>
-              <p className='block text-m font-medium text-[--secondary-color] mb-2'>Campo a evaluar:</p>
+              <p className='block text-m font-medium text-[--secondary-color] mb-2'>Field to be evaluated:</p>
               <div className='flex justify-between items-center'>
                 <select
                   className="text-black p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
@@ -179,7 +179,7 @@ export default function CreateKpi() {
                   ))}
                 </select>
                 <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                  Obtener campos
+                  Get fields
                 </button>
               </div>
             </div>
@@ -192,7 +192,7 @@ export default function CreateKpi() {
                 required
                 className="w-full h-[42px] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
-                <option value="">Selecciona una opción</option>
+                <option value="">Select a option</option>
                 <option value="count">count</option>
                 <option value="count_distinct">count_distinct</option>
                 <option value="sum()">sum()</option>
@@ -202,7 +202,7 @@ export default function CreateKpi() {
 
 
             <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-4 text-[--secondary-color]">Campos Adicionales</h2>
+              <h2 className="text-lg font-semibold mb-4 text-[--secondary-color]">Additional fields</h2>
               {additionalFields.map((field, index) => (
                 <div key={index} className="mb-4 p-4 bg-gray-100 rounded-lg">
                   <div className="mb-2 flex flex-col items-center space-y-4">
@@ -246,7 +246,7 @@ export default function CreateKpi() {
                   onClick={handleAddField}
                   className="px-4 py-2 text-sm text-white bg-green-500 rounded-full hover:bg-green-600 border-2 w-36"
                 >
-                  Añadir Campo
+                  Add Field
                 </button>
               </div>
             </div>
@@ -255,7 +255,7 @@ export default function CreateKpi() {
               type="submit"
               className="w-full px-6 py-2 text-sm font-semibold text-white bg-[--primary-color] rounded-full hover:bg-fuchsia-700 border-2"
             >
-              Crear KPI
+              Create KPI
             </button>
           </form>
         </div>
