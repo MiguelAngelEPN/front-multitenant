@@ -21,7 +21,7 @@ export default function CreateKpi() {
 
   const router = useRouter();
   let params = useParams();
-  console.log('params: ', params)
+  //console.log('params: ', params)
 
   const [title, setTitle] = useState('');
   const [target, setTarget] = useState('');
@@ -48,7 +48,6 @@ export default function CreateKpi() {
   };
 
   const getFields = async (tenantId) => {
-    console.log("entro a getFields")
     try {
       //Obtener tareas de empleados con x-tenant-id
       const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/task-keys`, {
@@ -178,9 +177,6 @@ export default function CreateKpi() {
                     </option>
                   ))}
                 </select>
-                <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                  Get fields
-                </button>
               </div>
             </div>
 

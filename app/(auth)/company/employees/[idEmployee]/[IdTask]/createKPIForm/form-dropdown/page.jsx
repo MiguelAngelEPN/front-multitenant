@@ -9,13 +9,14 @@ export default function CreateKpibyDropdown() {
     const [tenantId, setTenantId] = useState('');
 
     useEffect(() => {
-      // Obtener el token del localStorage
-      const token = localStorage.getItem("authToken");
-  
-      if (token) {
-        const userData = JSON.parse(token);
-        setTenantId(userData.tenantId);
-      }
+        // Obtener el token del localStorage
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            const userData = JSON.parse(token);
+            setTenantId(userData.tenantId);
+            getFields(userData.tenantId);
+        }
     }, []);
 
     const router = useRouter();
@@ -49,11 +50,11 @@ export default function CreateKpibyDropdown() {
         setDropdownCriteria(dropdownCriteria.filter((_, i) => i !== index));
     };
 
-    const getFields = async () => {
+    const getFields = async (tenantId) => {
         console.log("entro a getFields")
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklog-keys`, {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/task-keys`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,8 +67,8 @@ export default function CreateKpibyDropdown() {
             }
 
             const data1 = await response.json();
-            //console.log("field result: ", data1)
-            setFieldFilter(data1);
+            console.log("field result: ", data1)
+            setFieldFilter(prevFieldFilter => [...prevFieldFilter, ...data1]);
 
         } catch (error) {
             console.error("Fetch error: ", error);
@@ -118,7 +119,7 @@ export default function CreateKpibyDropdown() {
     const handleValueChange = (e) => {
         const value = e.target.value;
         const numericValue = parseInt(value, 10);
-        
+
         // Asegurarse de que el valor numérico no exceda el target
         if (!isNaN(numericValue) && numericValue <= target) {
             setNewCriterionValue(value);
@@ -192,9 +193,6 @@ export default function CreateKpibyDropdown() {
                                         </option>
                                     ))}
                                 </select>
-                                <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                                    Obtener campos
-                                </button>
                             </div>
                         </div>
 
@@ -236,7 +234,7 @@ export default function CreateKpibyDropdown() {
                                 />
                                 <input
                                     type="number"
-                                    min = {0}
+                                    min={0}
                                     value={newCriterionValue}
                                     onChange={handleValueChange}
                                     placeholder="Ingrese un valor numérico"

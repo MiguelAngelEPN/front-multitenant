@@ -15,6 +15,7 @@ export default function CreateKpibyQuestions() {
       if (token) {
         const userData = JSON.parse(token);
         setTenantId(userData.tenantId);
+        getFields(userData.tenantId);
       }
     }, []);
 
@@ -54,11 +55,11 @@ export default function CreateKpibyQuestions() {
     const handleSelectChange = (event) => {
         setSelectedField(event.target.value);
     };
-    const getFields = async () => {
+    const getFields = async (tenantId) => {
         console.log("entro a getFields")
         try {
             //Obtener tareas de empleados con x-tenant-id
-            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/tasklog-keys`, {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/task-keys`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -71,8 +72,8 @@ export default function CreateKpibyQuestions() {
             }
 
             const data1 = await response.json();
-            //console.log("field result: ", data1)
-            setFieldFilter(data1);
+            console.log("field result: ", data1)
+            setFieldFilter(prevFieldFilter => [...prevFieldFilter, ...data1]);
 
         } catch (error) {
             console.error("Fetch error: ", error);
@@ -184,9 +185,6 @@ export default function CreateKpibyQuestions() {
                                         </option>
                                     ))}
                                 </select>
-                                <button className='text-white bg-[var(--background-primary-button)] hover:bg-[var(--background-secundary-button)] font-semibold py-2 px-4 rounded-full shadow-md transition-all' onClick={getFields}>
-                                    Obtener campos
-                                </button>
                             </div>
                         </div>
 
