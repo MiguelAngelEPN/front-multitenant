@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useSession } from "next-auth/react";
 
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -51,7 +52,7 @@ export default function EmployeeList() {
     }, []);
 
     // Exclude 'tasks' and 'Actions' since it will be manually added
-    return [...new Set(allKeys)].filter((key) => key !== 'tasks' && key !== 'tenantId');
+    return [...new Set(allKeys)].filter((key) => key !== 'tasks' && key !== 'tenantId' && key !== '__v');
   };
 
   const tableHeaders = getTableHeaders();
@@ -60,19 +61,36 @@ export default function EmployeeList() {
   const handleButtonClick = (idEmployee) => {
     router.push(`/company/employees/${idEmployee}`);
   };
+
+  const handleCopyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("copied text")
+  };
+
+  const renderCellContent = (header, value) => {
+    if (typeof value === 'boolean') {
+      return value ? (
+        <span className="text-green-500 font-bold">&#10003;</span>
+      ) : (
+        <span className="text-red-500 font-bold">&#10007;</span>
+      );
+    }
+
+    return typeof value === 'object' ? JSON.stringify(value, null, 2) : value ?? 'N/A';
+  };
   //<div className="bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center min-h-screen p-4 flex-col">
   return (<>
     <div className="rounded-3xl homepage flex items-center min-h-screen p-4 flex-col">
-      
+
       <div className='flex flex-col justify-center items-center w-full h-full'>
         <div className='flex space-x-3 mb-3'>
           <Link href={`/company/create-employee`}
-            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
           >
             Create Employee
           </Link><br />
           <Link href={`/company/create-task-department`}
-            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
+            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
           >
             Assign Task to Department
           </Link>
@@ -85,16 +103,16 @@ export default function EmployeeList() {
               <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                 <tr>
                   {tableHeaders.map((header) => (
-                    <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
+                    <th key={header} className="py-3 px-3 uppercase tracking-wider text-[13px] text-center">
                       {header.replace(/_/g, ' ')}
                     </th>
                   ))}
                   {hasEmployees && (
-                    <th className="py-3 px-6 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
+                    <th className="py-3 px-6 uppercase tracking-wider text-[13px] text-center">Actions</th>
                   )}
                 </tr>
               </thead>
-              <tbody className='text-black'>
+              <tbody className="text-black">
                 {employees.map((employee, index) => (
                   <tr
                     key={employee._id}
@@ -102,11 +120,22 @@ export default function EmployeeList() {
                   >
                     {tableHeaders.map((header) => (
                       <td key={header} className="py-3 px-3 text-[12px] text-center">
-                        {typeof employee[header] === 'object'
-                          ? JSON.stringify(employee[header], null, 2)
-                          : employee[header] ?? 'N/A'}
+                        {header === '_id' ? (
+                          <button
+                            onClick={() => handleCopyToClipboard(employee[header])}
+                            className="text-blue-500 hover:underline"
+                            title="Click to copy ID"
+                          >
+                            {employee[header].length > 8
+                              ? `${employee[header].substring(0, 8)}...`
+                              : employee[header]}
+                          </button>
+                        ) : (
+                          renderCellContent(header, employee[header])
+                        )}
                       </td>
                     ))}
+
                     <td className="py-3 px-6">
                       <button
                         onClick={() => handleButtonClick(employee._id)}

@@ -15,7 +15,7 @@ export default function KpiEvaluation() {
         if (token) {
             const userData = JSON.parse(token);
             setTenantId(userData.tenantId);
-        }else{
+        } else {
             router.push(`/login`);
         }
     }, []);
@@ -215,6 +215,19 @@ export default function KpiEvaluation() {
                     <div className='flex'>
                         <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>Número de entregables existentes: </p>
                         <p className='text-lg text-black'>{kpiPercentage.totalCount}</p>
+                    </div>
+
+                    <div className='flex'>
+                        <p className='text-center text-lg text-[--secondary-color] font-bold mr-1'>
+                            {kpiPercentage.totalCount > kpiPercentage.targetSales
+                                ? 'Número de entregables excedentes:'
+                                : 'Número de entregables faltantes:'}
+                        </p>
+                        <p className='text-lg text-black'>
+                            {(kpiPercentage.targetSales - kpiPercentage.totalCount) < 0
+                                ? (kpiPercentage.targetSales - kpiPercentage.totalCount) * -1
+                                : (kpiPercentage.targetSales - kpiPercentage.totalCount) }
+                        </p>
                     </div>
 
                     <div className='flex'>

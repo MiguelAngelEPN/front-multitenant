@@ -7,17 +7,73 @@ import Link from 'next/link';
 export default function CreateTaskLogs() {
     const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
     const [tenantId, setTenantId] = useState('');
+    const [task, setTask] = useState('');
+    const [additionalFields, setAdditionalFields] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem("authToken");
         if (token) {
             const userData = JSON.parse(token);
             setTenantId(userData.tenantId);
+            fetchTask(userData.tenantId);
+            getFields(userData.tenantId);
         }
     }, []);
 
     let params = useParams();
-    console.log('params: ', params);
+    //console.log('params: ', params);
+
+    const fetchTask = async (tenantId) => {
+        try {
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Error fetching task');
+            }
+
+            const task = await response.json();
+            console.log('Task fetched:', task);
+            setTask(task);
+            return task;
+        } catch (error) {
+            console.error('Error:', error);
+            // Manejar el error según sea necesario
+        }
+    };
+    const getFields = async (tenantId) => {// get adicional fields - task
+        console.log("entro a getFields")
+        try {
+            //Obtener tareas de empleados con x-tenant-id
+            const response = await fetch(`${backdorection}/employees/${params.idEmployee}/tasks/${params.IdTask}/task-keys`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            let data = await response.json();
+
+            // Filtrar el campo 'departament'
+            data = data.filter(field => field !== 'departament');
+            console.log("field result: ", data);
+
+            setAdditionalFields(data);
+
+        } catch (error) {
+            console.error("Fetch error: ", error);
+        }
+    };
+
 
     const { register, handleSubmit, control, watch } = useForm({
         defaultValues: {
@@ -33,41 +89,27 @@ export default function CreateTaskLogs() {
     });
 
     const onFormSubmit = async (data) => {
-        const { additionalFields } = data.tasklogs;
-        const additionalData = additionalFields.reduce((acc, field) => {
-            if (field.key && field.value) {
-                switch (field.type) {
-                    case 'number':
-                        acc[field.key] = parseFloat(field.value);
-                        break;
-                    case 'boolean':
-                        acc[field.key] = field.value === 'true';
-                        break;
-                    case 'date':
-                        acc[field.key] = new Date(field.value);
-                        break;
-                    default:
-                        acc[field.key] = field.value;
-                }
-            }
-            return acc;
-        }, {});
-
-        const formattedData = {
-            ...additionalData,
+        const processedData = {
+            ...data,
+            additionalFields: additionalFields.reduce((acc, field) => {
+                acc[field] = {
+                    name: field,
+                    value: task[field]?.value || "",
+                    userInput: data.tasklogs.additionalFields[field],
+                };
+                return acc;
+            }, {}),
         };
 
-        console.log("data send: ", formattedData);
-        // Aquí puedes realizar la petición API con formattedData
-        const response = await fetch(`${backdorection}/employees/${params.idEmployee}/task/${params.IdTask}/tasklogs`, {
+        console.log("data send: ", processedData.additionalFields);
+
+        /**/const response = await fetch(`${backdorection}/employees/${params.idEmployee}/task/${params.IdTask}/tasklogs`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-tenant-id": tenantId, // Pasar el nombre de la empresa como x-tenant-id
+                "x-tenant-id": tenantId,
             },
-            body: JSON.stringify(
-                formattedData
-            ),
+            body: JSON.stringify(processedData.additionalFields),
         });
 
         if (!response.ok) {
@@ -76,8 +118,54 @@ export default function CreateTaskLogs() {
 
         const dataResponse = await response.json();
         console.log("respuesta: ", dataResponse);
-        alert("TaskLogs Successfully Registered")
-    }
+        alert("TaskLogs Successfully Registered");
+    };
+    const renderFields = () => {
+        return additionalFields.map((field, index) => {
+            const matchedField = task[field] || {}; // Hacer "match" con los datos de la tarea
+            // Determinar el tipo de input basado en el valor esperado
+            let inputType;
+            switch (matchedField.value) {
+                case 'string':
+                    inputType = 'text';
+                    break;
+                case 'number':
+                    inputType = 'number';
+                    break;
+                case 'boolean':
+                    inputType = 'select';
+                    break;
+                case 'date':
+                    inputType = 'date';
+                    break;
+                default:
+                    inputType = 'text';
+                    break;
+            }
+
+            return (
+                <div key={index} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
+                    <label className="text-black">{matchedField.name || field}</label>
+                    {inputType === 'select' ? (
+                        <select
+                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                            {...register(`tasklogs.additionalFields.${field}`)}
+                        >
+                            <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
+                    ) : (
+                        <input
+                            type={inputType}
+                            placeholder={`Enter ${matchedField.name || field}`}
+                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                            {...register(`tasklogs.additionalFields.${field}`)}
+                        />
+                    )}
+                </div>
+            );
+        });
+    };
 
     return (
         <div className="rounded-3xl homepage flex flex-col items-center justify-center min-h-screen p-8">
@@ -88,71 +176,23 @@ export default function CreateTaskLogs() {
             </div>
 
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border-2 border-[--primary-color]">
+                {task && (
+                    <div className="mb-6 p-4 bg-[--primary-color] text-white rounded-lg shadow-lg">
+                        <h3 className="text-2xl font-bold mb-2">Task Details</h3>
+                        <p><strong>Title:</strong> {task.title}</p>
+                        <p><strong>Priority:</strong> {task.priority}</p>
+                        <p><strong>Start Date:</strong> {new Date(task.startDate).toLocaleDateString()}</p>
+                        <p><strong>End Date:</strong> {new Date(task.endDate).toLocaleDateString()}</p>
+                        <p><strong>State:</strong> {task.state}</p>
+                        <p><strong>{task.departament ? 'Departament:' : ''}</strong> {task.departament ? task.departament : ''}</p>
+                    </div>
+                )}
                 <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
                     <h2 className="text-center text-3xl font-semibold text-[--primary-color] mb-2">Register TaskLog</h2>
 
                     <div className="space-y-4">
                         <label className="block text-xl font-medium text-black">Additional Fields</label>
-                        {fields.map((field, index) => {
-                            const type = watch(`tasklogs.additionalFields.${index}.type`, 'string');
-                            return (
-                                <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder="Field Key"
-                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                            {...register(`tasklogs.additionalFields.${index}.key`)}
-                                        />
-                                    </div>
-                                    <div>
-                                        {type === 'boolean' ? (
-                                            <select
-                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                                {...register(`tasklogs.additionalFields.${index}.value`)}
-                                            >
-                                                <option value="true">True</option>
-                                                <option value="false">False</option>
-                                            </select>
-                                        ) : (
-                                            <input
-                                                type={type === 'string' ? 'text' : type}
-                                                placeholder="Field Value"
-                                                className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                                {...register(`tasklogs.additionalFields.${index}.value`)}
-                                            />
-                                        )}
-                                    </div>
-                                    <div>
-                                        <select
-                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                            {...register(`tasklogs.additionalFields.${index}.type`)}
-                                        >
-                                            <option value="string">String</option>
-                                            <option value="number">Number</option>
-                                            <option value="boolean">Boolean</option>
-                                            <option value="date">Date</option>
-                                        </select>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        className="self-end px-4 py-2 mt-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-600 border-2"
-                                        onClick={() => remove(index)}
-                                    >
-                                        Remove
-                                    </button>
-                                </div>
-                            );
-                        })}
-                        <div className="flex justify-end">
-                            <button
-                                type="button"
-                                className="px-4 py-2 text-sm text-white bg-green-500 rounded-full hover:bg-green-600 border-2"
-                                onClick={() => append({ key: '', value: '', type: 'string' })}
-                            >
-                                Add Field
-                            </button>
-                        </div>
+                        {renderFields()}
                     </div>
 
                     <div className="flex justify-center mt-8">
@@ -164,7 +204,9 @@ export default function CreateTaskLogs() {
                         </button>
                     </div>
                 </form>
+
             </div>
         </div>
     );
+
 }

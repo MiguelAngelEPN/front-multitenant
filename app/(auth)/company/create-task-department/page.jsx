@@ -70,21 +70,10 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
 
     const onFormSubmit = (data) => {
         const { title, priority, startDate, endDate, concurrence, state, additionalFields, departament } = data.task;
+
         const additionalData = additionalFields.reduce((acc, field) => {
-            if (field.key && field.value) {
-                switch (field.type) {
-                    case 'number':
-                        acc[field.key] = parseFloat(field.value);
-                        break;
-                    case 'boolean':
-                        acc[field.key] = field.value === 'true';
-                        break;
-                    case 'date':
-                        acc[field.key] = new Date(field.value);
-                        break;
-                    default:
-                        acc[field.key] = field.value;
-                }
+            if (field.key && field.type) {
+                acc[field.key] = { name: field.key, value: field.type };
             }
             return acc;
         }, {});
@@ -235,34 +224,17 @@ export default function AssignTasksToDepartment() { //registrar un empleado dado
 
                     </div>
 
-                    <div className='space-y-4'>
-                        <label className="block text-xl font-medium text-[--secondary-color]">Additional Fields</label>
+                    <div className='space-y-4 mt-2'>
+                        <label className="block text-xl font-medium text-[--secondary-color]">Fields to assign</label>
                         {fields.map((field, index) => {
-                            const type = watch(`task.additionalFields.${index}.type`, 'string');
                             return (
                                 <div key={field.id} className="flex flex-col space-y-2 mb-4 border-t border-gray-200 pt-4">
                                     <input
                                         type="text"
                                         placeholder="Additional Field Key"
-                                        className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                        className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                         {...register(`task.additionalFields.${index}.key`)}
                                     />
-                                    {type === 'boolean' ? (
-                                        <select
-                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                            {...register(`task.additionalFields.${index}.value`)}
-                                        >
-                                            <option value="true">Yes</option>
-                                            <option value="false">No</option>
-                                        </select>
-                                    ) : (
-                                        <input
-                                            type={type === 'string' ? 'text' : type}
-                                            placeholder="Additional Field Value"
-                                            className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                                            {...register(`task.additionalFields.${index}.value`)}
-                                        />
-                                    )}
                                     <select
                                         className="text-black block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                         {...register(`task.additionalFields.${index}.type`)}

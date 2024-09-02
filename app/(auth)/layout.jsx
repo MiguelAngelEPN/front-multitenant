@@ -1,7 +1,9 @@
+"use client";
+import SessionAuthProvider from '@/context/SessionAuthProvider';
 export default function AuthLayout({ children }) {
     return (
         <div>
-            <div >{children}</div>
+            {children}
         </div>
     );
 }

@@ -16,6 +16,8 @@ export default function PageTaskLogsKpis() {
         setTenantId(userData.tenantId);
         getTasksLogsList(userData.tenantId);
         getKPIsList(userData.tenantId);
+        getEmployeeName(userData.tenantId);
+        getTaskTitle(userData.tenantId);
       }
     }, []);
 
@@ -23,6 +25,8 @@ export default function PageTaskLogsKpis() {
     console.log('params: ', params)
     const [employeeId, setEmployeeId] = useState(params.idEmployee);
     const [taskId, setTaskId] = useState(params.IdTask);
+    const [employeeName, setEmployeeName] = useState('');
+    const [taskTitle, setTaskTitle] = useState('');
     const [kpis, setKpis] = useState([]);
     const [tasklogs, setTaskLogs] = useState([]);
     const router = useRouter();
@@ -106,6 +110,52 @@ export default function PageTaskLogsKpis() {
         router.push(`/company/employees/${params.idtenant}/${params.idEmployee}/${params.IdTask}/createTaskLogs`);
     };
 
+    const getEmployeeName = async (tenantId) => {
+        try {
+            //Obtener el nombre del empleado con x-tenant-id en backend
+            const response = await fetch(`${backdorection}/employees/${employeeId}/name`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const name = await response.text();
+            setEmployeeName(name);
+            console.log("Respuesta: ", name);
+        } catch (error) {
+            console.error("Fetch error: ", error);
+        }
+    };
+
+    const getTaskTitle = async (tenantId) => {
+        try {
+            //Obtener el nombre del empleado con x-tenant-id en backend
+            const response = await fetch(`${backdorection}/employees/${employeeId}/tasks/${taskId}/title`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-tenant-id": tenantId, //Pasar el id de la empresa como x-tenant-id
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const title = await response.text();
+            setTaskTitle(title);
+            console.log("Respuesta: ", title);
+        } catch (error) {
+            console.error("Fetch error: ", error);
+        }
+    };
+
     const renderCellContent = (header, value) => {
         if (typeof value === 'boolean') {
             return value ? (
@@ -143,15 +193,15 @@ export default function PageTaskLogsKpis() {
                     <div className='flex flex-col items-center w-1/3'>
                         <div className='mt-2 flex flex-col items-center justify-center'>
                             <h2 className='text-center text-[28px] text-[--primary-color]'>List TaskLogs and KPI's</h2>
-                            <p className='text-[20px] text-[--secondary-color]'>Employee: {employeeId}</p>
-                            <p className='text-[20px] text-[--secondary-color]'>Task: {taskId}</p>
+                            <p className='text-[20px] text-[--secondary-color]'>Employee: {employeeName}</p>
+                            <p className='text-[20px] text-[--secondary-color]'>Task: {taskTitle}</p>
                         </div>
 
                         <div className='flex space-x-7'>
                             <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createTaskLogs`}
                                 className="py-2 bg-green-500 text-white rounded-full font-[12px] hover:bg-green-600 transition-colors w-[120px] text-center"
                             >
-                                Registrar Log
+                                Register Log
                             </Link>
 
                             <Link href={`/company/employees/${params.idEmployee}/${params.IdTask}/createKPI`}
@@ -178,12 +228,12 @@ export default function PageTaskLogsKpis() {
                                 <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                     <tr>
                                         {tableKPIsHeaders.map((header) => (
-                                            <th key={header} className="py-1 px-3 text-left uppercase tracking-wider text-[13px] text-center">
+                                            <th key={header} className="py-1 px-3 uppercase tracking-wider text-[13px] text-center">
                                                 {header.replace(/_/g, ' ')}
                                             </th>
                                         ))}
                                         {hasKPIs && (
-                                            <th className="py-1 px-3 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
+                                            <th className="py-1 px-3 uppercase tracking-wider text-[13px] text-center">Actions</th>
                                         )}
                                     </tr>
                                 </thead>
@@ -241,12 +291,12 @@ export default function PageTaskLogsKpis() {
                             <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                                 <tr>
                                     {tableTaskLogsHeaders.map((header) => (
-                                        <th key={header} className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">
+                                        <th key={header} className="py-3 px-3 uppercase tracking-wider text-[13px] text-center">
                                             {header.replace(/_/g, ' ')}
                                         </th>
                                     ))}
                                     {hasTasksLogs && (
-                                        <th className="py-3 px-3 text-left uppercase tracking-wider text-[13px] text-center">Actions</th>
+                                        <th className="py-3 px-3 uppercase tracking-wider text-[13px] text-center">Actions</th>
                                     )}
                                 </tr>
                             </thead>
@@ -258,7 +308,7 @@ export default function PageTaskLogsKpis() {
                                     >
                                         {tableTaskLogsHeaders.map((header) => (
                                             <td key={header} className="py-3 px-3 text-[12px] text-center">
-                                                {renderCellContent(header, taskLog[header])}
+                                                {renderCellContent(header, taskLog[header]?.userInput || taskLog[header])}
                                             </td>
                                         ))}
                                         <td className="py-3 px-2">
